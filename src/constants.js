@@ -1,6 +1,10 @@
 const werRoles = ["🐺 Werewolf", "😈 Cultist"];
-const vilRoles = ["🕵️ Detective", "🧑‍🌾 Villager", "💂 Bodyguard", "👮 Jailer"];
-const speRoles = ["🤡 Jester"];
+const vilRoles = ["🕵️ Detective",
+    "🧑‍🌾 Villager",
+    "💂 Bodyguard",
+    "👮 Jailer",
+    "🤴 Mayor",
+    "🤡 Jester"];
 
 const avatars = [
     "🐱 Cat",

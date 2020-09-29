@@ -2,7 +2,7 @@ function startGame() {
     resetErrors();
 
     /* Get the Game params */
-    
+
     let playerSelect = document.getElementById("player");
     let playerID = Number(playerSelect.options[playerSelect.selectedIndex].value);
     let totalPlayers = getTotalNumberOfPlayers();
@@ -13,7 +13,22 @@ function startGame() {
         let randomNumber = getRNG(seed, iterationField.value, totalPlayers);
 
         /* Build list of roles */
+        let rolesList = [];
+        let wolvesCount = 1;
+        rolesList.push(werRoles[0]);
+        let suffledVillagers = vilRoles.slice();
+        shuffle(suffledVillagers, randomNumber);
 
+        for (let i = 0; i < totalPlayers - wolvesCount; i++) {
+            rolesList.push(suffledVillagers[i % suffledVillagers.length]);
+            if((i+1) % 4 == 0) {
+                rolesList.push(werRoles[wolvesCount % werRoles.length]);
+                wolvesCount++;
+            }
+        }
+
+        shuffle(rolesList, randomNumber+1);
+        console.log(rolesList);
 
         /* Set Fingerprint */
         {
@@ -26,6 +41,11 @@ function startGame() {
              let alignment = "Villagers";
              document.getElementById("alignment").innerHTML = alignment;
          } */
+
+         /* Set Role */
+         {
+             document.getElementById("role").innerHTML = rolesList[playerID];
+         }
 
         document.getElementById("playerid").innerHTML = avatars[playerID];
     }
@@ -66,18 +86,18 @@ function getRNG(seed, iteration, totalPlayers) {
 /* Fisher-Yates Shuffle using the seed */
 function shuffle(array, randomNumber) {
     var currentIndex = array.length, temporaryValue, randomIndex;
-  
+
     while (0 !== currentIndex) {
-      randomIndex = (currentIndex ^ randomNumber) % currentIndex;
-      currentIndex -= 1;
-  
-      temporaryValue = array[currentIndex];
-      array[currentIndex] = array[randomIndex];
-      array[randomIndex] = temporaryValue;
+        randomIndex = (currentIndex ^ randomNumber) % currentIndex;
+        currentIndex -= 1;
+
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
     }
-  
+
     return array;
-  }
+}
 
 /* Generate a 3-emoji fingerprint to confirm that players are on the same game */
 function getFingerprint(seedNumber) {
