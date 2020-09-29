@@ -95,9 +95,13 @@ select {
 }
 
 /* Werewolves-specific style */
-.roleCard {
+.roles-list {
+    align-items: stretch;
+}
+
+.role-card {
     border-radius: .25rem;
-    margin: 0.25rem;
+    margin: 0.3rem 0.4rem;
     padding: 0.7rem;
     flex-basis: 10rem;
     flex-grow: 1;

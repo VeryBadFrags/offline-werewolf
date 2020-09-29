@@ -67,41 +67,45 @@
         <!-- Roles -->
         <div class="card">
             <h3>Roles</h3>
-            <div class="flex">
-                <div class="roleCard werewolves">
-                    <h3>Werewolf</h3>
-                    <div>Kill 1 player at night. Win the game by having a villager voted against during the day.</div>
+            <div class="flex roles-list">
+                <div class="role-card werewolves">
+                    <h3>🐺 Werewolf</h3>
+                    <div>Action: Kill 1 player at night<br>Win: If a Villager is exiled</div>
                 </div>
-                <div class="roleCard werewolves">
-                    <h3>Cultist</h3>
-                    <div>You win along with the Werewolves.</div>
+                <div class="role-card werewolves">
+                    <h3>😈 Cultist</h3>
+                    <div>Action: none<br>Win: Same as werewolves</div>
                 </div>
-                <div class="roleCard villagers">
-                    <h3>Detective</h3>
-                    <div>Find the alignement of a player.</div>
+                <div class="role-card villagers">
+                    <h3>🕵️ Detective</h3>
+                    <div>Action: Find the alignement of a player</div>
                 </div>
-                <div class="roleCard villagers">
-                    <h3>Villager</h3>
-                    <div>There is nothing special about you.</div>
+                <div class="role-card villagers">
+                    <h3>🧑‍🌾 Villager</h3>
+                    <div>Action: none</div>
                 </div>
-                <div class="roleCard villagers">
-                    <h3>Bodyguard</h3>
-                    <div>Protect a player during the night. Neither you or him can be killed.</div>
+                <div class="role-card villagers">
+                    <h3>💂 Bodyguard</h3>
+                    <div>Action: Protect a player during the night</div>
                 </div>
-                <div class="roleCard villagers">
-                    <h3>Jailer</h3>
-                    <div>Prevent a player from using his action during the night.</div>
+                <div class="role-card villagers">
+                    <h3>👮 Jailer</h3>
+                    <div>Action: Prevent a player from using his action during the night</div>
                 </div>
-                <div class="roleCard villagers">
-                    <h3>Mayor</h3>
-                    <div>This status is public. Your vote counts twice.</div>
+                <div class="role-card villagers">
+                    <h3>🤴 Mayor</h3>
+                    <div>This role is public<br>Your vote counts twice</div>
                 </div>
-                <div class="roleCard special">
-                    <h3>Jester</h3>
-                    <div>You win by getting exiled during the day. You also win with the Villagers.
+                <div class="role-card special">
+                    <h3>🤡 Jester</h3>
+                    <div>Action: none<br>Win: Get yourself exiled (You also win with the Villagers)
                     </div>
                 </div>
             </div>
+            <ul>
+                <li>Werewolves win if a Villager is exiled.</li>
+                <li>Villagers win if a Werewolf is exiled.</li>
+            </ul>
         </div>
 
     </div>

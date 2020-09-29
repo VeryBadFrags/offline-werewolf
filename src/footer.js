@@ -13,15 +13,15 @@ function startGame() {
         let randomNumber = getRNG(seed, iterationField.value, totalPlayers);
 
         /* Build list of roles */
-        let rolesList = [];
-        let wolvesCount = 1;
-        rolesList.push(werRoles[0]);
         let suffledVillagers = vilRoles.slice();
         shuffle(suffledVillagers, randomNumber);
 
+        let rolesList = [];
+        let wolvesCount = 1;
+        rolesList.push(werRoles[0]);
         for (let i = 0; i < totalPlayers - wolvesCount; i++) {
             rolesList.push(suffledVillagers[i % suffledVillagers.length]);
-            if((i+1) % 4 == 0) {
+            if((i+1) % 4 == 0 && i + 1 < totalPlayers - wolvesCount) {
                 rolesList.push(werRoles[wolvesCount % werRoles.length]);
                 wolvesCount++;
             }
