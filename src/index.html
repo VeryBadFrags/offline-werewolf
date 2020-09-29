@@ -16,51 +16,102 @@
 
     <link rel=stylesheet href=style.css>
     <script src=constants.js></script>
+    <script src=header.js></script>
 </head>
 
 <body>
 
     <h1>Offline Werewolf</h1>
 
-    <!-- Roles -->
-    <div class="card">
-        <h3>Roles</h3>
-        <div class="rolesList">
-        <div class="roleCard werewolves">
-            <h3>Werewolf</h3>
-            <div>Kill 1 player at night. Win the game by having a villager voted against during the day.</div>
-        </div>
-        <div class="roleCard werewolves">
-            <h3>Cultist</h3>
-            <div>You win along with the Werewolves.</div>
-        </div>
-        <div class="roleCard villagers">
-            <h3>Detective</h3>
-            <div>Find the alignement of a player.</div>
-        </div>
-        <div class="roleCard villagers">
-            <h3>Villager</h3>
-            <div>There is nothing special about you.</div>
-        </div>
-        <div class="roleCard villagers">
-            <h3>Bodyguard</h3>
-            <div>Protect a player during the night. Neither you or him can be killed.</div>
-        </div>
-        <div class="roleCard villagers">
-            <h3>Jailer</h3>
-            <div>Prevent a player from using his action during the night.</div>
-        </div>
-        <div class="roleCard special">
-            <h3>Jester</h3>
-            <div>If you are exiled during the day, you are the only winner of the game. You also win with the Villagers.
+    <div id="error" class="card alert" style="display: none;"></div>
+
+    <div class="flex">
+        <!-- Game Window -->
+        <div id="gameWindow" class="card" style="display: none;">
+            <div>
+                Game Fingerprint <span id="fingerprint" class="larger-text"></span>
+            </div>
+            <br>
+            <div>
+                You: <strong id="playerid"></strong>
+            </div>
+
+            <div>
+                <button class="button" onclick="showHide('secretBlock');">👓 Show/Hide</button>
+            </div>
+            <div id="secretBlock" class="secret-card">
+                <!-- <div>Alignment: <strong id="alignment"></strong></div> -->
+                <div>Role: <strong id="role"></strong></div>
             </div>
         </div>
-    </div>
+
+        <!-- Game Settings -->
+        <div id="settings" class="card">
+            <div>
+                <h3>⚙️ Game Settings</h3>
+            </div>
+            <label for="seed">🎲 Code</label>
+            <input type="text" id="seed" name="code" value="ABCD" autocomplete="off">
+            <label for="iteration">🔢 Round</label>
+            <input type="number" id="iteration" name="round" value="1" min="1" autocomplete="off">
+            <label for="total-players">👥 Total players</label>
+            <input type="number" id="total-players" name="totalPlayers" value="3" min="3" oninput="setPlayersList();"
+                autocomplete="off">
+            <br>
+            <label for="player">👤 Avatar (must be unique)</label>
+            <div class="custom-select">
+                <select name="player" id="player"></select>
+            </div>
+            <button id="startButton" class="button" onclick="startGame();">🏁 Start New Game</button>
+        </div>
+
+        <!-- Roles -->
+        <div class="card">
+            <h3>Roles</h3>
+            <div class="flex">
+                <div class="roleCard werewolves">
+                    <h3>Werewolf</h3>
+                    <div>Kill 1 player at night. Win the game by having a villager voted against during the day.</div>
+                </div>
+                <div class="roleCard werewolves">
+                    <h3>Cultist</h3>
+                    <div>You win along with the Werewolves.</div>
+                </div>
+                <div class="roleCard villagers">
+                    <h3>Detective</h3>
+                    <div>Find the alignement of a player.</div>
+                </div>
+                <div class="roleCard villagers">
+                    <h3>Villager</h3>
+                    <div>There is nothing special about you.</div>
+                </div>
+                <div class="roleCard villagers">
+                    <h3>Bodyguard</h3>
+                    <div>Protect a player during the night. Neither you or him can be killed.</div>
+                </div>
+                <div class="roleCard villagers">
+                    <h3>Jailer</h3>
+                    <div>Prevent a player from using his action during the night.</div>
+                </div>
+                <div class="roleCard special">
+                    <h3>Jester</h3>
+                    <div>You win by getting exiled during the day. You also win with the Villagers.
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <hr>
 
     <div class="footer">
         <div>Download this page and play anywhere!</div>
+        <br>
+        <div>Version: 0.0.1</div>
     </div>
+
+    <script src="footer.js"></script>
 </body>
+
+</html>
