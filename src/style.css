@@ -107,6 +107,10 @@ select {
     flex-grow: 1;
 }
 
+.action-box {
+    text-align: center;
+}
+
 .werewolves {
     border: solid 1px #b71c1c;
     background-color: #ffebee;

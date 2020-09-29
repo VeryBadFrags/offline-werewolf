@@ -1,5 +1,5 @@
 function startGame() {
-    resetErrors();
+    resetValues();
 
     /* Get the Game params */
 
@@ -21,14 +21,36 @@ function startGame() {
         rolesList.push(werRoles[0]);
         for (let i = 0; i < totalPlayers - wolvesCount; i++) {
             rolesList.push(suffledVillagers[i % suffledVillagers.length]);
-            if((i+1) % 4 == 0 && i + 1 < totalPlayers - wolvesCount) {
+            if ((i + 1) % 4 == 0 && i + 1 < totalPlayers - wolvesCount) {
                 rolesList.push(werRoles[wolvesCount % werRoles.length]);
                 wolvesCount++;
             }
         }
 
-        shuffle(rolesList, randomNumber+1);
+        shuffle(rolesList, randomNumber + 1);
         console.log(rolesList);
+
+        /* Set Actions list */
+        let charactersShuffled = [];
+        for (let i = 0; i < characters.length; i++) {
+            charactersShuffled.push(characters.charAt(i));
+        }
+        shuffle(charactersShuffled, randomNumber + 2);
+        let charactersShuffled2 = charactersShuffled.slice();
+        shuffle(charactersShuffled2, randomNumber + 17 + playerID);
+
+        let playerChar = charactersShuffled[playerID];
+        let actionsList = document.getElementById("actions");
+        for (let i = 0; i < rolesList.length; i++) {
+            if (i != playerID) {
+                let actionCard = document.createElement('div');
+                actionCard.classList.add("card");
+                actionCard.classList.add("action-box");
+                actionCard.innerHTML = "Kill: " + avatars[i] + "<br>";
+                actionCard.innerHTML += "<strong>" + playerChar + charactersShuffled2[i] + "</strong>";
+                actionsList.appendChild(actionCard);
+            }
+        }
 
         /* Set Fingerprint */
         {
@@ -42,11 +64,10 @@ function startGame() {
              document.getElementById("alignment").innerHTML = alignment;
          } */
 
-         /* Set Role */
-         {
-             document.getElementById("role").innerHTML = rolesList[playerID];
-         }
+        /* Set Role */
+        document.getElementById("role").innerHTML = rolesList[playerID];
 
+        /* Set Role */
         document.getElementById("playerid").innerHTML = avatars[playerID];
     }
 
@@ -107,10 +128,11 @@ function getFingerprint(seedNumber) {
     return fingerprintTokens[seed1 % fingerprintTokens.length] + fingerprintTokens[seed2 % fingerprintTokens.length] + fingerprintTokens[seed3 % fingerprintTokens.length];
 }
 
-function resetErrors() {
+function resetValues() {
     let errorBox = document.getElementById("error");
     errorBox.style.display = "none";
     errorBox.innerHTML = "";
+    document.getElementById("actions").innerHTML = "";
 }
 
 function getTotalNumberOfPlayers() {
@@ -134,9 +156,6 @@ function showHide(elementId) {
 
 /* Init seed */
 {
-    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const charactersLength = characters.length;
-
     let newSeed = "";
     for (let i = 0; i < 4; i++) {
         newSeed += characters.charAt(Math.floor(Math.random() * charactersLength));

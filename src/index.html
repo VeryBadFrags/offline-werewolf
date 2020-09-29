@@ -39,8 +39,11 @@
                 <button class="button" onclick="showHide('secretBlock');">👓 Show/Hide</button>
             </div>
             <div id="secretBlock" class="secret-card">
-                <!-- <div>Alignment: <strong id="alignment"></strong></div> -->
                 <div>Role: <strong id="role"></strong></div>
+                <span id="verb"></span>
+                <div id="actions" class="flex roles-list"></div>
+
+                <input id="actionCode" value="Code: " readonly>
             </div>
         </div>
 
@@ -70,11 +73,11 @@
             <div class="flex roles-list">
                 <div class="role-card werewolves">
                     <h3>🐺 Werewolf</h3>
-                    <div>Action: Kill 1 player at night<br>Win: If a Villager is exiled</div>
+                    <div>Action: Kill 1 player at night</div>
                 </div>
                 <div class="role-card werewolves">
                     <h3>😈 Cultist</h3>
-                    <div>Action: none<br>Win: Same as werewolves</div>
+                    <div>Action: none<br>Win: Same as Werewolves</div>
                 </div>
                 <div class="role-card villagers">
                     <h3>🕵️ Detective</h3>
@@ -103,8 +106,8 @@
                 </div>
             </div>
             <ul>
-                <li>Werewolves win if a Villager is exiled.</li>
-                <li>Villagers win if a Werewolf is exiled.</li>
+                <li>Werewolves win if a Villager is exiled</li>
+                <li>Villagers win if a Werewolf is exiled</li>
             </ul>
         </div>
 

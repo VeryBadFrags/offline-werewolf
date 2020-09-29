@@ -36,3 +36,6 @@ const fingerprintTokens = ["😀",
     "🐵",
     "🐬",
     "🐢"];
+
+const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+const charactersLength = characters.length;
