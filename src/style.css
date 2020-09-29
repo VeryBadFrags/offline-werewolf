@@ -89,8 +89,17 @@ select {
 }
 
 /* Werewolves-specific style */
+.rolesList {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
 .roleCard {
-    width: 25%;
+    border-radius: .25rem;
+    margin: 0.2rem;
+    padding: 0.7rem;
+    flex-basis: 10rem;
 }
 
 .werewolves {
@@ -99,4 +108,8 @@ select {
 
 .villagers {
     border: solid 1px blue;
+}
+
+.special {
+    border: solid 1px purple;
 }
