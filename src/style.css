@@ -1,0 +1,102 @@
+body {
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+    margin-bottom: 1rem;
+}
+
+h3 {
+    margin-top: 0;
+}
+
+.card {
+    border: 1px solid #90A4AE;
+    border-radius: .25rem;
+    box-shadow: 1px 1px 0.25rem #E0E0E0;
+    display: inline-block;
+    min-width: 15.625rem;
+    margin: 0.75rem 0.75rem;
+    padding: 1rem;
+    text-align: left;
+    vertical-align: top;
+}
+
+.list {
+    list-style-type: none;
+    font-size: 1.1rem;
+    padding-left: 1.25rem;
+    margin-bottom: 0;
+}
+
+.alert {
+    border: 1px solid red;
+    color: red;
+}
+
+.qrcode {
+    margin-bottom: 1.25rem;
+}
+
+.button {
+    background-color: #E0F2F1;
+    border: 1px solid #424242;
+    border-radius: .25rem;
+    box-shadow: 0 0 0.063rem #9E9E9E;
+    color: black;
+    width: 100%;
+    margin-top: 0.938rem;
+    margin-bottom: 0.625rem;
+    padding: 0.938rem 1.25rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 1rem;
+}
+
+.button:hover {
+    background-color: #B2DFDB;
+    box-shadow: 0 0 0.188rem #9E9E9E;
+}
+
+.larger-text {
+    font-size: 1.4rem;
+}
+
+.small {
+    font-size: 0.75rem;
+}
+
+input,
+select {
+    display: block;
+    width: 100%;
+    max-width: 18.75rem;
+    border: 2px solid #B2EBF2;
+    border-radius: .25rem;
+    box-shadow: 0 0 1px #9E9E9E;
+    padding: 0.625rem 0.75rem;
+    margin: 0.5rem 0;
+    margin-top: 0;
+    margin-bottom: 0.938rem;
+    box-sizing: border-box;
+    font-size: 1rem;
+}
+
+.custom-select {
+    width: 100%;
+}
+
+/* Werewolves-specific style */
+.roleCard {
+    width: 25%;
+}
+
+.werewolves {
+    border: solid 1px red;
+}
+
+.villagers {
+    border: solid 1px blue;
+}
