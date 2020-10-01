@@ -28,13 +28,15 @@
         <!-- Game Window -->
         <div id="gameWindow" class="card" style="display: none;">
             <div>
-                Game Fingerprint <span id="fingerprint" class="larger-text"></span>
+                Game Fingerprint <span id="fingerprint" class="large"></span>
             </div>
             <br>
             <div>
                 You: <strong id="playerid"></strong>
             </div>
-
+            <br>
+            <div id="timer"></div>
+            <br>
             <div>
                 <button class="button" onclick="showHide('secretBlock');">👓 Show/Hide</button>
             </div>
@@ -43,7 +45,9 @@
                 <span id="verb"></span>
                 <div id="actions" class="flex roles-list"></div>
 
-                <input id="actionCode" value="Code: " readonly>
+                <span>Players action code</span> <span class="small">Input the action code from every
+                    player (including yours)</span>
+                <div id="actionInput"></div>
             </div>
         </div>
 
@@ -53,7 +57,8 @@
                 <h3>⚙️ Game Settings</h3>
             </div>
             <label for="seed">🎲 Code</label>
-            <input type="text" id="seed" name="code" value="ABCD" autocomplete="off">
+            <input type="text" id="seed" name="code" value="ABCD" pattern="[A-Za-z]{4}" title="4 Letters Code"
+                autocomplete="off">
             <label for="iteration">🔢 Round</label>
             <input type="number" id="iteration" name="round" value="1" min="1" autocomplete="off">
             <label for="total-players">👥 Total players</label>
@@ -117,6 +122,10 @@
 
     <div class="footer">
         <div>Download this page and play anywhere!</div>
+        <br>
+        <div><a href="https://www.buymeacoffee.com/verybadfrags" target="_blank" rel="noopener noreferrer">Like this
+                game?</a>
+        </div>
         <br>
         <div>Version: 0.0.1</div>
     </div>

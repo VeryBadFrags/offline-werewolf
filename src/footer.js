@@ -41,6 +41,7 @@ function startGame() {
 
         let playerChar = charactersShuffled[playerID];
         let actionsList = document.getElementById("actions");
+        let actionInputList = document.getElementById("actionInput");
         for (let i = 0; i < rolesList.length; i++) {
             if (i != playerID) {
                 let actionCard = document.createElement('div');
@@ -50,6 +51,15 @@ function startGame() {
                 actionCard.innerHTML += "<strong>" + playerChar + charactersShuffled2[i] + "</strong>";
                 actionsList.appendChild(actionCard);
             }
+            /* Add Action Input */
+            let actionInput = document.createElement('input');
+            actionInput.type = "text";
+            actionInput.pattern = "[A-Z]{2}";
+            actionInput.id = "input" + i;
+            let actionInputLabel = document.createElement('label');
+            actionInputLabel.for = "input" + i;
+            actionInputList.appendChild(actionInputLabel);
+            actionInputList.appendChild(actionInput);
         }
 
         /* Set Fingerprint */
@@ -72,6 +82,10 @@ function startGame() {
     }
 
     {
+        /* Start timer */
+        let timer = document.getElementById('timer');
+        startTimer(60 * 5, timer);
+
         document.getElementById("gameWindow").style.display = "inline-block";
         window.scrollTo(0, 0);
     }
@@ -153,6 +167,31 @@ function showHide(elementId) {
         elem.style.display = 'none';
     }
 }
+
+function startTimer(duration, display) {
+    var timer = duration;
+    setTimerDisplay(timer, display);
+    var intervalId = setInterval(function () {
+        timer--;
+        setTimerDisplay(timer, display);
+        if (timer < 0) {
+            display.textContent = "🔔 Time's up! Who should you exile?";
+            clearInterval(intervalId);
+        }
+    }, 1000);
+}
+
+function setTimerDisplay(timer, display) {
+    let minutes = parseInt(timer / 60, 10);
+    let seconds = parseInt(timer % 60, 10);
+
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    display.textContent = "⏱ " + minutes + ":" + seconds;
+}
+
+/* onload */
 
 /* Init seed */
 {
