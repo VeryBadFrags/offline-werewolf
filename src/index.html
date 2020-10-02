@@ -27,7 +27,7 @@
     <div class="flex">
         <!-- Game Window -->
         <div id="gameWindow" class="card night" style="display: none;">
-            <h3 id="gameMode">Night</h3>
+            <h3 id="gameMode"></h3>
             <div>
                 Game Fingerprint <span id="fingerprint" class="large"></span>
             </div>
@@ -69,7 +69,7 @@
             <label for="iteration">🔢 Round</label>
             <input type="number" id="iteration" name="round" value="1" min="1" autocomplete="off">
             <label for="total-players">👥 Total players</label>
-            <input type="number" id="total-players" name="totalPlayers" value="3" min="3" oninput="setPlayersList();"
+            <input type="number" id="total-players" name="totalPlayers" value="4" min="4" oninput="setPlayersList();"
                 autocomplete="off">
             <br>
             <label for="player">👤 Avatar (must be unique)</label>
@@ -82,40 +82,7 @@
         <!-- Roles -->
         <div class="card">
             <h3>Roles</h3>
-            <div class="flex roles-list">
-                <div class="role-card werewolves">
-                    <h3>🐺 Werewolf</h3>
-                    <div>Action: Kill 1 player at night</div>
-                </div>
-                <div class="role-card werewolves">
-                    <h3>😈 Cultist</h3>
-                    <div>Action: none<br>Win: Same as Werewolves</div>
-                </div>
-                <div class="role-card villagers">
-                    <h3>🕵️ Detective</h3>
-                    <div>Action: Find the alignement of a player</div>
-                </div>
-                <div class="role-card villagers">
-                    <h3>🧑‍🌾 Villager</h3>
-                    <div>Action: none</div>
-                </div>
-                <div class="role-card villagers">
-                    <h3>💂 Bodyguard</h3>
-                    <div>Action: Protect a player during the night</div>
-                </div>
-                <div class="role-card villagers">
-                    <h3>👮 Jailer</h3>
-                    <div>Action: Prevent a player from using his action during the night</div>
-                </div>
-                <div class="role-card villagers">
-                    <h3>🤴 Mayor</h3>
-                    <div>This role is public<br>Your vote counts twice</div>
-                </div>
-                <div class="role-card special">
-                    <h3>🤡 Jester</h3>
-                    <div>Action: none<br>Win: Get yourself exiled (You also win with the Villagers)
-                    </div>
-                </div>
+            <div id="rulesRolesList" class="flex roles-list">
             </div>
             <ul>
                 <li>Werewolves win if a Villager is exiled</li>

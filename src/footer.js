@@ -28,42 +28,6 @@ function startGame() {
         }
 
         shuffle(rolesList, randomNumber + 1);
-        console.log(rolesList);
-
-        /* Set Actions list */
-        let charactersShuffled = [];
-        for (let i = 0; i < characters.length; i++) {
-            charactersShuffled.push(characters.charAt(i));
-        }
-        shuffle(charactersShuffled, randomNumber + 2);
-        let charactersShuffled2 = charactersShuffled.slice();
-        shuffle(charactersShuffled2, randomNumber + 17 + playerID);
-
-        let playerChar = charactersShuffled[playerID];
-        let actionsList = document.getElementById("actions");
-        let actionInputList = document.getElementById("actionInput");
-        for (let i = 0; i < rolesList.length; i++) {
-            if (i != playerID) {
-                let actionCard = document.createElement('div');
-                actionCard.classList.add("card");
-                actionCard.classList.add("action-box");
-                actionCard.innerHTML = "Kill: " + avatars[i] + "<br>";
-                actionCard.innerHTML += "Code: <strong>" + playerChar + charactersShuffled2[i] + "</strong>";
-                actionsList.appendChild(actionCard);
-            }
-            /* Add Action Inputs */
-            let actionInput = document.createElement('input');
-            actionInput.type = "text";
-            actionInput.pattern = "[A-Z]{2}";
-            actionInput.maxLength = 2;
-            actionInput.required = true;
-            actionInput.id = "input" + i;
-            let actionInputLabel = document.createElement('label');
-            actionInputLabel.for = "input" + i;
-            actionInputLabel.innerHTML = avatars[i];
-            actionInputList.appendChild(actionInputLabel);
-            actionInputList.appendChild(actionInput);
-        }
 
         /* Set Fingerprint */
         {
@@ -80,21 +44,66 @@ function startGame() {
         /* Set Role */
         document.getElementById("role").innerHTML = rolesList[playerID].name;
 
-        /* Set Role */
+        /* Set Player name */
         document.getElementById("playerid").innerHTML = avatars[playerID];
+
+        startNight(randomNumber, playerID, rolesList);
     }
 
-    {
-        /* Start timer */
-        let timer = document.getElementById('timer');
-        startTimer(60 * 5, timer);
+    document.getElementById("gameWindow").style.display = "inline-block";
+    window.scrollTo(0, 0);
+}
 
-        document.getElementById("gameWindow").style.display = "inline-block";
-        window.scrollTo(0, 0);
+function startNight(randomNumber, playerID, rolesList) {
+    /* Set Night Actions list */
+    let charactersShuffled = [];
+    for (let i = 0; i < characters.length; i++) {
+        charactersShuffled.push(characters.charAt(i));
     }
+    shuffle(charactersShuffled, randomNumber + 2);
+    let charactersShuffled2 = charactersShuffled.slice();
+    shuffle(charactersShuffled2, randomNumber + 17 + playerID);
+
+    let playerChar = charactersShuffled[playerID];
+    let actionsList = document.getElementById("actions");
+    let actionInputList = document.getElementById("actionInput");
+    for (let i = 0; i < rolesList.length; i++) {
+        if (i != playerID) {
+            let actionCard = document.createElement('div');
+            actionCard.classList.add("card");
+            actionCard.classList.add("action-box");
+            actionCard.innerHTML = rolesList[playerID].verb + " " + avatars[i] + "<br>";
+            actionCard.innerHTML += "Code: <strong>" + playerChar + charactersShuffled2[i] + "</strong>";
+            actionsList.appendChild(actionCard);
+        }
+        /* Add Action Inputs */
+        let actionInput = document.createElement('input');
+        actionInput.type = "text";
+        actionInput.pattern = "[A-Z]{2}";
+        actionInput.maxLength = 2;
+        actionInput.required = true;
+        actionInput.id = "input" + i;
+        let actionInputLabel = document.createElement('label');
+        actionInputLabel.for = "input" + i;
+        actionInputLabel.innerHTML = avatars[i];
+        actionInputList.appendChild(actionInputLabel);
+        actionInputList.appendChild(actionInput);
+    }
+
+    /* Start timer */
+    let timer = document.getElementById('timer');
+    startTimer(60 * 1, timer);
+
+    document.getElementById("gameMode").innerHTML = "Night";
+    document.getElementById("nightBox").style.display = "block";
 }
 
 function startDay() {
+
+    /* Start timer */
+    let timer = document.getElementById('timer');
+    startTimer(60 * 5, timer);
+
     document.getElementById("nightBox").style.display = "none";
 }
 
@@ -198,6 +207,29 @@ function setTimerDisplay(timer, display) {
     display.textContent = "⏱ " + minutes + ":" + seconds;
 }
 
+function fillRules() {
+    let rulesRolesList = document.getElementById("rulesRolesList");
+    fillRolesFromArray(werRoles);
+    fillRolesFromArray(vilRoles);
+}
+
+function fillRolesFromArray(array) {
+    for (let i = 0; i < array.length; i++) {
+        let role = document.createElement('div');
+        role.classList.add("role-card");
+        role.classList.add(array[i].team);
+        let title = document.createElement('h3');
+        title.innerHTML = array[i].name;
+        role.appendChild(title);
+
+        let description = document.createElement('span');
+        description.innerHTML = array[i].description;
+        role.appendChild(description);
+
+        rulesRolesList.appendChild(role);
+    }
+}
+
 /* onload */
 
 /* Init seed */
@@ -221,6 +253,8 @@ function setPlayersList() {
         playerListElement.appendChild(opt);
     }
 }
+
+fillRules();
 
 document.getElementById("total-players").max = avatars.length;
 setPlayersList();
