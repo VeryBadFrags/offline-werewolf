@@ -69,17 +69,18 @@ function startNight(randomNumber, playerID, rolesList) {
     let actionInputList = document.getElementById("actionInput");
     for (let i = 0; i < rolesList.length; i++) {
         if (i != playerID) {
-            let actionCard = document.createElement('div');
-            actionCard.classList.add("card");
-            actionCard.classList.add("action-box");
+            let actionCard = document.createElement('card');
+            actionCard.classList.add("action-card");
             actionCard.innerHTML = rolesList[playerID].verb + " " + avatars[i] + "<br>";
-            actionCard.innerHTML += "Code: <strong>" + playerChar + charactersShuffled2[i] + "</strong>";
+            let actionCode = playerChar + charactersShuffled2[i]
+            actionCard.innerHTML += "Code: <strong>" + actionCode + "</strong>";
+            actionCard.onclick = function () {document.getElementById("input" + playerID).value=actionCode;};
             actionsList.appendChild(actionCard);
         }
         /* Add Action Inputs */
         let actionInput = document.createElement('input');
         actionInput.type = "text";
-        actionInput.pattern = "[A-Z]{2}";
+        actionInput.pattern = "[A-Za-z0-9]{2}";
         actionInput.maxLength = 2;
         actionInput.required = true;
         actionInput.id = "input" + i;
@@ -92,19 +93,21 @@ function startNight(randomNumber, playerID, rolesList) {
 
     /* Start timer */
     let timer = document.getElementById('timer');
-    startTimer(60 * 1, timer);
+    startTimer(60 * 1, timer, "🔔 Time's up! Share your action code with the others.");
 
-    document.getElementById("gameMode").innerHTML = "Night";
+    document.getElementById("gameMode").innerHTML = "Night - Do not communication with others";
     document.getElementById("nightBox").style.display = "block";
 }
 
 function startDay() {
+    document.getElementById("nightBox").style.display = "none";
 
     /* Start timer */
     let timer = document.getElementById('timer');
-    startTimer(60 * 5, timer);
+    startTimer(60 * 5, timer, "🔔 Time's up! Who should you exile?");
 
-    document.getElementById("nightBox").style.display = "none";
+    document.getElementById("gameMode").innerHTML = "Day - Vote to exile a werewolf";
+    document.getElementById("dayBox").style.display = "block";
 }
 
 /* Pseudo-LFSR, it just needs to be fast and unpredictable */
@@ -184,14 +187,14 @@ function showHide(elementId) {
     }
 }
 
-function startTimer(duration, display) {
+function startTimer(duration, display, endText) {
     var timer = duration;
     setTimerDisplay(timer, display);
     var intervalId = setInterval(function () {
         timer--;
         setTimerDisplay(timer, display);
         if (timer < 0) {
-            display.textContent = "🔔 Time's up! Who should you exile?";
+            display.textContent = endText;
             clearInterval(intervalId);
         }
     }, 1000);

@@ -122,8 +122,11 @@ select {
     flex-grow: 1;
 }
 
-.action-box {
-    text-align: center;
+.action-card {
+    border-radius: .25rem;
+    border: 1px solid #004D40;
+    margin: 0.3rem 0.4rem;
+    padding: 7px;
 }
 
 .werewolves {
