@@ -143,3 +143,8 @@ select {
     border: solid 1px #4A148C;
     box-shadow: 1px 1px 2px rgba(74, 20, 140, 0.4);
 }
+
+.night {
+    border: solid 1px #1A237E;
+    box-shadow: 2px 2px 2px rgba(26, 35, 126, 0.4);
+}

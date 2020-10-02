@@ -48,16 +48,19 @@ function startGame() {
                 actionCard.classList.add("card");
                 actionCard.classList.add("action-box");
                 actionCard.innerHTML = "Kill: " + avatars[i] + "<br>";
-                actionCard.innerHTML += "<strong>" + playerChar + charactersShuffled2[i] + "</strong>";
+                actionCard.innerHTML += "Code: <strong>" + playerChar + charactersShuffled2[i] + "</strong>";
                 actionsList.appendChild(actionCard);
             }
-            /* Add Action Input */
+            /* Add Action Inputs */
             let actionInput = document.createElement('input');
             actionInput.type = "text";
             actionInput.pattern = "[A-Z]{2}";
+            actionInput.maxLength = 2;
+            actionInput.required = true;
             actionInput.id = "input" + i;
             let actionInputLabel = document.createElement('label');
             actionInputLabel.for = "input" + i;
+            actionInputLabel.innerHTML = avatars[i];
             actionInputList.appendChild(actionInputLabel);
             actionInputList.appendChild(actionInput);
         }
@@ -75,7 +78,7 @@ function startGame() {
          } */
 
         /* Set Role */
-        document.getElementById("role").innerHTML = rolesList[playerID];
+        document.getElementById("role").innerHTML = rolesList[playerID].name;
 
         /* Set Role */
         document.getElementById("playerid").innerHTML = avatars[playerID];
@@ -89,6 +92,10 @@ function startGame() {
         document.getElementById("gameWindow").style.display = "inline-block";
         window.scrollTo(0, 0);
     }
+}
+
+function startDay() {
+    document.getElementById("nightBox").style.display = "none";
 }
 
 /* Pseudo-LFSR, it just needs to be fast and unpredictable */

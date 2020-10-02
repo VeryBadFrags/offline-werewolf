@@ -1,10 +1,11 @@
-const werRoles = ["🐺 Werewolf", "😈 Cultist"];
-const vilRoles = ["🕵️ Detective",
-    "🧑‍🌾 Villager",
-    "💂 Bodyguard",
-    "👮 Jailer",
-    "🤴 Mayor",
-    "🤡 Jester"];
+const werRoles = [{name:"🐺 Werewolf", verb:"Kill"}, {name:"😈 Cultist",verb:"None"}];
+const vilRoles = [
+    { name: "🕵️ Detective", verb: "Inspect" },
+    { name: "🧑‍🌾 Villager", verb: "None" },
+    { name: "💂 Bodyguard", verb: "Protect" },
+    { name: "👮 Jailer", verb: "Block" },
+    { name: "🤴 Mayor", verb: "None" },
+    { name: "🤡 Jester", verb: "None" }];
 
 const avatars = [
     "🐱 Cat",

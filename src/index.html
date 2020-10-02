@@ -26,7 +26,8 @@
 
     <div class="flex">
         <!-- Game Window -->
-        <div id="gameWindow" class="card" style="display: none;">
+        <div id="gameWindow" class="card night" style="display: none;">
+            <h3 id="gameMode">Night</h3>
             <div>
                 Game Fingerprint <span id="fingerprint" class="large"></span>
             </div>
@@ -36,18 +37,24 @@
             </div>
             <br>
             <div id="timer"></div>
-            <br>
+
             <div>
                 <button class="button" onclick="showHide('secretBlock');">👓 Show/Hide</button>
+                <div id="secretBlock" class="secret-card">
+                    <div>Role: <strong id="role"></strong></div>
+                    <div>Action: <span id="actionVerb"></span></div>
+                </div>
             </div>
-            <div id="secretBlock" class="secret-card">
-                <div>Role: <strong id="role"></strong></div>
-                <span id="verb"></span>
-                <div id="actions" class="flex roles-list"></div>
+            <br>
+            <div id="nightBox" class="secret-card">
+                <div>Your action:
+                    <div id="actions" class="flex roles-list"></div>
+                </div>
 
-                <span>Players action code</span> <span class="small">Input the action code from every
-                    player (including yours)</span>
+                <div><span>Players action code</span> <span class="small">Input the action code from every
+                        player (including yours)</span></div>
                 <div id="actionInput"></div>
+                <button class="button" onclick="startDay();">✅ End turn</button>
             </div>
         </div>
 
@@ -58,7 +65,7 @@
             </div>
             <label for="seed">🎲 Code</label>
             <input type="text" id="seed" name="code" value="ABCD" pattern="[A-Za-z]{4}" title="4 Letters Code"
-                autocomplete="off">
+                maxlength="4" autocomplete="off">
             <label for="iteration">🔢 Round</label>
             <input type="number" id="iteration" name="round" value="1" min="1" autocomplete="off">
             <label for="total-players">👥 Total players</label>
@@ -126,6 +133,11 @@
         <div><a href="https://www.buymeacoffee.com/verybadfrags" target="_blank" rel="noopener noreferrer">Like this
                 game?</a>
         </div>
+        <br>
+        <img src="qr.png" class="qrcode" alt="https://wolf.verybadfrags.com">
+        <br>
+        <div>Suggestions, Feedback? <a
+                href="mailto:wolf@verybadfrags.com?subject=Offline Werewolf Feedback">wolf@verybadfrags.com</a></div>
         <br>
         <div>Version: 0.0.1</div>
     </div>
