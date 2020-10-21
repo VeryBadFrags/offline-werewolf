@@ -19,7 +19,7 @@ hr {
 .flex {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: flex-start;
 }
 
@@ -129,8 +129,14 @@ select {
     padding: 7px;
 }
 
-.selected {
+.action-card:hover {
     background-color: #F5F5F5;
+    box-shadow: 0 0 0.125em rgba(0, 0, 0, 0.2);
+}
+
+.selected {
+    background-color: #C8E6C9;
+    border: 1px solid #2E7D32;
 }
 
 .werewolves {

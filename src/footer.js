@@ -33,7 +33,7 @@ function startGame() {
         rolesList.push(werRoles[0]);
         for (let i = 0; i < totalPlayers - wolvesCount; i++) {
             rolesList.push(suffledVillagers[i % suffledVillagers.length]);
-            if ((i + 1) % 4 == 0 && i + 1 < totalPlayers - wolvesCount) {
+            if ((i + 1) % 3 == 0 && i + 1 < totalPlayers - wolvesCount) {
                 rolesList.push(werRoles[wolvesCount % werRoles.length]);
                 wolvesCount++;
             }
@@ -79,14 +79,14 @@ function startNight() {
     actionsInputList.innerHTML = "";
     for (let i = 0; i < rolesList.length; i++) {
         if (i != playerID) {
-            let actionCard = document.createElement('card');
-            actionCard.classList.add("action-card");
+            let actionCard = document.createElement('div');
+            actionCard.classList.add("action-card", "card-player");
             actionCard.innerHTML = rolesList[playerID].verb + " " + avatars[i] + "<br>";
             let actionCode = playerActionChars[playerID] + targetActionChar[i]
             actionCard.innerHTML += "Code: <strong>" + actionCode + "</strong>";
             actionCard.onclick = function () {
                 document.getElementById("input" + playerID).value = actionCode;
-                let otherCrads = document.getElementsByClassName("action-card");
+                let otherCrads = document.getElementsByClassName("card-player");
                 for (let j = 0; j < otherCrads.length; j++) {
                     otherCrads.item(j).classList.remove("selected");
                 }
@@ -106,6 +106,29 @@ function startNight() {
         actionInputLabel.innerHTML = avatars[i];
         actionsInputList.appendChild(actionInputLabel);
         actionsInputList.appendChild(actionInput);
+
+        if (i != playerID) {
+            let playerActions = document.createElement('div');
+            playerActions.classList.add("flex", "roles-list");
+            for (let j = 0; j < rolesList.length; j++) {
+                if (j != i) {
+                    let actionCard = document.createElement('div');
+                    actionCard.classList.add("action-card", "card"+j);
+                    actionCard.innerHTML = avatars[j];
+                    actionCard.onclick = function () {
+                        document.getElementById("input" + i).value = "AA";
+                        let otherCrads = document.getElementsByClassName("card"+j);
+                        for (let k = 0; k < otherCrads.length; k++) {
+                            otherCrads.item(k).classList.remove("selected");
+                        }
+                        actionCard.classList.add("selected");
+                    }
+
+                    playerActions.appendChild(actionCard);
+                }
+            }
+            actionsInputList.appendChild(playerActions);
+        }
     }
 
     /* Start timer */
