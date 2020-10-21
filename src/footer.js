@@ -159,7 +159,7 @@ function startDay() {
                 case "cultist":
                     appendLine("You have found a dead crow on your doorstep - there must be a <strong>" + rolesList[authorId].name + "</strong> in town", targetOutputElement);
                     break;
-                case "villager":
+                case "farmer":
                     appendLine("The <strong>" + rolesList[authorId].name + "</strong> gifted you some 🌽 corn", targetOutputElement);
                     break;
                 case "jailer":
@@ -188,7 +188,7 @@ function startDay() {
                 case "detective":
                     appendLine("Your investigation showed that <strong>" + avatars[targetId] + "</strong> is <strong>" + rolesList[targetId].name + "</strong>", targetOutputElement);
                     break;
-                case "villager":
+                case "farmer":
                     appendLine("You gave 🌽 corn to  <strong>" + avatars[targetId] + "</strong>", targetOutputElement);
                     break;
                 case "bodyguard":

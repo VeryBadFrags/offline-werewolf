@@ -2,7 +2,7 @@ const werRoles = [{ name: "🐺 Werewolf", team: "werewolves", verb: "Identify",
 { name: "😈 Cultist", team: "werewolves", verb: "Threaten", description: "Action: Threaten someone during the night<br>Win: Same as Werewolves", id: "cultist" }];
 const vilRoles = [
     { name: "🕵️ Detective", team: "villagers", verb: "Identify", description: "Action: Identify the role of a Player", id: "detective" },
-    { name: "🧑‍🌾 Villager", team: "villagers", verb: "Give corn to", description: "Action: Give corn to another player anonymously", id: "villager" },
+    { name: "🧑‍🌾 Farmer", team: "villagers", verb: "Give corn to", description: "Action: Give corn to another player anonymously", id: "farmer" },
     /* { name: "💂 Bodyguard", team: "villagers", verb: "Protect", description: "Action: Stop an action on a player", id: "bodyguard" }, */
     { name: "🧓 Gossip", team: "villagers", verb: "Follow", description: "Action: See who a Player visited", id: "gossip" },
     { name: "🧙 Fortune Teller", team: "villagers", verb: "Divine", description: "Action: Guess the team of a Player", id: "teller" },
