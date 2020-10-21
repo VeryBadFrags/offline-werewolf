@@ -40,21 +40,23 @@
 
             <div>
                 <button class="button" onclick="showHide('secretBlock');">👓 Show/Hide</button>
-                <div id="secretBlock" class="secret-card">
-                    <div>Role: <strong id="role"></strong></div>
-                    <div>Action: <span id="actionVerb"></span></div>
-                </div>
             </div>
             <br>
-            <div id="nightBox" class="secret-card">
-                <div>Your action:
-                    <div id="actions" class="flex roles-list"></div>
+            <div id="secretBlock" class="secret-card">
+                <div>Role: <strong id="roleField"></strong></div>
+                <div><span id="actionVerbField"></span></div>
+                <br>
+                <div id="nightBox">
+                    <div>Select an action
+                        <div id="actions" class="flex roles-list"></div>
+                    </div>
+                    <hr>
+                    <div><span>Players action code</span> <span class="small">Input the action code from every
+                            player (including yours)</span></div>
+                    <div id="actionInput"></div>
+                    <button class="button" onclick="startDay();">✅ End turn</button>
                 </div>
-
-                <div><span>Players action code</span> <span class="small">Input the action code from every
-                        player (including yours)</span></div>
-                <div id="actionInput"></div>
-                <button class="button" onclick="startDay();">✅ End turn</button>
+                <div id="dayBox"></div>
             </div>
         </div>
 
@@ -101,7 +103,9 @@
                 game?</a>
         </div>
         <br>
-        <img src="qr.png" class="qrcode" alt="https://wolf.verybadfrags.com">
+        <div>
+            <img src="qr.png" alt="https://wolf.verybadfrags.com">
+        </div>
         <br>
         <div>Suggestions, Feedback? <a
                 href="mailto:wolf@verybadfrags.com?subject=Offline Werewolf Feedback">wolf@verybadfrags.com</a></div>

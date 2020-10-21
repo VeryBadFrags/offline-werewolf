@@ -1,10 +1,14 @@
+var intervalId;
+var rolesList = [];
+var playerID;
+
 function startGame() {
     resetValues();
 
     /* Get the Game params */
 
     let playerSelect = document.getElementById("player");
-    let playerID = Number(playerSelect.options[playerSelect.selectedIndex].value);
+    playerID = Number(playerSelect.options[playerSelect.selectedIndex].value);
     let totalPlayers = getTotalNumberOfPlayers();
 
     {
@@ -16,7 +20,6 @@ function startGame() {
         let suffledVillagers = vilRoles.slice();
         shuffle(suffledVillagers, randomNumber);
 
-        let rolesList = [];
         let wolvesCount = 1;
         rolesList.push(werRoles[0]);
         for (let i = 0; i < totalPlayers - wolvesCount; i++) {
@@ -42,19 +45,20 @@ function startGame() {
          } */
 
         /* Set Role */
-        document.getElementById("role").innerHTML = rolesList[playerID].name;
+        document.getElementById("roleField").innerHTML = rolesList[playerID].name;
+        document.getElementById("actionVerbField").innerHTML = rolesList[playerID].description;
 
         /* Set Player name */
         document.getElementById("playerid").innerHTML = avatars[playerID];
 
-        startNight(randomNumber, playerID, rolesList);
+        startNight(randomNumber, playerID);
     }
 
     document.getElementById("gameWindow").style.display = "inline-block";
     window.scrollTo(0, 0);
 }
 
-function startNight(randomNumber, playerID, rolesList) {
+function startNight(randomNumber, playerID) {
     /* Set Night Actions list */
     let charactersShuffled = [];
     for (let i = 0; i < characters.length; i++) {
@@ -67,6 +71,7 @@ function startNight(randomNumber, playerID, rolesList) {
     let playerChar = charactersShuffled[playerID];
     let actionsList = document.getElementById("actions");
     let actionInputList = document.getElementById("actionInput");
+    actionInputList.innerHTML = "";
     for (let i = 0; i < rolesList.length; i++) {
         if (i != playerID) {
             let actionCard = document.createElement('card');
@@ -100,6 +105,13 @@ function startNight(randomNumber, playerID, rolesList) {
 }
 
 function startDay() {
+    /* Validate player actions */
+    let actionInputList = document.getElementById("actionInput");
+    for (let i = 0; i < rolesList.length; i++) {
+        let doc = document.getElementById("input" + i);
+        console.log(doc.value);
+    }
+
     document.getElementById("nightBox").style.display = "none";
 
     /* Start timer */
@@ -166,6 +178,9 @@ function resetValues() {
     errorBox.style.display = "none";
     errorBox.innerHTML = "";
     document.getElementById("actions").innerHTML = "";
+    document.getElementById("dayBox").style.display = "none";
+
+    rolesList = [];
 }
 
 function getTotalNumberOfPlayers() {
@@ -188,9 +203,10 @@ function showHide(elementId) {
 }
 
 function startTimer(duration, display, endText) {
+    clearInterval(intervalId);
     var timer = duration;
     setTimerDisplay(timer, display);
-    var intervalId = setInterval(function () {
+    intervalId = setInterval(function () {
         timer--;
         setTimerDisplay(timer, display);
         if (timer < 0) {
