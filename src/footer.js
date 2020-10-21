@@ -1,9 +1,9 @@
 var intervalId;
 var playerID;
+var randomNumber;
 
 var rolesList = [];
-var charactersList = [];
-var targetsShuffled = [];
+var playerActionChars = [];
 
 function startGame() {
     resetValues();
@@ -17,7 +17,7 @@ function startGame() {
     {
         let seed = document.getElementById("seed").value.toUpperCase();
         let iterationField = document.getElementById("iteration");
-        let randomNumber = getRNG(seed, iterationField.value, totalPlayers);
+        randomNumber = getRNG(seed, iterationField.value, totalPlayers);
 
         /* Build list of roles */
         let suffledVillagers = vilRoles.slice();
@@ -55,25 +55,25 @@ function startGame() {
         document.getElementById("playerid").innerHTML = avatars[playerID];
 
         /* Prepare Randomness */
-        charactersList = [];
+        playerActionChars = [];
         for (let i = 0; i < characters.length; i++) {
-            charactersList.push(characters.charAt(i));
+            playerActionChars.push(characters.charAt(i));
         }
-        shuffle(charactersList, randomNumber + 2);
+        shuffle(playerActionChars, randomNumber + 2);
 
-        targetsShuffled = charactersList.slice();
-        shuffle(targetsShuffled, randomNumber + 17 + playerID);
-
-        startNight(randomNumber);
+        startNight();
     }
 
     document.getElementById("gameWindow").style.display = "inline-block";
     window.scrollTo(0, 0);
 }
 
-function startNight(randomNumber) {
+/* Game logic for the Night Phrase */
+function startNight() {
+    let targetActionChar = playerActionChars.slice();
+    shuffle(targetActionChar, randomNumber + 17 + playerID);
+
     /* Set Night Actions list */
-    let playerChar = charactersList[playerID];
     let actionsList = document.getElementById("actions");
     let actionsInputList = document.getElementById("actionInput");
     actionsInputList.innerHTML = "";
@@ -82,7 +82,7 @@ function startNight(randomNumber) {
             let actionCard = document.createElement('card');
             actionCard.classList.add("action-card");
             actionCard.innerHTML = rolesList[playerID].verb + " " + avatars[i] + "<br>";
-            let actionCode = playerChar + targetsShuffled[i]
+            let actionCode = playerActionChars[playerID] + targetActionChar[i]
             actionCard.innerHTML += "Code: <strong>" + actionCode + "</strong>";
             actionCard.onclick = function () {
                 document.getElementById("input" + playerID).value = actionCode;
@@ -116,11 +116,33 @@ function startNight(randomNumber) {
     document.getElementById("nightBox").style.display = "block";
 }
 
+/* Game logic for the Day Phrase */
 function startDay() {
     /* Validate player actions */
     for (let i = 0; i < rolesList.length; i++) {
+        let targetActionChars = playerActionChars.slice();
+        shuffle(targetActionChars, randomNumber + 17 + i);
+
         let doc = document.getElementById("input" + i);
-        console.log(doc.value);
+        let actionCode = doc.value;
+        if(actionCode.length < 2) {
+            console.log("Error: empty action code for player " + i);
+            actionCode = "00";
+        }
+
+        let authorId = getIdForChar(actionCode[0], playerActionChars);
+        if(i != authorId) {
+            console.log("Error: invalide code "+ actionCode);
+        }
+        let targetId = getIdForChar(actionCode[1], targetActionChars);
+
+        if(playerID == targetId) {
+            /* Process action towards current player */
+        }
+
+        if (playerID == i) {
+            /* Display Action results */
+        }
     }
 
     document.getElementById("nightBox").style.display = "none";
@@ -131,6 +153,16 @@ function startDay() {
 
     document.getElementById("gameMode").innerHTML = "Day - Vote to exile a werewolf";
     document.getElementById("dayBox").style.display = "block";
+}
+
+function getIdForChar(char, charsList) {
+    for (let i = 0; i < charsList.length; i++) {
+        if(charsList[i] == char) {
+            return i;
+        }
+    }
+    console.log("Error: action code not found");
+    return 0;
 }
 
 /* Pseudo-LFSR, it just needs to be fast and unpredictable */
@@ -161,11 +193,11 @@ function getRNG(seed, iteration, totalPlayers) {
     return period;
 }
 /* Fisher-Yates Shuffle using the seed */
-function shuffle(array, randomNumber) {
+function shuffle(array, rand) {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
     while (0 !== currentIndex) {
-        randomIndex = (currentIndex ^ randomNumber) % currentIndex;
+        randomIndex = (currentIndex ^ rand) % currentIndex;
         currentIndex -= 1;
 
         temporaryValue = array[currentIndex];
