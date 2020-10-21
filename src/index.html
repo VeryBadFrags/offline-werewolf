@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="description"
-        content="Play Werewolf anywhere with your friends, even without an internet connection. Offline Werewolf is a free social deduction multiplayer game.">
+        content="Play Werewolf anywhere with your friends, even without an internet connection. Offline Werewolf is hidden role game about information and deceit.">
     <meta name="keywords" content="Social deduction">
     <meta name="author" content="VeryBadFrags">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
@@ -51,8 +51,7 @@
                         <div id="actions" class="flex roles-list"></div>
                     </div>
                     <hr>
-                    <div><span>Players action code</span> <span class="small">Input the action code from every
-                            player (including yours)</span></div>
+                    <div><span>Players action code</span></div>
                     <div id="actionInput"></div>
                     <button class="button" onclick="startDay();">✅ End turn</button>
                 </div>
@@ -71,7 +70,7 @@
             <label for="iteration">🔢 Round</label>
             <input type="number" id="iteration" name="round" value="1" min="1" autocomplete="off">
             <label for="total-players">👥 Total players</label>
-            <input type="number" id="total-players" name="totalPlayers" value="4" min="4" oninput="setPlayersList();"
+            <input type="number" id="total-players" name="totalPlayers" value="3" min="3" oninput="setPlayersList();"
                 autocomplete="off">
             <br>
             <label for="player">👤 Avatar (must be unique)</label>
@@ -89,6 +88,7 @@
             <ul>
                 <li>Werewolves win if a Villager is exiled</li>
                 <li>Villagers win if a Werewolf is exiled</li>
+                <li>Everyone loses if the Jester is exiled</li>
             </ul>
         </div>
 

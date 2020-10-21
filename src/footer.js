@@ -1,6 +1,9 @@
 var intervalId;
-var rolesList = [];
 var playerID;
+
+var rolesList = [];
+var charactersList = [];
+var targetsShuffled = [];
 
 function startGame() {
     resetValues();
@@ -51,35 +54,44 @@ function startGame() {
         /* Set Player name */
         document.getElementById("playerid").innerHTML = avatars[playerID];
 
-        startNight(randomNumber, playerID);
+        /* Prepare Randomness */
+        charactersList = [];
+        for (let i = 0; i < characters.length; i++) {
+            charactersList.push(characters.charAt(i));
+        }
+        shuffle(charactersList, randomNumber + 2);
+
+        targetsShuffled = charactersList.slice();
+        shuffle(targetsShuffled, randomNumber + 17 + playerID);
+
+        startNight(randomNumber);
     }
 
     document.getElementById("gameWindow").style.display = "inline-block";
     window.scrollTo(0, 0);
 }
 
-function startNight(randomNumber, playerID) {
+function startNight(randomNumber) {
     /* Set Night Actions list */
-    let charactersShuffled = [];
-    for (let i = 0; i < characters.length; i++) {
-        charactersShuffled.push(characters.charAt(i));
-    }
-    shuffle(charactersShuffled, randomNumber + 2);
-    let charactersShuffled2 = charactersShuffled.slice();
-    shuffle(charactersShuffled2, randomNumber + 17 + playerID);
-
-    let playerChar = charactersShuffled[playerID];
+    let playerChar = charactersList[playerID];
     let actionsList = document.getElementById("actions");
-    let actionInputList = document.getElementById("actionInput");
-    actionInputList.innerHTML = "";
+    let actionsInputList = document.getElementById("actionInput");
+    actionsInputList.innerHTML = "";
     for (let i = 0; i < rolesList.length; i++) {
         if (i != playerID) {
             let actionCard = document.createElement('card');
             actionCard.classList.add("action-card");
             actionCard.innerHTML = rolesList[playerID].verb + " " + avatars[i] + "<br>";
-            let actionCode = playerChar + charactersShuffled2[i]
+            let actionCode = playerChar + targetsShuffled[i]
             actionCard.innerHTML += "Code: <strong>" + actionCode + "</strong>";
-            actionCard.onclick = function () {document.getElementById("input" + playerID).value=actionCode;};
+            actionCard.onclick = function () {
+                document.getElementById("input" + playerID).value = actionCode;
+                let otherCrads = document.getElementsByClassName("action-card");
+                for (let j = 0; j < otherCrads.length; j++) {
+                    otherCrads.item(j).classList.remove("selected");
+                }
+                actionCard.classList.add("selected");
+            };
             actionsList.appendChild(actionCard);
         }
         /* Add Action Inputs */
@@ -92,8 +104,8 @@ function startNight(randomNumber, playerID) {
         let actionInputLabel = document.createElement('label');
         actionInputLabel.for = "input" + i;
         actionInputLabel.innerHTML = avatars[i];
-        actionInputList.appendChild(actionInputLabel);
-        actionInputList.appendChild(actionInput);
+        actionsInputList.appendChild(actionInputLabel);
+        actionsInputList.appendChild(actionInput);
     }
 
     /* Start timer */
@@ -106,7 +118,6 @@ function startNight(randomNumber, playerID) {
 
 function startDay() {
     /* Validate player actions */
-    let actionInputList = document.getElementById("actionInput");
     for (let i = 0; i < rolesList.length; i++) {
         let doc = document.getElementById("input" + i);
         console.log(doc.value);
@@ -227,12 +238,12 @@ function setTimerDisplay(timer, display) {
 }
 
 function fillRules() {
-    let rulesRolesList = document.getElementById("rulesRolesList");
     fillRolesFromArray(werRoles);
     fillRolesFromArray(vilRoles);
 }
 
 function fillRolesFromArray(array) {
+    let rulesRolesList = document.getElementById("rulesRolesList");
     for (let i = 0; i < array.length; i++) {
         let role = document.createElement('div');
         role.classList.add("role-card");
