@@ -1,4 +1,4 @@
-release/index.html: src/* release/ release/qr.png bundle.py
+release/index.html: src/* release/ release/qr.png
 	cp src/* release/
 
 release/:
