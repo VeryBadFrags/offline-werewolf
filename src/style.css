@@ -35,6 +35,10 @@ hr {
     flex-grow: 1;
 }
 
+.card-title {
+    text-align: center;
+}
+
 .secret-card {
     border: 1px dashed rgba(0, 0, 0, 0.2);
     border-radius: .25rem;
@@ -80,7 +84,7 @@ hr {
 }
 
 .large {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
 }
 
 .small {
@@ -150,4 +154,9 @@ select {
 .night {
     border: solid 1px #1A237E;
     box-shadow: 2px 2px 2px rgba(26, 35, 126, 0.4);
+}
+
+.day {
+    border: solid 1px #F57F17;
+    box-shadow: 2px 2px 2px rgba(245, 127, 23, 0.4);
 }

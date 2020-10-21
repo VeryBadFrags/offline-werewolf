@@ -68,7 +68,7 @@ function startGame() {
     window.scrollTo(0, 0);
 }
 
-/* Game logic for the Night Phrase */
+/* Game logic for the Night Phase */
 function startNight() {
     let targetActionChar = playerActionChars.slice();
     shuffle(targetActionChar, randomNumber + 17 + playerID);
@@ -110,19 +110,22 @@ function startNight() {
 
     /* Start timer */
     let timer = document.getElementById('timer');
-    startTimer(60 * 1, timer, "🔔 Time's up! Share your action code with the others.");
+    startTimer(60 * 1, timer, "🔔 Time's up! Share your action code with the others");
 
-    document.getElementById("gameMode").innerHTML = "Night - Do not communication with others";
+    document.getElementById("gameMode").innerHTML = "Night Phase - Do not communication with other players";
     document.getElementById("nightBox").style.display = "block";
 }
 
-/* Game logic for the Day Phrase */
+/* Game logic for the Day Phase */
 function startDay() {
     let actionOutputElement = document.getElementById("actionOutput");
     actionOutputElement.innerHTML = "";
     let targetOutputElement = document.getElementById("targetOutput");
     targetOutputElement.innerHTML = "";
+    let actionMapping = {};
     /* Validate player actions */
+    let blocked = false;
+
     for (let i = 0; i < rolesList.length; i++) {
         let targetActionChars = playerActionChars.slice();
         shuffle(targetActionChars, randomNumber + 17 + i);
@@ -140,59 +143,61 @@ function startDay() {
         }
         let targetId = getIdForChar(actionCode[1], targetActionChars);
 
-        let blocked = false;
+        actionMapping[authorId] = targetId;
 
         if (playerID == targetId) {
             /* Process action towards current player */
             switch (rolesList[authorId].id) {
                 case "cultist":
-                    targetOutputElement.innerHTML = targetOutputElement.innerHTML + "<br>" + "You were threatened by someone!";
+                    targetOutputElement.innerHTML = targetOutputElement.innerHTML + "You were threatened by someone!" + "<br>";
                     break;
                 case "villager":
-                    targetOutputElement.innerHTML = targetOutputElement.innerHTML + "<br>" + "Someone gave you 🌽 corn";
+                    targetOutputElement.innerHTML = targetOutputElement.innerHTML + "Someone gave you 🌽 corn" + "<br>";
                     break;
                 case "jailer":
                     blocked = true;
                     break;
                 case "mayor":
-                    targetOutputElement.innerHTML = targetOutputElement.innerHTML + "<br>" + "You were impressed by " + avatars[authorId] + " - they must be the " + rolesList[authorId].name;
+                    targetOutputElement.innerHTML = targetOutputElement.innerHTML + "You were impressed by " + avatars[authorId] + " - they must be the " + rolesList[authorId].name + "<br>";
                     break;
                 default:
             }
         }
+    }
 
-        if (playerID == i) {
-            if (!blocked) {
-                /* Process current player action */
-                switch (rolesList[playerID].id) {
-                    case "wolf":
-                        actionOutputElement.innerHTML = avatars[targetId] + " is " + rolesList[targetId].name;
-                        break;
-                    case "cultist":
-                        actionOutputElement.innerHTML = "You have threatened " + avatars[targetId];
-                        break;
-                    case "detective":
-                        actionOutputElement.innerHTML = avatars[targetId] + " is " + rolesList[targetId].name;
-                        break;
-                    case "villager":
-                        actionOutputElement.innerHTML = "You gave corn to  " + avatars[targetId];
-                        break;
-                    case "bodyguard":
-                        actionOutputElement.innerHTML = "You protected " + avatars[targetId];
-                        break;
-                    case "teller":
-                        break;
-                    case "mayor":
-                        actionOutputElement.innerHTML = "You've impressed " + avatars[targetId] + " - they now know your identity";
-                        break;
-                    case "jester":
-                        actionOutputElement.innerHTML = "You did nothing during the night";
-                        break;
-                    default:
-                }
-            } else {
-                actionOutputElement.innerHTML = "You actions were blocked by the 👮 Jailer!";
+    /* Process current player action */
+    {
+        let targetId = actionMapping[playerID];
+        if (!blocked) {
+            switch (rolesList[playerID].id) {
+                case "wolf":
+                    actionOutputElement.innerHTML = avatars[targetId] + " is " + rolesList[targetId].name;
+                    break;
+                case "cultist":
+                    actionOutputElement.innerHTML = "You have threatened " + avatars[targetId];
+                    break;
+                case "detective":
+                    actionOutputElement.innerHTML = avatars[targetId] + " is " + rolesList[targetId].name;
+                    break;
+                case "villager":
+                    actionOutputElement.innerHTML = "You gave corn to  " + avatars[targetId];
+                    break;
+                case "bodyguard":
+                    actionOutputElement.innerHTML = "You protected " + avatars[targetId];
+                    break;
+                case "teller":
+                    actionOutputElement.innerHTML = avatars[targetId] + " visited " + avatars[targetId];
+                    break;
+                case "mayor":
+                    actionOutputElement.innerHTML = "You've impressed " + avatars[targetId] + " - they now know your identity";
+                    break;
+                case "jester":
+                    actionOutputElement.innerHTML = "You visited " + avatars[targetId];
+                    break;
+                default:
             }
+        } else {
+            actionOutputElement.innerHTML = "You actions were blocked by the 👮 Jailer!";
         }
     }
 
@@ -202,7 +207,7 @@ function startDay() {
     let timer = document.getElementById('timer');
     startTimer(60 * 5, timer, "🔔 Time's up! Who should you exile?");
 
-    document.getElementById("gameMode").innerHTML = "Day - Vote to exile a werewolf";
+    document.getElementById("gameMode").innerHTML = "Day Phase - Debate and vote to exile a werewolf";
     document.getElementById("dayBox").style.display = "block";
 }
 
