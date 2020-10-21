@@ -111,11 +111,12 @@ function startNight() {
 
             let playerActions = document.createElement('div');
             playerActions.classList.add("flex", "roles-list");
-            for (let j = 0; j < rolesList.length; j++) {
-                if (j != i) {
+            let iPlayerActionCodeCards = [];
+            for (let jTarget = 0; jTarget < rolesList.length; jTarget++) {
+                if (jTarget != i) {
                     let actionCard = document.createElement('div');
                     actionCard.classList.add("action-card", "card" + i);
-                    let actionCode = playerActionChars[i] + targetActionChars2[j]
+                    let actionCode = playerActionChars[i] + targetActionChars2[jTarget]
                     actionCard.innerHTML = avatars[i] + "<br><strong>" + actionCode + "</strong>";
                     actionCard.onclick = function () {
                         document.getElementById("input" + i).value = actionCode;
@@ -125,9 +126,12 @@ function startNight() {
                         }
                         actionCard.classList.add("selected");
                     }
-
-                    playerActions.appendChild(actionCard);
+                    iPlayerActionCodeCards.push(actionCard);
                 }
+            }
+            shuffle(iPlayerActionCodeCards, randomNumber + 1 + i);
+            for(let l = 0; l < iPlayerActionCodeCards.length; l++) {
+                playerActions.appendChild(iPlayerActionCodeCards[l]);
             }
             actionsInputList.appendChild(playerActions);
         }
@@ -137,7 +141,7 @@ function startNight() {
     let timer = document.getElementById('timer');
     startTimer(60 * 1, timer, "🔔 Time's up! Share your action code with the others");
 
-    document.getElementById("gameMode").innerHTML = "Night Phase - Do not communication with other players";
+    document.getElementById("gameMode").innerHTML = "🌙 Night Phase - Do not communication with other players";
     document.getElementById("nightBox").style.display = "block";
     document.getElementById("phase").innerHTML = "Night";
 }
@@ -250,7 +254,7 @@ function startDay() {
         document.getElementById("fingerprint").innerHTML = fingerprint;
     }
 
-    document.getElementById("gameMode").innerHTML = "Day Phase - Debate and vote to exile a werewolf";
+    document.getElementById("gameMode").innerHTML = "☀️ Day Phase - Debate and vote to exile a werewolf";
     document.getElementById("dayBox").style.display = "block";
     document.getElementById("phase").innerHTML = "Day";
     let gameWindow = document.getElementById("gameWindow");
@@ -303,9 +307,9 @@ function getRNG(currentSeed, iteration, totalPlayers) {
 }
 /* Fisher-Yates Shuffle using the seed */
 function shuffle(array, rand) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
-    while (0 !== currentIndex) {
+    while (currentIndex !== 0) {
         randomIndex = (currentIndex ^ rand) % currentIndex;
         currentIndex -= 1;
 
