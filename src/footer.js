@@ -12,7 +12,7 @@ function startGame() {
     let playerSelect = document.getElementById("player");
     playerID = Number(playerSelect.options[playerSelect.selectedIndex].value);
     let totalPlayers = getTotalNumberOfPlayers();
-    if(totalPlayers > avatars.length) {
+    if (totalPlayers > avatars.length) {
         printError("There cannot be more than " + avatars.length + " players");
         return;
     }
@@ -180,13 +180,13 @@ function startDay() {
         if (!blocked) {
             switch (rolesList[playerID].id) {
                 case "wolf":
-                    appendLine("You learned that " + avatars[targetId] + " is " + rolesList[targetId].name, targetOutputElement);
+                    appendLine("You learned that " + avatars[targetId] + " is <strong>" + rolesList[targetId].name + "</strong>", targetOutputElement);
                     break;
                 case "cultist":
                     appendLine("You have threatened " + avatars[targetId], targetOutputElement);
                     break;
                 case "detective":
-                    appendLine("Your investigation showed that " + avatars[targetId] + " is " + rolesList[targetId].name, targetOutputElement);
+                    appendLine("Your investigation showed that " + avatars[targetId] + " is <strong>" + rolesList[targetId].name + "</strong>", targetOutputElement);
                     break;
                 case "villager":
                     appendLine("You gave 🌽 corn to  " + avatars[targetId], targetOutputElement);
@@ -197,6 +197,9 @@ function startDay() {
                 case "gossip":
                     appendLine("You saw " + avatars[targetId] + " visit " + avatars[actionMapping[targetId]], targetOutputElement);
                     break;
+                case "teller":
+                    appendLine("You divined " + avatars[targetId] + " and found out they are part of the <strong>" + rolesList[targetId].team + "</strong>", targetOutputElement);
+                    break;
                 case "mayor":
                     appendLine("You've impressed " + avatars[targetId] + " - they now know your identity", targetOutputElement);
                     break;
@@ -206,7 +209,7 @@ function startDay() {
                 default:
             }
         } else {
-            
+
         }
     }
 
