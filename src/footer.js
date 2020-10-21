@@ -129,7 +129,7 @@ function startNight() {
                     iPlayerActionCodeCards.push(actionCard);
                 }
             }
-            shuffle(iPlayerActionCodeCards, randomNumber + 1 + i);
+            shuffle(iPlayerActionCodeCards, randomNumber * (1+i));
             for(let l = 0; l < iPlayerActionCodeCards.length; l++) {
                 playerActions.appendChild(iPlayerActionCodeCards[l]);
             }
