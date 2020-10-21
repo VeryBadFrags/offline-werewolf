@@ -118,6 +118,10 @@ function startNight() {
 
 /* Game logic for the Day Phrase */
 function startDay() {
+    let actionOutputElement = document.getElementById("actionOutput");
+    actionOutputElement.innerHTML = "";
+    let targetOutputElement = document.getElementById("targetOutput");
+    targetOutputElement.innerHTML = "";
     /* Validate player actions */
     for (let i = 0; i < rolesList.length; i++) {
         let targetActionChars = playerActionChars.slice();
@@ -125,23 +129,70 @@ function startDay() {
 
         let doc = document.getElementById("input" + i);
         let actionCode = doc.value;
-        if(actionCode.length < 2) {
+        if (actionCode.length < 2) {
             console.log("Error: empty action code for player " + i);
             actionCode = "00";
         }
 
         let authorId = getIdForChar(actionCode[0], playerActionChars);
-        if(i != authorId) {
-            console.log("Error: invalide code "+ actionCode);
+        if (i != authorId) {
+            console.log("Error: invalid code " + actionCode);
         }
         let targetId = getIdForChar(actionCode[1], targetActionChars);
 
-        if(playerID == targetId) {
+        let blocked = false;
+
+        if (playerID == targetId) {
             /* Process action towards current player */
+            switch (rolesList[authorId].id) {
+                case "cultist":
+                    targetOutputElement.innerHTML = targetOutputElement.innerHTML + "<br>" + "You were threatened by someone!";
+                    break;
+                case "villager":
+                    targetOutputElement.innerHTML = targetOutputElement.innerHTML + "<br>" + "Someone gave you 🌽 corn";
+                    break;
+                case "jailer":
+                    blocked = true;
+                    break;
+                case "mayor":
+                    targetOutputElement.innerHTML = targetOutputElement.innerHTML + "<br>" + "You were impressed by " + avatars[authorId] + " - they must be the " + rolesList[authorId].name;
+                    break;
+                default:
+            }
         }
 
         if (playerID == i) {
-            /* Display Action results */
+            if (!blocked) {
+                /* Process current player action */
+                switch (rolesList[playerID].id) {
+                    case "wolf":
+                        actionOutputElement.innerHTML = avatars[targetId] + " is " + rolesList[targetId].name;
+                        break;
+                    case "cultist":
+                        actionOutputElement.innerHTML = "You have threatened " + avatars[targetId];
+                        break;
+                    case "detective":
+                        actionOutputElement.innerHTML = avatars[targetId] + " is " + rolesList[targetId].name;
+                        break;
+                    case "villager":
+                        actionOutputElement.innerHTML = "You gave corn to  " + avatars[targetId];
+                        break;
+                    case "bodyguard":
+                        actionOutputElement.innerHTML = "You protected " + avatars[targetId];
+                        break;
+                    case "teller":
+                        break;
+                    case "mayor":
+                        actionOutputElement.innerHTML = "You've impressed " + avatars[targetId] + " - they now know your identity";
+                        break;
+                    case "jester":
+                        actionOutputElement.innerHTML = "You did nothing during the night";
+                        break;
+                    default:
+                }
+            } else {
+                actionOutputElement.innerHTML = "You actions were blocked by the 👮 Jailer!";
+            }
         }
     }
 
@@ -157,7 +208,7 @@ function startDay() {
 
 function getIdForChar(char, charsList) {
     for (let i = 0; i < charsList.length; i++) {
-        if(charsList[i] == char) {
+        if (charsList[i] == char) {
             return i;
         }
     }
