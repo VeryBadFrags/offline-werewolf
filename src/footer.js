@@ -118,9 +118,8 @@ function startNight() {
 
 /* Game logic for the Day Phase */
 function startDay() {
-    let actionOutputElement = document.getElementById("actionOutput");
-    actionOutputElement.innerHTML = "";
-    let targetOutputElement = document.getElementById("targetOutput");
+    resetErrors();
+    let targetOutputElement = document.getElementById("actionsResults");
     targetOutputElement.innerHTML = "";
     let actionMapping = {};
     /* Validate player actions */
@@ -133,13 +132,17 @@ function startDay() {
         let doc = document.getElementById("input" + i);
         let actionCode = doc.value;
         if (actionCode.length < 2) {
-            console.log("Error: empty action code for player " + i);
-            actionCode = "00";
+            let errorBox = document.getElementById("error");
+            errorBox.innerHTML = "Error: empty action code for player " + avatars[i];
+            errorBox.style.display = "block";
+            return;
         }
 
         let authorId = getIdForChar(actionCode[0], playerActionChars);
         if (i != authorId) {
-            console.log("Error: invalid code " + actionCode);
+            let errorBox = document.getElementById("error");
+            errorBox.innerHTML = "Error: invalid code " + actionCode + " for player " + avatars[i];
+            errorBox.style.display = "block";
         }
         let targetId = getIdForChar(actionCode[1], targetActionChars);
 
@@ -158,7 +161,7 @@ function startDay() {
                     blocked = true;
                     break;
                 case "mayor":
-                    targetOutputElement.innerHTML = targetOutputElement.innerHTML + "You were impressed by " + avatars[authorId] + " - they must be the " + rolesList[authorId].name + "<br>";
+                    appendLine("You were impressed by " + avatars[authorId] + " - they must be the " + rolesList[authorId].name, targetOutputElement);
                     break;
                 default:
             }
@@ -171,28 +174,28 @@ function startDay() {
         if (!blocked) {
             switch (rolesList[playerID].id) {
                 case "wolf":
-                    actionOutputElement.innerHTML = avatars[targetId] + " is " + rolesList[targetId].name;
+                    appendLine(avatars[targetId] + " is " + rolesList[targetId].name, targetOutputElement);
                     break;
                 case "cultist":
-                    actionOutputElement.innerHTML = "You have threatened " + avatars[targetId];
+                    appendLine("You have threatened " + avatars[targetId], targetOutputElement);
                     break;
                 case "detective":
-                    actionOutputElement.innerHTML = avatars[targetId] + " is " + rolesList[targetId].name;
+                    appendLine(avatars[targetId] + " is " + rolesList[targetId].name, targetOutputElement);
                     break;
                 case "villager":
-                    actionOutputElement.innerHTML = "You gave corn to  " + avatars[targetId];
+                    appendLine("You gave corn to  " + avatars[targetId], targetOutputElement);
                     break;
                 case "bodyguard":
-                    actionOutputElement.innerHTML = "You protected " + avatars[targetId];
+                    appendLine("You protected " + avatars[targetId], targetOutputElement);
                     break;
-                case "teller":
-                    actionOutputElement.innerHTML = avatars[targetId] + " visited " + avatars[targetId];
+                case "gossip":
+                    appendLine(avatars[targetId] + " visited " + avatars[actionMapping[targetId]], targetOutputElement);
                     break;
                 case "mayor":
-                    actionOutputElement.innerHTML = "You've impressed " + avatars[targetId] + " - they now know your identity";
+                    appendLine("You've impressed " + avatars[targetId] + " - they now know your identity", targetOutputElement);
                     break;
                 case "jester":
-                    actionOutputElement.innerHTML = "You visited " + avatars[targetId];
+                    appendLine("You visited " + avatars[targetId], targetOutputElement);
                     break;
                 default:
             }
@@ -273,13 +276,17 @@ function getFingerprint(seedNumber) {
 }
 
 function resetValues() {
-    let errorBox = document.getElementById("error");
-    errorBox.style.display = "none";
-    errorBox.innerHTML = "";
+    resetErrors();
     document.getElementById("actions").innerHTML = "";
     document.getElementById("dayBox").style.display = "none";
 
     rolesList = [];
+}
+
+function resetErrors() {
+    let errorBox = document.getElementById("error");
+    errorBox.style.display = "none";
+    errorBox.innerHTML = "";
 }
 
 function getTotalNumberOfPlayers() {
@@ -346,6 +353,12 @@ function fillRolesFromArray(array) {
 
         rulesRolesList.appendChild(role);
     }
+}
+
+function appendLine(content, list) {
+    let actionItem = document.createElement('li');
+    actionItem.innerHTML = content;
+    list.appendChild(actionItem);
 }
 
 /* onload */
