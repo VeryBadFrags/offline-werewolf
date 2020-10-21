@@ -154,16 +154,28 @@ select {
     box-shadow: 1px 1px 2px rgba(183, 28, 28, 0.4);
 }
 
+.werewolves-text {
+    color: #b71c1c;
+}
+
 .villagers {
     background-color: #E3F2FD;
     border: solid 1px #0D47A1;
     box-shadow: 1px 1px 2px rgba(13, 71, 161, 0.4);
 }
 
+.villagers-text {
+    color: #0D47A1;
+}
+
 .special {
     background-color: #F3E5F5;
     border: solid 1px #4A148C;
     box-shadow: 1px 1px 2px rgba(74, 20, 140, 0.4);
+}
+
+.special-text {
+    color: #4A148C;
 }
 
 .night {
