@@ -41,8 +41,8 @@ hr {
 
 .secret-card {
     border: 1px dashed rgba(0, 0, 0, 0.2);
-    border-radius: .25rem;
-    padding: 2px 5px;
+    border-radius: 0.25rem;
+    padding: 0.25rem 0.5rem;
 }
 
 .list {
@@ -71,6 +71,7 @@ hr {
     text-decoration: none;
     display: inline-block;
     font-size: 1rem;
+    cursor: pointer;
 }
 
 .button:hover {
@@ -127,11 +128,19 @@ select {
     border: 1px solid #004D40;
     margin: 0.3rem 0.4rem;
     padding: 7px;
+    cursor: pointer;
+    text-align: center;
+    min-width: 10rem;
 }
 
 .action-card:hover {
-    background-color: #F5F5F5;
+    background-color: #E8F5E9;
     box-shadow: 0 0 0.125em rgba(0, 0, 0, 0.2);
+}
+
+.action-card:active {
+    box-shadow: 0 0 0.063em rgba(0, 0, 0, 0.3),
+        inset 0 0 0.250em rgba(0, 0, 0, 0.2);
 }
 
 .selected {

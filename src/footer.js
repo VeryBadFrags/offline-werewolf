@@ -64,6 +64,8 @@ function startGame() {
         startNight();
     }
 
+    iterationField.value = iterationField.value * 1 + 1;
+
     document.getElementById("gameWindow").style.display = "inline-block";
     window.scrollTo(0, 0);
 }
@@ -80,13 +82,13 @@ function startNight() {
     for (let i = 0; i < rolesList.length; i++) {
         if (i != playerID) {
             let actionCard = document.createElement('div');
-            actionCard.classList.add("action-card", "card-player");
+            actionCard.classList.add("action-card", "card-current-player");
             actionCard.innerHTML = rolesList[playerID].verb + " " + avatars[i] + "<br>";
             let actionCode = playerActionChars[playerID] + targetActionChar[i]
-            actionCard.innerHTML += "Code: <strong>" + actionCode + "</strong>";
+            actionCard.innerHTML += "Code:<br>" + avatars[playerID] + " <strong>" + actionCode + "</strong>";
             actionCard.onclick = function () {
                 document.getElementById("input" + playerID).value = actionCode;
-                let otherCrads = document.getElementsByClassName("card-player");
+                let otherCrads = document.getElementsByClassName("card-current-player");
                 for (let j = 0; j < otherCrads.length; j++) {
                     otherCrads.item(j).classList.remove("selected");
                 }
@@ -96,28 +98,28 @@ function startNight() {
         }
         /* Add Action Inputs */
         let actionInput = document.createElement('input');
-        actionInput.type = "text";
+        actionInput.type = "hidden";
         actionInput.pattern = "[A-Za-z0-9]{2}";
         actionInput.maxLength = 2;
         actionInput.required = true;
         actionInput.id = "input" + i;
-        let actionInputLabel = document.createElement('label');
-        actionInputLabel.for = "input" + i;
-        actionInputLabel.innerHTML = avatars[i];
-        actionsInputList.appendChild(actionInputLabel);
         actionsInputList.appendChild(actionInput);
 
         if (i != playerID) {
+            let targetActionChars2 = playerActionChars.slice();
+            shuffle(targetActionChars2, randomNumber + 17 + i);
+
             let playerActions = document.createElement('div');
             playerActions.classList.add("flex", "roles-list");
             for (let j = 0; j < rolesList.length; j++) {
                 if (j != i) {
                     let actionCard = document.createElement('div');
-                    actionCard.classList.add("action-card", "card"+j);
-                    actionCard.innerHTML = avatars[j];
+                    actionCard.classList.add("action-card", "card" + i);
+                    let actionCode = playerActionChars[i] + targetActionChars2[j]
+                    actionCard.innerHTML = avatars[i] + "<br><strong>" + actionCode + "</strong>";
                     actionCard.onclick = function () {
-                        document.getElementById("input" + i).value = "AA";
-                        let otherCrads = document.getElementsByClassName("card"+j);
+                        document.getElementById("input" + i).value = actionCode;
+                        let otherCrads = document.getElementsByClassName("card" + i);
                         for (let k = 0; k < otherCrads.length; k++) {
                             otherCrads.item(k).classList.remove("selected");
                         }
@@ -203,13 +205,13 @@ function startDay() {
         if (!blocked) {
             switch (rolesList[playerID].id) {
                 case "wolf":
-                    appendLine("You learned that <strong>" + avatars[targetId] + "</strong> is <strong>" + rolesList[targetId].name + "</strong>", targetOutputElement);
+                    appendLine("You learned that <strong>" + avatars[targetId] + "</strong>'s role is <strong>" + rolesList[targetId].name + "</strong>", targetOutputElement);
                     break;
                 case "cultist":
                     appendLine("You have threatened <strong>" + avatars[targetId] + "</strong>", targetOutputElement);
                     break;
                 case "detective":
-                    appendLine("Your investigation showed that <strong>" + avatars[targetId] + "</strong> is <strong>" + rolesList[targetId].name + "</strong>", targetOutputElement);
+                    appendLine("Your investigation showed that <strong>" + avatars[targetId] + "</strong>'s role is <strong>" + rolesList[targetId].name + "</strong>", targetOutputElement);
                     break;
                 case "farmer":
                     appendLine("You gave 🌽 corn to  <strong>" + avatars[targetId] + "</strong>", targetOutputElement);
