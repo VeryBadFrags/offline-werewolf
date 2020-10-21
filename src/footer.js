@@ -1,5 +1,8 @@
 var intervalId;
 var playerID;
+var totalPlayers;
+var seed;
+var iterationField;
 var randomNumber;
 
 var rolesList = [];
@@ -11,15 +14,15 @@ function startGame() {
     /* Get the Game params */
     let playerSelect = document.getElementById("player");
     playerID = Number(playerSelect.options[playerSelect.selectedIndex].value);
-    let totalPlayers = getTotalNumberOfPlayers();
+    totalPlayers = getTotalNumberOfPlayers();
     if (totalPlayers > avatars.length) {
         printError("There cannot be more than " + avatars.length + " players");
         return;
     }
 
     {
-        let seed = document.getElementById("seed").value.toUpperCase();
-        let iterationField = document.getElementById("iteration");
+        seed = document.getElementById("seed").value.toUpperCase();
+        iterationField = document.getElementById("iteration");
         randomNumber = getRNG(seed, iterationField.value, totalPlayers);
 
         /* Build list of roles */
@@ -43,12 +46,6 @@ function startGame() {
             let fingerprint = getFingerprint(randomNumber);
             document.getElementById("fingerprint").innerHTML = fingerprint;
         }
-
-        /* Set Alignment */
-        /* {
-             let alignment = "Villagers";
-             document.getElementById("alignment").innerHTML = alignment;
-         } */
 
         /* Set Role */
         document.getElementById("roleField").innerHTML = rolesList[playerID].name;
@@ -126,15 +123,18 @@ function startDay() {
     let targetOutputElement = document.getElementById("actionsResults");
     targetOutputElement.innerHTML = "";
     let actionMapping = {};
+
     /* Validate player actions */
     let blocked = false;
 
+    let phaseSeed = seed;
     for (let i = 0; i < rolesList.length; i++) {
         let targetActionChars = playerActionChars.slice();
         shuffle(targetActionChars, randomNumber + 17 + i);
 
         let doc = document.getElementById("input" + i);
         let actionCode = doc.value;
+        phaseSeed += actionCode;
         if (actionCode.length < 2) {
             let errorBox = document.getElementById("error");
             errorBox.innerHTML = "Error: empty action code for player " + avatars[i];
@@ -157,17 +157,17 @@ function startDay() {
             /* Process action towards current player */
             switch (rolesList[authorId].id) {
                 case "cultist":
-                    appendLine("You have found a dead crow on your doorstep - there must be a " + rolesList[authorId].name + " in town", targetOutputElement);
+                    appendLine("You have found a dead crow on your doorstep - there must be a <strong>" + rolesList[authorId].name + "</strong> in town", targetOutputElement);
                     break;
                 case "villager":
-                    appendLine("The " + rolesList[authorId].name + " gifted you some 🌽 corn", targetOutputElement);
+                    appendLine("The <strong>" + rolesList[authorId].name + "</strong> gifted you some 🌽 corn", targetOutputElement);
                     break;
                 case "jailer":
                     blocked = true;
-                    appendLine("Your actions were blocked by the " + rolesList[authorId].name);
+                    appendLine("Your actions were blocked by the <strong>" + rolesList[authorId].name + "</strong>");
                     break;
                 case "mayor":
-                    appendLine("You were impressed by " + avatars[authorId] + " - they must be the " + rolesList[authorId].name, targetOutputElement);
+                    appendLine("You were impressed by <strong>" + avatars[authorId] + "</strong> - they must be the <strong>" + rolesList[authorId].name + "</strong>", targetOutputElement);
                     break;
                 default:
             }
@@ -180,36 +180,36 @@ function startDay() {
         if (!blocked) {
             switch (rolesList[playerID].id) {
                 case "wolf":
-                    appendLine("You learned that " + avatars[targetId] + " is <strong>" + rolesList[targetId].name + "</strong>", targetOutputElement);
+                    appendLine("You learned that <strong>" + avatars[targetId] + "</strong> is <strong>" + rolesList[targetId].name + "</strong>", targetOutputElement);
                     break;
                 case "cultist":
-                    appendLine("You have threatened " + avatars[targetId], targetOutputElement);
+                    appendLine("You have threatened <strong>" + avatars[targetId] + "</strong>", targetOutputElement);
                     break;
                 case "detective":
-                    appendLine("Your investigation showed that " + avatars[targetId] + " is <strong>" + rolesList[targetId].name + "</strong>", targetOutputElement);
+                    appendLine("Your investigation showed that <strong>" + avatars[targetId] + "</strong> is <strong>" + rolesList[targetId].name + "</strong>", targetOutputElement);
                     break;
                 case "villager":
-                    appendLine("You gave 🌽 corn to  " + avatars[targetId], targetOutputElement);
+                    appendLine("You gave 🌽 corn to  <strong>" + avatars[targetId] + "</strong>", targetOutputElement);
                     break;
                 case "bodyguard":
-                    appendLine("You protected " + avatars[targetId], targetOutputElement);
+                    appendLine("You protected <strong>" + avatars[targetId] + "</strong>", targetOutputElement);
                     break;
                 case "gossip":
-                    appendLine("You saw " + avatars[targetId] + " visit " + avatars[actionMapping[targetId]], targetOutputElement);
+                    appendLine("You saw <strong>" + avatars[targetId] + "</strong> visit <strong>" + avatars[actionMapping[targetId]] + "</strong>", targetOutputElement);
                     break;
                 case "teller":
-                    appendLine("You divined " + avatars[targetId] + " and found out they are part of the <strong>" + rolesList[targetId].team + "</strong>", targetOutputElement);
+                    appendLine("You divined <strong>" + avatars[targetId] + "</strong> and found out they are part of the <strong>" + rolesList[targetId].team + "</strong>", targetOutputElement);
                     break;
                 case "mayor":
-                    appendLine("You've impressed " + avatars[targetId] + " - they now know your identity", targetOutputElement);
+                    appendLine("You've impressed <strong>" + avatars[targetId] + "</strong> - they know your identity", targetOutputElement);
                     break;
                 case "jester":
-                    appendLine("You visited " + avatars[targetId], targetOutputElement);
+                    appendLine("You visited <strong>" + avatars[targetId] + "</strong>", targetOutputElement);
                     break;
                 default:
             }
         } else {
-
+            /* The actions of the player were blocked */
         }
     }
 
@@ -218,6 +218,12 @@ function startDay() {
     /* Start timer */
     let timer = document.getElementById('timer');
     startTimer(60 * 5, timer, "🔔 Time's up! Who should you exile?");
+
+    {
+        let newRandomNumber = getRNG(phaseSeed, iterationField.value, totalPlayers);
+        let fingerprint = getFingerprint(newRandomNumber);
+        document.getElementById("fingerprint").innerHTML = fingerprint;
+    }
 
     document.getElementById("gameMode").innerHTML = "Day Phase - Debate and vote to exile a werewolf";
     document.getElementById("dayBox").style.display = "block";
@@ -244,10 +250,10 @@ function getIdForChar(char, charsList) {
 }
 
 /* Pseudo-LFSR, it just needs to be fast and unpredictable */
-function getRNG(seed, iteration, totalPlayers) {
+function getRNG(currentSeed, iteration, totalPlayers) {
     let startDate = 0;
-    for (let i = 0; i < seed.length; i++) {
-        let charCode = seed.charCodeAt(i) + iteration + totalPlayers;
+    for (let i = 0; i < currentSeed.length; i++) {
+        let charCode = currentSeed.charCodeAt(i) + iteration + totalPlayers;
         startDate += charCode * (i + 1);
     }
 
