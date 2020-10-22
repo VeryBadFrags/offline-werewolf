@@ -45,6 +45,7 @@
             <br>
             <div id="secretBlock" class="secret-card">
                 <div>Role: <strong id="roleField"></strong></div>
+                <br>
                 <div><span id="actionVerbField"></span></div>
                 <!-- Identity of other players -->
                 <div id="playersInfo"></div>
@@ -53,11 +54,11 @@
 
                 <!-- Night Phase -->
                 <div id="nightBox">
-                    <div>Select an action and share your Action Code
+                    <div>Select your action and share the corresponding Action Code
                         <div id="actions" class="flex roles-list"></div>
                     </div>
                     <hr>
-                    <div><span>Input the Action Code of the other players:</span></div>
+                    <div><span>Input the Action Code from the other players</span></div>
                     <div id="actionInput"></div>
                     <button class="button" onclick="startDay();">✅ End turn</button>
                 </div>
@@ -93,7 +94,7 @@
 
         <!-- Rules -->
         <div class="card">
-            <h3>Rules</h3>
+            <h3>📖 Rules</h3>
             <!-- Roles list -->
             <div id="rulesRolesList" class="flex roles-list"></div>
             <div>
@@ -130,7 +131,7 @@
                             <li>Players share their knowledge and try to identify the werewolves
                             </li>
                             <li>At the end of the timer, players must vote for a player to Exile</li>
-                            <li>If there is a Draw, all players with the maximum number of votes die</li>
+                            <li>If there is a draw, all the players that are tied are exiled</li>
                         </ul>
                     </li>
                 </ul>
@@ -138,11 +139,10 @@
             <div>
                 <strong>Win condition</strong>
                 <ul>
-                    <li><span class="werewolves-text">Werewolves and Cultists</span> win if no 🐺&nbsp;Werewolf is
+                    <li><span class="werewolves-text">Werewolves and Cultists</span> win if no <span class="werewolves-text">🐺&nbsp;Werewolf</span> is
                         exiled</li>
-                    <li><span class="villagers-text">Villagers</span> win if a 🐺&nbsp;Werewolf is exiled (but lose if
-                        it's a
-                        😈&nbsp;Cultist)</li>
+                    <li><span class="villagers-text">Villagers</span> win if at least one <span class="werewolves-text">🐺&nbsp;Werewolf</span> is exiled
+                        (<span class="werewolves-text">😈&nbsp;Cultists</span> do not count as <span class="werewolves-text">Werewolves</span>)</li>
                     <li><span class="special-text">🤡&nbsp;Jester</span> wins by getting exiled - Everyone else loses</li>
                 </ul>
             </div>

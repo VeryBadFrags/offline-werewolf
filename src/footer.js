@@ -94,9 +94,9 @@ function startNight() {
         if (iAuthor != playerID) {
             let actionCard = document.createElement('div');
             actionCard.classList.add("action-card", "card-current-player");
-            actionCard.innerHTML = rolesList[playerID].verb + " " + avatars[iAuthor] + "<br>";
+            actionCard.innerHTML = "<div>" + rolesList[playerID].verb + " " + avatars[iAuthor] + "</div><br>";
             let actionCode = playerActionChars[playerID] + targetActionChar[iAuthor]
-            actionCard.innerHTML += "Code:<br>" + avatars[playerID] + " <strong>" + actionCode + "</strong>";
+            actionCard.innerHTML += "Action Code<br>" + avatars[playerID] + " <strong>" + actionCode + "</strong>";
             actionCard.onclick = function () {
                 document.getElementById("input" + playerID).value = actionCode;
                 let otherCrads = document.getElementsByClassName("card-current-player");
@@ -180,7 +180,7 @@ function startDay() {
         phaseSeed += actionCode;
         if (actionCode.length < 2) {
             let errorBox = document.getElementById("error");
-            errorBox.innerHTML = "Error: missing Action Code for " + avatars[i];
+            errorBox.innerHTML = "Error: you must pick the Action Code for <strong>" + avatars[i] + "</strong>";
             errorBox.style.display = "block";
             return;
         }
