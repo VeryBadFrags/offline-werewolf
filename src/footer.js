@@ -177,19 +177,19 @@ function startDay() {
         phaseSeed += actionCode;
         if (actionCode.length < 2) {
             let errorBox = document.getElementById("error");
-            errorBox.innerHTML = "Error: empty action code for player " + avatars[i];
+            errorBox.innerHTML = "Error: missing Action Code for " + avatars[i];
             errorBox.style.display = "block";
             return;
         }
 
         let authorId = getIdForChar(actionCode[0], playerActionChars);
         if (i != authorId) {
-            printError("Error: invalid code " + actionCode + " for player " + avatars[i]);
+            printError("Error: invalid Action Code " + actionCode + " for " + avatars[i]);
             return;
         }
         let targetId = getIdForChar(actionCode[1], targetActionChars);
         if(targetId == -1) {
-            printError("Error: invalid code " + actionCode + " for player " + avatars[i]);
+            printError("Error: invalid Action Code " + actionCode + " for " + avatars[i]);
             return;
         }
 
