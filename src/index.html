@@ -46,19 +46,22 @@
             <div id="secretBlock" class="secret-card">
                 <div>Role: <strong id="roleField"></strong></div>
                 <div><span id="actionVerbField"></span></div>
-
+                <!-- Identity of other players -->
+                <div id="playersInfo"></div>
+                
                 <br>
 
+                <!-- Night Phase -->
                 <div id="nightBox">
-                    <div>Select an action
+                    <div>Select an action and share your Action Code
                         <div id="actions" class="flex roles-list"></div>
                     </div>
                     <hr>
-                    <div><span>Input the actions of the other players:</span></div>
+                    <div><span>Input the Action Code of the other players:</span></div>
                     <div id="actionInput"></div>
                     <button class="button" onclick="startDay();">✅ End turn</button>
                 </div>
-
+                <!-- Day Phase -->
                 <div id="dayBox">
                     <div>During the night:
                         <ul id="actionsResults"></ul>
@@ -88,9 +91,10 @@
             <button id="startButton" class="button" onclick="startGame();">🏁 Start New Game</button>
         </div>
 
-        <!-- Roles -->
+        <!-- Rules -->
         <div class="card">
             <h3>Rules</h3>
+            <!-- Roles list -->
             <div id="rulesRolesList" class="flex roles-list">
             </div>
             <br>
@@ -98,20 +102,24 @@
             <ul>
                 <li>All players must input the same 🎲 Game Code, 🔢 Round Number, and 👥 Total players count</li>
                 <li>Players must pick a <strong>unique</strong> 👤 Avatar</li>
-                <li>When the game starts, players must confirm that they have the same Phase Fingerprint (the game is void otherwise)</li>
+                <li>When the game starts, players must confirm that they have the same Phase Fingerprint (the game is
+                    void otherwise)</li>
             </ul>
             Game phases:
             <ul>
                 <li>During the Night Phase, players pick an action and share their Action Code with the others</li>
                 <li>Players must input the Action Code for the other players and end the turn</li>
-                <li>When the Day Phase starts, players must confirm that they have the same Phase Fingerprint (the game is void otherwise)</li>
+                <li>When the Day Phase starts, players must confirm that they have the same Phase Fingerprint (the game
+                    is void otherwise)</li>
                 <li>During the Day Phase, players share their knowledge and try to identify who the werewolves are</li>
                 <li>At the end of the timer, players must vote for a player to Exile</li>
-                <li>The game ends when a majority is reached - if there is no majority, the <span class="werewolves-text">werewolves</span> win</li>
+                <li>The game ends when a majority is reached - if there is no majority, the <span
+                        class="werewolves-text">werewolves</span> win</li>
             </ul>
             Win conditions:
             <ul>
-                <li><span class="werewolves-text">Werewolves and Cultists</span> win if a Villager or a Cultist is exiled (the exiled Cultist also wins)</li>
+                <li><span class="werewolves-text">Werewolves and Cultists</span> win if a Villager or a Cultist is
+                    exiled (the exiled Cultist also wins)</li>
                 <li><span class="villagers-text">Villagers</span> win if a 🐺 Werewolf is exiled</li>
                 <li>Everyone loses if the <span class="special-text">🤡 Jester</span> is exiled</li>
             </ul>

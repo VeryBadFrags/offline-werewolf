@@ -124,6 +124,7 @@ select {
 }
 
 .action-card {
+    background-color: #FAFAFA;
     border-radius: .25rem;
     border: 1px solid #004D40;
     margin: 0.3rem 0.4rem;
@@ -146,6 +147,10 @@ select {
 .selected {
     background-color: #C8E6C9;
     border: 1px solid #2E7D32;
+}
+
+.selected:hover {
+    background-color: #C8E6C9;
 }
 
 .werewolves {

@@ -23,7 +23,7 @@ function startGame() {
     {
         seed = document.getElementById("seed").value.toUpperCase();
         iterationField = document.getElementById("iteration");
-        randomNumber = getRNG(seed, iterationField.value, totalPlayers);
+        randomNumber = getRNG(seed, iterationField.value);
 
         /* Build list of roles */
         let suffledVillagers = vilRoles.slice();
@@ -54,12 +54,17 @@ function startGame() {
         /* Set Player name */
         document.getElementById("playerid").innerHTML = avatars[playerID];
 
-        /* Prepare Randomness */
-        playerActionChars = [];
-        for (let i = 0; i < characters.length; i++) {
-            playerActionChars.push(characters.charAt(i));
+        /* Display players info to Werewolves */
+        if (rolesList[playerID].team === "werewolves") {
+            let playersInfoElem = document.getElementById("playersInfo");
+            let wolves = [];
+            for (let i = 0; i < rolesList.length; i++) {
+                if (rolesList[i].id === "wolf") {
+                    wolves.push("<strong>" + avatars[i] + "</strong>");
+                }
+            }
+            playersInfoElem.innerHTML = "The <span class='werewolves-text'>Werewolves</span> are: " + wolves.join(", ") + "<br>";
         }
-        shuffle(playerActionChars, randomNumber + 2);
 
         startNight();
     }
@@ -72,6 +77,12 @@ function startGame() {
 
 /* Game logic for the Night Phase */
 function startNight() {
+    playerActionChars = [];
+    for (let i = 0; i < characters.length; i++) {
+        playerActionChars.push(characters.charAt(i));
+    }
+    shuffle(playerActionChars, randomNumber + 2);
+
     let targetActionChar = playerActionChars.slice();
     shuffle(targetActionChar, randomNumber + 17 + playerID);
 
@@ -79,12 +90,12 @@ function startNight() {
     let actionsList = document.getElementById("actions");
     let actionsInputList = document.getElementById("actionInput");
     actionsInputList.innerHTML = "";
-    for (let i = 0; i < rolesList.length; i++) {
-        if (i != playerID) {
+    for (let iAuthor = 0; iAuthor < rolesList.length; iAuthor++) {
+        if (iAuthor != playerID) {
             let actionCard = document.createElement('div');
             actionCard.classList.add("action-card", "card-current-player");
-            actionCard.innerHTML = rolesList[playerID].verb + " " + avatars[i] + "<br>";
-            let actionCode = playerActionChars[playerID] + targetActionChar[i]
+            actionCard.innerHTML = rolesList[playerID].verb + " " + avatars[iAuthor] + "<br>";
+            let actionCode = playerActionChars[playerID] + targetActionChar[iAuthor]
             actionCard.innerHTML += "Code:<br>" + avatars[playerID] + " <strong>" + actionCode + "</strong>";
             actionCard.onclick = function () {
                 document.getElementById("input" + playerID).value = actionCode;
@@ -102,25 +113,25 @@ function startNight() {
         actionInput.pattern = "[A-Za-z0-9]{2}";
         actionInput.maxLength = 2;
         actionInput.required = true;
-        actionInput.id = "input" + i;
+        actionInput.id = "input" + iAuthor;
         actionsInputList.appendChild(actionInput);
 
-        if (i != playerID) {
+        if (iAuthor != playerID) {
             let targetActionChars2 = playerActionChars.slice();
-            shuffle(targetActionChars2, randomNumber + 17 + i);
+            shuffle(targetActionChars2, randomNumber + 17 + iAuthor);
 
             let playerActions = document.createElement('div');
             playerActions.classList.add("flex", "roles-list");
             let iPlayerActionCodeCards = [];
             for (let jTarget = 0; jTarget < rolesList.length; jTarget++) {
-                if (jTarget != i) {
+                if (jTarget != iAuthor) {
                     let actionCard = document.createElement('div');
-                    actionCard.classList.add("action-card", "card" + i);
-                    let actionCode = playerActionChars[i] + targetActionChars2[jTarget]
-                    actionCard.innerHTML = avatars[i] + "<br><strong>" + actionCode + "</strong>";
+                    actionCard.classList.add("action-card", "card" + iAuthor);
+                    let actionCode = playerActionChars[iAuthor] + targetActionChars2[jTarget]
+                    actionCard.innerHTML = avatars[iAuthor] + "<br><strong>" + actionCode + "</strong>";
                     actionCard.onclick = function () {
-                        document.getElementById("input" + i).value = actionCode;
-                        let otherCrads = document.getElementsByClassName("card" + i);
+                        document.getElementById("input" + iAuthor).value = actionCode;
+                        let otherCrads = document.getElementsByClassName("card" + iAuthor);
                         for (let k = 0; k < otherCrads.length; k++) {
                             otherCrads.item(k).classList.remove("selected");
                         }
@@ -129,8 +140,8 @@ function startNight() {
                     iPlayerActionCodeCards.push(actionCard);
                 }
             }
-            shuffle(iPlayerActionCodeCards, randomNumber * (1+i));
-            for(let l = 0; l < iPlayerActionCodeCards.length; l++) {
+            shuffle(iPlayerActionCodeCards, randomNumber * (1 + iAuthor));
+            for (let l = 0; l < iPlayerActionCodeCards.length; l++) {
                 playerActions.appendChild(iPlayerActionCodeCards[l]);
             }
             actionsInputList.appendChild(playerActions);
@@ -249,7 +260,7 @@ function startDay() {
     startTimer(60 * 5, timer, "🔔 Time's up! Who should you exile?");
 
     {
-        let newRandomNumber = getRNG(phaseSeed, iterationField.value, totalPlayers);
+        let newRandomNumber = getRNG(phaseSeed, iterationField.value);
         let fingerprint = getFingerprint(newRandomNumber);
         document.getElementById("fingerprint").innerHTML = fingerprint;
     }
@@ -279,7 +290,7 @@ function getIdForChar(char, charsList) {
 }
 
 /* Pseudo-LFSR, it just needs to be fast and unpredictable */
-function getRNG(currentSeed, iteration, totalPlayers) {
+function getRNG(currentSeed, iteration) {
     let startDate = 0;
     for (let i = 0; i < currentSeed.length; i++) {
         let charCode = currentSeed.charCodeAt(i) + iteration + totalPlayers;
@@ -333,6 +344,7 @@ function resetValues() {
     resetErrors();
     document.getElementById("actions").innerHTML = "";
     document.getElementById("dayBox").style.display = "none";
+    document.getElementById("playersInfo").innerHTML = "";
 
     rolesList = [];
 }
@@ -430,7 +442,7 @@ function appendLine(content, list) {
 const playerListElement = document.getElementById("player");
 function setPlayersList() {
     removeOptions(playerListElement);
-    let totalPlayers = getTotalNumberOfPlayers();
+    totalPlayers = getTotalNumberOfPlayers();
     for (let i = 0; i < avatars.length && i < totalPlayers; i++) {
         let opt = document.createElement('option');
         opt.value = i;
