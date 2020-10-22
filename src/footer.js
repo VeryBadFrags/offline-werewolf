@@ -140,11 +140,14 @@ function startNight() {
                     iPlayerActionCodeCards.push(actionCard);
                 }
             }
+            
             shuffle(iPlayerActionCodeCards, randomNumber * (1 + iAuthor));
             for (let l = 0; l < iPlayerActionCodeCards.length; l++) {
                 playerActions.appendChild(iPlayerActionCodeCards[l]);
             }
             actionsInputList.appendChild(playerActions);
+            let separator = document.createElement('br');
+            actionsInputList.appendChild(separator);
         }
     }
 
