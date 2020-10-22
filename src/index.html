@@ -95,8 +95,7 @@
         <div class="card">
             <h3>Rules</h3>
             <!-- Roles list -->
-            <div id="rulesRolesList" class="flex roles-list">
-            </div>
+            <div id="rulesRolesList" class="flex roles-list"></div>
             <div>
                 <ul>
                     <li>👥&nbsp;3-10 Players</li>
@@ -105,35 +104,46 @@
                 </ul>
             </div>
             <div>
-                Setup:
+                <strong>Setup</strong>
                 <ul>
-                    <li>All players must input the same 🎲&nbsp;Game Code, 🔢&nbsp;Round Number, and 👥&nbsp;Total players count</li>
+                    <li>All players must input the same 🎲&nbsp;Game Code, 🔢&nbsp;Round Number, and 👥&nbsp;Total
+                        players count</li>
                     <li>Players must pick a <strong>unique</strong> 👤&nbsp;Avatar</li>
                     <li>When the game starts, players must confirm that they have the same Phase Fingerprint (the game
                         is void otherwise)</li>
                 </ul>
             </div>
             <div>
-                Game phases:
+                <strong>Game phases</strong>
                 <ul>
-                    <li>During the Night Phase, players pick an action and share their Action Code with the others</li>
-                    <li>Players must input the Action Code for the other players and end the turn</li>
-                    <li>When the Day Phase starts, players must confirm that they have the same Phase Fingerprint (the
-                        game
-                        is void otherwise)</li>
-                    <li>During the Day Phase, players share their knowledge and try to identify who the werewolves are
+                    <li>Night
+                        <ul>
+                            <li>Players pick an action and share their Action Code with the others</li>
+                            <li>Players must input the respective Action Code from each player and end the turn</li>
+                        </ul>
                     </li>
-                    <li>At the end of the timer, players must vote for a player to Exile</li>
-                    <li>The game ends when a majority is reached - if there is no majority, the <span
-                            class="werewolves-text">werewolves</span> win</li>
+                    <li>Day
+                        <ul>
+                            <li>Players must confirm that they have the same Phase Fingerprint (the
+                                game
+                                is void otherwise)</li>
+                            <li>During the Day Phase, players share their knowledge and try to identify who the
+                                werewolves are
+                            </li>
+                            <li>At the end of the timer, players must vote for a player to Exile</li>
+                            <li>If there is a Draw, all players with the maximum number of votes die</li>
+                        </ul>
+                    </li>
                 </ul>
             </div>
             <div>
-                Win conditions:
+                <strong>Win condition</strong>
                 <ul>
-                    <li><span class="werewolves-text">Werewolves and Cultists</span> win if a Villager or a Cultist is
-                        exiled (including the exiled 😈&nbsp;Cultist)</li>
-                    <li><span class="villagers-text">Villagers</span> win if a 🐺&nbsp;Werewolf is exiled (but not a 😈&nbsp;Cultist)</li>
+                    <li><span class="werewolves-text">Werewolves and Cultists</span> win if no 🐺&nbsp;Werewolf is
+                        exiled</li>
+                    <li><span class="villagers-text">Villagers</span> win if a 🐺&nbsp;Werewolf is exiled (but lose if
+                        it's a
+                        😈&nbsp;Cultist)</li>
                     <li>Everyone loses if the <span class="special-text">🤡&nbsp;Jester</span> is exiled</li>
                 </ul>
             </div>
