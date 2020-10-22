@@ -184,12 +184,14 @@ function startDay() {
 
         let authorId = getIdForChar(actionCode[0], playerActionChars);
         if (i != authorId) {
-            let errorBox = document.getElementById("error");
-            errorBox.innerHTML = "Error: invalid code " + actionCode + " for player " + avatars[i];
-            errorBox.style.display = "block";
+            printError("Error: invalid code " + actionCode + " for player " + avatars[i]);
             return;
         }
         let targetId = getIdForChar(actionCode[1], targetActionChars);
+        if(targetId == -1) {
+            printError("Error: invalid code " + actionCode + " for player " + avatars[i]);
+            return;
+        }
 
         actionMapping[authorId] = targetId;
 
@@ -286,7 +288,7 @@ function getIdForChar(char, charsList) {
         }
     }
     console.log("Error: action code not found");
-    return 0;
+    return -1;
 }
 
 /* Pseudo-LFSR, it just needs to be fast and unpredictable */
