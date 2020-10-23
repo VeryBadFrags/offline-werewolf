@@ -5,13 +5,18 @@ $danger: #b71c1c;
 $primary1: #0277bd;
 $primary2: #0288d1;
 $primary3: #03a9f4;
+$primaryBorder: #124d77;
 
 $secondary1: #90a4ae;
 $secondary2: #b2ebf2;
+$secondary3: #e1f5fe;
+$secondaryBorder: #9e9e9e;
 
-$borderRadius: 4px;
+$success1: #e8f5e9;
+$success2:  #c8e6c9;
+$successBorder: #2e7d32;
 
-$werewolves: $danger;
+$werewolves: #b71c1c;
 $werewolvesLight: #ffebee;
 $villagers: #0d47a1;
 $villagersLight: #e3f2fd;
@@ -19,6 +24,9 @@ $special: #4a148c;
 $specialLight: #f3e5f5;
 
 $night: #1a237e;
+$day: #f57f17;
+
+$borderRadius: 4px;
 
 @function calculateRem($size) {
     $remSize: $size / 16px;
@@ -105,7 +113,7 @@ hr {
 .btn-primary {
     box-shadow: 1px 1px 5px $transparentBlack2, inset 0px 1px 0px 0px $primary3;
     background: linear-gradient(to bottom, $primary2 5%, $primary1 100%);
-    border: 1px solid #124d77;
+    border: 1px solid $primaryBorder;
     color: #fff;
     padding: 6px 24px;
     text-decoration: none;
@@ -121,15 +129,15 @@ hr {
 }
 
 .btn-outline {
-    background: linear-gradient(to bottom, #fff 5%, #e1f5fe 100%);
-    border: 1px solid #124d77;
+    background: linear-gradient(to bottom, #fff 5%, $secondary3 100%);
+    border: 1px solid $primaryBorder;
     color: #000;
     padding: 6px 24px;
     text-decoration: none;
 }
 
 .btn-outline:hover {
-    background: linear-gradient(to bottom, #e1f5fe 5%, #fff 100%);
+    background: linear-gradient(to bottom, $secondary3 5%, #fff 100%);
 }
 
 .btn-outline:active {
@@ -177,9 +185,9 @@ select {
 }
 
 .action-card {
-    background: linear-gradient(to bottom, #fff 5%, #e1f5fe 100%);
+    background: linear-gradient(to bottom, #fff 5%, $secondary3 100%);
     border-radius: $borderRadius;
-    border: 1px solid #9e9e9e;
+    border: 1px solid $secondaryBorder;
     box-shadow: 1px 1px 4px $transparentBlack3;
     cursor: pointer;
     margin: 5px 6px;
@@ -189,7 +197,7 @@ select {
 }
 
 .action-card:hover {
-    background: linear-gradient(to bottom, #e1f5fe 5%, #fff 100%);
+    background: linear-gradient(to bottom, $secondary3 5%, #fff 100%);
     box-shadow: 1px 1px 2px $transparentBlack3;
 }
 
@@ -200,18 +208,18 @@ select {
 }
 
 .selected {
-    background: linear-gradient(to bottom, #e8f5e9 5%, #c8e6c9 100%);
-    border: 1px solid #2e7d32;
+    background: linear-gradient(to bottom, $success1 5%,$success2 100%);
+    border: 1px solid $successBorder;
 }
 
 .selected:hover {
-    background: linear-gradient(to bottom, #e8f5e9 5%, #c8e6c9 100%);
+    background: linear-gradient(to bottom, $success1 5%,$success2 100%);
 }
 
 .werewolves {
     border: solid 1px $werewolves;
     background-color: $werewolvesLight;
-    box-shadow: 1px 1px 2px rgba(183, 28, 28, 0.3);
+    box-shadow: 1px 1px 2px rgba($werewolves, 0.3);
 }
 
 .werewolves-text {
@@ -243,5 +251,5 @@ select {
 }
 
 .day {
-    border: solid 1px #f57f17;
+    border: solid 1px $day;
 }
