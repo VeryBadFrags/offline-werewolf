@@ -4,17 +4,26 @@ $danger: #b71c1c;
 
 $primary1: #0277bd;
 $primary2: #0288d1;
+$primary3: #03a9f4;
+
+$secondary1: #90a4ae;
+$secondary2: #b2ebf2;
 
 $borderRadius: 4px;
 
 $werewolves: $danger;
 $werewolvesLight: #ffebee;
 $villagers: #0d47a1;
-$villagersLight:  #e3f2fd;
+$villagersLight: #e3f2fd;
 $special: #4a148c;
 $specialLight: #f3e5f5;
 
 $night: #1a237e;
+
+@function calculateRem($size) {
+    $remSize: $size / 16px;
+    @return #{$remSize}rem;
+}
 
 body {
     font-family: Arial, Helvetica, sans-serif;
@@ -22,7 +31,7 @@ body {
 }
 
 h1 {
-    margin-bottom: 1rem;
+    margin-bottom: 16px;
     text-shadow: 1px 1px 0px $transparentBlack2;
 }
 
@@ -31,7 +40,7 @@ h3 {
 }
 
 hr {
-    margin: 1rem;
+    margin: 16px;
 }
 
 .flex {
@@ -42,12 +51,12 @@ hr {
 }
 
 .card {
-    border: 0.063rem solid #90a4ae;
+    border: 1px solid $secondary1;
     border-radius: $borderRadius;
     box-shadow: 1px 1px 3px $transparentBlack2;
-    margin: 0.75rem 0.75rem;
-    padding: 1rem 1.25rem;
-    max-width: 40em;
+    margin: 12px 12px;
+    padding: 16px 20px;
+    max-width: 640px;
     text-align: left;
     vertical-align: top;
     flex-grow: 1;
@@ -60,18 +69,18 @@ hr {
 .secret-card {
     border: 1px dashed $transparentBlack2;
     border-radius: $borderRadius;
-    padding: 0.25rem 0.5rem;
+    padding: 4px 8px;
 }
 
 .list {
     list-style-type: none;
-    font-size: 1.1rem;
-    padding-left: 1.25rem;
+    font-size: 17px;
+    padding-left: 20px;
     margin-bottom: 0;
 }
 
 .alert {
-    border: 0.063rem solid $danger;
+    border: 1px solid $danger;
     border-radius: $borderRadius;
     box-shadow: 1px 1px 5px rgba($danger, 0.3);
     color: $danger;
@@ -82,9 +91,9 @@ hr {
     box-shadow: 1px 1px 5px $transparentBlack2;
     cursor: pointer;
     display: inline-block;
-    font-size: 0.9375rem;
-    margin-bottom: 0.625rem;
-    margin-top: 0.938rem;
+    font-size: 15px;
+    margin-bottom: 10px;
+    margin-top: 15px;
     width: 100%;
 }
 
@@ -94,7 +103,7 @@ hr {
 }
 
 .btn-primary {
-    box-shadow: 1px 1px 5px $transparentBlack2, inset 0px 1px 0px 0px #03a9f4;
+    box-shadow: 1px 1px 5px $transparentBlack2, inset 0px 1px 0px 0px $primary3;
     background: linear-gradient(to bottom, $primary2 5%, $primary1 100%);
     border: 1px solid #124d77;
     color: #fff;
@@ -108,7 +117,7 @@ hr {
 }
 
 .btn-primary:active {
-    box-shadow: 1px 1px 2px $transparentBlack2, inset 0px 1px 0px 0px #03a9f4;
+    box-shadow: 1px 1px 2px $transparentBlack2, inset 0px 1px 0px 0px $primary3;
 }
 
 .btn-outline {
@@ -128,25 +137,25 @@ hr {
 }
 
 .large {
-    font-size: 1.5rem;
+    font-size: 24px;
 }
 
 .small {
-    font-size: 0.75rem;
+    font-size: 12px;
 }
 
 input,
 select {
     display: block;
     width: 100%;
-    border: 0.188rem solid #b2ebf2;
+    border: 3px solid $secondary2;
     border-radius: $borderRadius;
-    padding: 0.625rem 0.75rem;
-    margin: 0.5rem 0;
+    padding: 10px 12px;
+    margin: 8px 0;
     margin-top: 0;
-    margin-bottom: 0.938rem;
+    margin-bottom: 15px;
     box-sizing: border-box;
-    font-size: 1rem;
+    font-size: 16px;
 }
 
 .custom-select {
@@ -161,9 +170,9 @@ select {
 
 .role-card {
     border-radius: $borderRadius;
-    margin: 0.3rem 0.4rem;
-    padding: 0.7rem;
-    flex-basis: 10rem;
+    margin: 5px 6px;
+    padding: 11px;
+    flex-basis: 160px;
     flex-grow: 1;
 }
 
@@ -173,8 +182,8 @@ select {
     border: 1px solid #9e9e9e;
     box-shadow: 1px 1px 4px $transparentBlack3;
     cursor: pointer;
-    margin: 0.3rem 0.4rem;
-    min-width: 6rem;
+    margin: 5px 6px;
+    min-width: 96px;
     padding: 7px;
     text-align: center;
 }
