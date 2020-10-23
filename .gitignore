@@ -1,7 +1,8 @@
 release/
+*.css
 
-# Created by https://www.toptal.com/developers/gitignore/api/python,visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=python,visualstudiocode
+# Created by https://www.toptal.com/developers/gitignore/api/sass,python,visualstudiocode
+# Edit at https://www.toptal.com/developers/gitignore?templates=sass,python,visualstudiocode
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
@@ -117,6 +118,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+pythonenv*
 
 # Spyder project settings
 .spyderproject
@@ -139,10 +141,19 @@ dmypy.json
 # pytype static type analyzer
 .pytype/
 
+# profiling data
+.prof
+
+### Sass ###
+.sass-cache/
+*.css.map
+*.sass.map
+*.scss.map
+
 ### VisualStudioCode ###
 .vscode/*
 !.vscode/settings.json
-!.vscode/tasks.json
+.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
 *.code-workspace
@@ -150,5 +161,6 @@ dmypy.json
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
 .history
+.ionide
 
-# End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode
+# End of https://www.toptal.com/developers/gitignore/api/sass,python,visualstudiocode

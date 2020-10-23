@@ -153,7 +153,7 @@ function startNight() {
 
     /* Start timer */
     let timer = document.getElementById('timer');
-    startTimer(60 * 1, timer, "🔔 Time's up! Share your action code with the others");
+    startTimer(60 * 2, timer, "🔔 Time's up! Share your action code with the others");
 
     document.getElementById("gameMode").innerHTML = "🌙 Night Phase - Do not communication with other players";
     document.getElementById("nightBox").style.display = "block";

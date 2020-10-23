@@ -2,6 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 
 <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-TTK47Q4PZL"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-TTK47Q4PZL');
+    </script>
+
     <meta charset="UTF-8">
     <meta name="description"
         content="Play Werewolf anywhere with your friends, even without an internet connection. Offline Werewolf is hidden role game about information and deceit.">
@@ -40,9 +50,8 @@
             <div id="timer"></div>
 
             <div>
-                <button class="button" onclick="showHide('secretBlock');">👓 Show/Hide</button>
+                <button class="button btn-outline" onclick="showHide('secretBlock');">👓 Show/Hide</button>
             </div>
-            <br>
             <div id="secretBlock" class="secret-card">
                 <div>Role: <strong id="roleField"></strong></div>
                 <br>
@@ -60,7 +69,7 @@
                     <hr>
                     <div><span>Input the Action Code from the other players</span></div>
                     <div id="actionInput"></div>
-                    <button class="button" onclick="startDay();">✅ End turn</button>
+                    <button class="button btn-primary" onclick="startDay();">✅ End turn</button>
                 </div>
                 <!-- Day Phase -->
                 <div id="dayBox">
@@ -89,7 +98,7 @@
             <div class="custom-select">
                 <select name="player" id="player"></select>
             </div>
-            <button id="startButton" class="button" onclick="startGame();">🏁 Start New Game</button>
+            <button id="startButton" class="button btn-primary" onclick="startGame();">🏁 Start New Game</button>
         </div>
 
         <!-- Rules -->
@@ -99,9 +108,9 @@
             <div id="rulesRolesList" class="flex roles-list"></div>
             <div>
                 <ul>
-                    <li>👥&nbsp;3-10 Players</li>
-                    <li>⏱&nbsp;7 Minutes Rounds</li>
-                    <li>📱&nbsp;1 Device per Player</li>
+                    <li>👥 3-10 Players</li>
+                    <li>⏱ 7 Minutes Rounds</li>
+                    <li>📱 1 Device per Player</li>
                 </ul>
             </div>
             <div>
@@ -139,11 +148,14 @@
             <div>
                 <strong>Win condition</strong>
                 <ul>
-                    <li><span class="werewolves-text">Werewolves and Cultists</span> win if no <span class="werewolves-text">🐺&nbsp;Werewolf</span> is
-                        exiled</li>
-                    <li><span class="villagers-text">Villagers</span> win if at least one <span class="werewolves-text">🐺&nbsp;Werewolf</span> is exiled
-                        (<span class="werewolves-text">😈&nbsp;Cultists</span> do not count as <span class="werewolves-text">Werewolves</span>)</li>
-                    <li><span class="special-text">🤡&nbsp;Jester</span> wins by getting exiled - Everyone else loses</li>
+                    <li><span class="werewolves-text">Werewolves and Cultists</span> win if no <span
+                            class="werewolves-text">🐺&nbsp;Werewolf</span> is exiled</li>
+                    <li><span class="villagers-text">Villagers</span> win if at least one <span
+                            class="werewolves-text">🐺&nbsp;Werewolf</span> is exiled
+                        (<span class="werewolves-text">😈&nbsp;Cultists</span> do not count as <span
+                            class="werewolves-text">Werewolves</span>)</li>
+                    <li><span class="special-text">🤡&nbsp;Jester</span> wins by getting exiled - Everyone else loses
+                    </li>
                 </ul>
             </div>
         </div>
