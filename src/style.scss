@@ -1,5 +1,6 @@
 $transparentBlack2: rgba(0, 0, 0, 0.2);
 $transparentBlack3: rgba(0, 0, 0, 0.3);
+$transparentBlack8: rgba(0, 0, 0, 0.8);
 $danger: #b71c1c;
 
 $primary1: #0277bd;
@@ -94,18 +95,18 @@ hr {
     color: $danger;
 }
 
-.button {
+.btn {
     border-radius: $borderRadius;
     box-shadow: 1px 1px 5px $transparentBlack2;
     cursor: pointer;
     display: inline-block;
-    font-size: 15px;
+    font-size: 16px;
     margin-bottom: 10px;
     margin-top: 15px;
     width: 100%;
 }
 
-.button:active {
+.btn:active {
     position: relative;
     top: 1px;
 }
@@ -117,7 +118,7 @@ hr {
     color: #fff;
     padding: 6px 24px;
     text-decoration: none;
-    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.8);
+    text-shadow: 1px 1px 0px $transparentBlack8;
 }
 
 .btn-primary:hover {

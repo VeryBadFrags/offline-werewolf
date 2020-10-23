@@ -1,4 +1,4 @@
-release/index.html: src/* release/ src/style.css release/qr.png
+release/index.html: src/* release/ src/style.css release/qr.png bundle.py
 	python3 bundle.py
 
 release/:

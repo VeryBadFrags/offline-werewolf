@@ -223,6 +223,7 @@ function startDay() {
     {
         let targetId = actionMapping[playerID];
         if (!blocked) {
+            let targetRole = rolesList[targetId];
             switch (rolesList[playerID].id) {
                 case "wolf":
                     appendLine("You learned that <strong>" + avatars[targetId] + "</strong>'s role is <strong>" + rolesList[targetId].name + "</strong>", targetOutputElement);
@@ -231,10 +232,19 @@ function startDay() {
                     appendLine("You have threatened <strong>" + avatars[targetId] + "</strong>", targetOutputElement);
                     break;
                 case "detective":
-                    appendLine("Your investigation showed that <strong>" + avatars[targetId] + "</strong>'s role is <strong>" + rolesList[targetId].name + "</strong>", targetOutputElement);
+                    let goodRole, badRole;
+                    if(targetRole.team === teamWerewolves) {
+                        badRole = targetRole.name;
+                        goodRole = vilRoles[randomNumber % vilRoles.length].name;
+                    } else {
+                        goodRole = targetRole.name;
+                        badRole = werRoles[0].name; // TODO return cultist if enough players
+                    }
+
+                    appendLine("Your investigation showed that <strong>" + avatars[targetId] + "</strong>'s role is either <strong>" + goodRole + "</strong> or <strong>" + badRole + "</strong>", targetOutputElement);
                     break;
                 case "farmer":
-                    appendLine("You gave 🌽 corn to  <strong>" + avatars[targetId] + "</strong>", targetOutputElement);
+                    appendLine("You gave 🌽 corn to <strong>" + avatars[targetId] + "</strong>", targetOutputElement);
                     break;
                 case "bodyguard":
                     appendLine("You protected <strong>" + avatars[targetId] + "</strong>", targetOutputElement);
@@ -243,7 +253,12 @@ function startDay() {
                     appendLine("You saw <strong>" + avatars[targetId] + "</strong> visit <strong>" + avatars[actionMapping[targetId]] + "</strong>", targetOutputElement);
                     break;
                 case "teller":
-                    appendLine("You divined <strong>" + avatars[targetId] + "</strong> and found out they are part of the <strong>" + rolesList[targetId].team + "</strong>", targetOutputElement);
+                    // Special roles appear as Villagers to the Fortune Teller
+                    let targetTeam = targetRole.team;
+                    if(targetTeam === teamSpecial) {
+                        targetTeam = teamVillagers;
+                    }
+                    appendLine("You divined <strong>" + avatars[targetId] + "</strong> and found out they are part of the <strong>" + targetTeam + "</strong>", targetOutputElement);
                     break;
                 case "mayor":
                     appendLine("You've impressed <strong>" + avatars[targetId] + "</strong> - they know your identity", targetOutputElement);
