@@ -9,6 +9,7 @@ var rolesList = [];
 var playerActionChars = [];
 
 function startGame() {
+    window.scrollTo(0, 0);
     resetValues();
 
     /* Get the Game params */
@@ -72,7 +73,6 @@ function startGame() {
     iterationField.value = iterationField.value * 1 + 1;
 
     document.getElementById("gameWindow").style.display = "inline-block";
-    window.scrollTo(0, 0);
 }
 
 /* Game logic for the Night Phase */
@@ -162,6 +162,7 @@ function startNight() {
 
 /* Game logic for the Day Phase */
 function startDay() {
+    window.scrollTo(0, 0);
     resetErrors();
     let targetOutputElement = document.getElementById("actionsResults");
     targetOutputElement.innerHTML = "";

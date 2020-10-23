@@ -85,18 +85,25 @@
             <div>
                 <h3>⚙️ Game Settings</h3>
             </div>
-            <label for="seed">🎲 Code</label>
-            <input type="text" id="seed" name="code" value="ABCD" pattern="[A-Za-z0-9]{4}" title="4 Characters Code"
-                maxlength="4" autocomplete="off">
-            <label for="iteration">🔢 Round</label>
-            <input type="number" id="iteration" name="round" value="1" min="1" autocomplete="off">
-            <label for="total-players">👥 Total players</label>
-            <input type="number" id="total-players" name="totalPlayers" value="3" min="3" oninput="setPlayersList();"
-                autocomplete="off">
-            <br>
-            <label for="player">👤 Avatar (must be unique)</label>
-            <div class="custom-select">
-                <select name="player" id="player"></select>
+            <div>
+                <label for="player">👤 Avatar (must be unique)</label>
+                <div class="custom-select">
+                    <select name="player" id="player"></select>
+                </div>
+            </div>
+            <div>
+                <label for="seed">🎲 Code</label>
+                <input type="text" id="seed" name="code" value="ABCD" pattern="[A-Za-z0-9]{4}" title="4 Characters Code"
+                    maxlength="4" autocomplete="off">
+            </div>
+            <div>
+                <label for="iteration">🔢 Round</label>
+                <input type="number" id="iteration" name="round" value="1" min="1" autocomplete="off">
+            </div>
+            <div>
+                <label for="total-players">👥 Total players</label>
+                <input type="number" id="total-players" name="totalPlayers" value="3" min="3"
+                    oninput="setPlayersList();" autocomplete="off">
             </div>
             <button id="startButton" class="btn btn-primary" onclick="startGame();">🏁 Start New Game</button>
         </div>
