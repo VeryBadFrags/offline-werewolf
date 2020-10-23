@@ -95,7 +95,7 @@ function startNight() {
             let actionCard = document.createElement('div');
             actionCard.classList.add("action-card", "card-current-player");
             actionCard.innerHTML = "<div>" + rolesList[playerID].verb + " " + avatars[iAuthor] + "</div><br>";
-            let actionCode = playerActionChars[playerID] + targetActionChar[iAuthor]
+            let actionCode = playerActionChars[playerID] + targetActionChar[iAuthor];
             actionCard.innerHTML += "Action Code<br>" + avatars[playerID] + " <strong>" + actionCode + "</strong>";
             actionCard.onclick = function () {
                 document.getElementById("input" + playerID).value = actionCode;
@@ -127,7 +127,7 @@ function startNight() {
                 if (jTarget != iAuthor) {
                     let actionCard = document.createElement('div');
                     actionCard.classList.add("action-card", "card" + iAuthor);
-                    let actionCode = playerActionChars[iAuthor] + targetActionChars2[jTarget]
+                    let actionCode = playerActionChars[iAuthor] + targetActionChars2[jTarget];
                     actionCard.innerHTML = avatars[iAuthor] + "<br><strong>" + actionCode + "</strong>";
                     actionCard.onclick = function () {
                         document.getElementById("input" + iAuthor).value = actionCode;
@@ -284,9 +284,9 @@ function printError(content) {
     errorBox.style.display = "block";
 }
 
-function getIdForChar(char, charsList) {
+function getIdForChar(token, charsList) {
     for (let i = 0; i < charsList.length; i++) {
-        if (charsList[i] == char) {
+        if (charsList[i] == token) {
             return i;
         }
     }

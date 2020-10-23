@@ -1,5 +1,5 @@
 release/index.html: src/* release/ src/style.css release/qr.png
-	cp src/*.css src/*.html src/*.js release/
+	python3 bundle.py
 
 release/:
 	mkdir -p release
