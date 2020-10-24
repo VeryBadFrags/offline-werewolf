@@ -1,0 +1,23 @@
+{
+  "name": "offline-werewolf",
+  "version": "1.0.0",
+  "description": "A standalone hidden role multiplayer game.",
+  "devDependencies": {
+    "@babel/cli": "^7.12.1",
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "babel-preset-minify": "^0.5.1"
+  },
+  "scripts": {
+    "build": "babel src -d lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VeryBadFrags/offline-werewolf.git"
+  },
+  "author": "VeryBadFrags",
+  "bugs": {
+    "url": "https://github.com/VeryBadFrags/offline-werewolf/issues"
+  },
+  "homepage": "https://github.com/VeryBadFrags/offline-werewolf#readme"
+}

@@ -6,10 +6,14 @@
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-TTK47Q4PZL"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
         gtag('js', new Date());
 
         gtag('config', 'G-TTK47Q4PZL');
+
     </script>
 
     <meta charset="UTF-8">
@@ -71,7 +75,7 @@
                     <div id="actionInput"></div>
                     <button class="btn btn-primary" onclick="startDay();">✅ End turn</button>
                 </div>
-                
+
                 <!-- Day Phase -->
                 <div id="dayBox">
                     <!-- List the Action Codes that were used -->
@@ -96,12 +100,13 @@
             </div>
             <div>
                 <label for="seed">🎲 Code</label>
-                <input type="text" id="seed" class="form-control" name="code" value="ABCD" pattern="[A-Za-z0-9]{4}" title="4 Characters Code"
-                    maxlength="4" autocomplete="off">
+                <input type="text" id="seed" class="form-control" name="code" value="ABCD" pattern="[A-Za-z0-9]{4}"
+                    title="4 Characters Code" maxlength="4" autocomplete="off">
             </div>
             <div>
                 <label for="iteration">🔢 Round</label>
-                <input type="number" id="iteration" class="form-control" name="round" value="1" min="1" autocomplete="off">
+                <input type="number" id="iteration" class="form-control" name="round" value="1" min="1"
+                    autocomplete="off">
             </div>
             <div>
                 <label for="total-players">👥 Total players</label>
@@ -193,7 +198,7 @@
         <br>
         <div><a href="https://spy.verybadfrags.com" target="_blank">Play 🕵️ Offline Spyfall</a></div>
         <br>
-        <div>Version: 0.0.2</div>
+        <div>Version: 1.0.0</div>
     </div>
 
     <script src="footer.js"></script>

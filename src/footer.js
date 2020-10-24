@@ -1,12 +1,12 @@
-var intervalId;
-var playerID;
-var totalPlayers;
-var seed;
-var iterationField;
-var randomNumber;
+let intervalId;
+let playerID;
+let totalPlayers;
+let seed;
+let iterationField;
+let randomNumber;
 
-var rolesList = [];
-var playerActionChars = [];
+let rolesList = [];
+let playerActionChars = [];
 
 function startGame() {
     window.scrollTo(0, 0);
@@ -17,7 +17,7 @@ function startGame() {
     playerID = Number(playerSelect.options[playerSelect.selectedIndex].value);
     totalPlayers = getTotalNumberOfPlayers();
     if (totalPlayers > avatars.length) {
-        printError("There cannot be more than " + avatars.length + " players");
+        printError(`There cannot be more than ${avatars.length} players`);
         return;
     }
 
@@ -61,10 +61,10 @@ function startGame() {
             let wolves = [];
             for (let i = 0; i < rolesList.length; i++) {
                 if (rolesList[i].id === "wolf") {
-                    wolves.push("<strong>" + avatars[i] + "</strong>");
+                    wolves.push(`<strong>${avatars[i]}</strong>`);
                 }
             }
-            playersInfoElem.innerHTML = "The <span class='werewolves-text'>Werewolves</span> are: " + wolves.join(", ") + "<br>";
+            playersInfoElem.innerHTML = `The <span class='werewolves-text'>Werewolves</span> are: ${wolves.join(", ")}<br>`;
         }
 
         startNight();
@@ -94,9 +94,9 @@ function startNight() {
         if (iAuthor != playerID) {
             let actionCard = document.createElement('div');
             actionCard.classList.add("action-card", "card-current-player");
-            actionCard.innerHTML = "<div>" + rolesList[playerID].verb + " " + avatars[iAuthor] + "</div><br>";
+            actionCard.innerHTML = `<div>${rolesList[playerID].verb} ${avatars[iAuthor]}</div><br>`;
             let actionCode = playerActionChars[playerID] + targetActionChar[iAuthor];
-            actionCard.innerHTML += "Action Code<br>" + avatars[playerID] + " <strong>" + actionCode + "</strong>";
+            actionCard.innerHTML += `Action Code<br>${avatars[playerID]} <strong>${actionCode}</strong>`;
             actionCard.onclick = function () {
                 document.getElementById("input" + playerID).value = actionCode;
                 let otherCrads = document.getElementsByClassName("card-current-player");
@@ -128,7 +128,7 @@ function startNight() {
                     let actionCard = document.createElement('div');
                     actionCard.classList.add("action-card", "card" + iAuthor);
                     let actionCode = playerActionChars[iAuthor] + targetActionChars2[jTarget];
-                    actionCard.innerHTML = avatars[iAuthor] + "<br><strong>" + actionCode + "</strong>";
+                    actionCard.innerHTML = `${avatars[iAuthor]}<br><strong>${actionCode}</strong>`;
                     actionCard.onclick = function () {
                         document.getElementById("input" + iAuthor).value = actionCode;
                         let otherCrads = document.getElementsByClassName("card" + iAuthor);
@@ -181,19 +181,19 @@ function startDay() {
         phaseSeed += actionCode;
         if (actionCode.length < 2) {
             let errorBox = document.getElementById("error");
-            errorBox.innerHTML = "Error: you must pick the Action Code for <strong>" + avatars[i] + "</strong>";
+            errorBox.innerHTML = `Error: you must pick the Action Code for <strong>${avatars[i]}</strong>`;
             errorBox.style.display = "block";
             return;
         }
 
         let authorId = getIdForChar(actionCode[0], playerActionChars);
         if (i != authorId) {
-            printError("Error: invalid Action Code " + actionCode + " for " + avatars[i]);
+            printError(`Error: invalid Action Code ${actionCode} for ${avatars[i]}`);
             return;
         }
         let targetId = getIdForChar(actionCode[1], targetActionChars);
         if (targetId == -1) {
-            printError("Error: invalid Action Code " + actionCode + " for " + avatars[i]);
+            printError(`Error: invalid Action Code ${actionCode} for ${avatars[i]}`);
             return;
         }
 
@@ -203,7 +203,7 @@ function startDay() {
             /* Process action towards current player */
             switch (rolesList[authorId].id) {
                 case "cultist":
-                    appendLine("You have found a dead crow on your doorstep - there must be a <strong>" + rolesList[authorId].name + "</strong> in town", targetOutputElement);
+                    appendLine(`You have found a dead crow on your doorstep - there must be a <strong>${rolesList[authorId].name}</strong> in town`, targetOutputElement);
                     break;
                 case "farmer":
                     appendLine("The <strong>" + rolesList[authorId].name + "</strong> gifted you some 🌽 corn", targetOutputElement);
@@ -343,7 +343,8 @@ function getRNG(currentSeed, iteration) {
 }
 /* Fisher-Yates Shuffle using the seed */
 function shuffle(array, rand) {
-    let currentIndex = array.length, temporaryValue, randomIndex;
+    let currentIndex = array.length,
+        temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = (currentIndex ^ rand) % currentIndex;
@@ -465,6 +466,7 @@ function appendLine(content, list) {
 
 /* Set the list of available Avatars */
 const playerListElement = document.getElementById("player");
+
 function setPlayersList() {
     removeOptions(playerListElement);
     totalPlayers = getTotalNumberOfPlayers();

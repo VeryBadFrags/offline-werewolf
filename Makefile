@@ -1,16 +1,16 @@
-release/index.html: src/* release/ src/style.css release/qr.png bundle.py
+dist/index.html: src/* dist/ src/style.css dist/qr.png bundle.py
 	python3 bundle.py
 
-release/:
-	mkdir -p release
+dist/:
+	mkdir -p dist
 
 src/style.css: src/style.scss
 	sass --no-source-map src/style.scss src/style.css
 
-release/qr.png:
-	qrencode -s 4 -m 2 -o release/qr.png "https://wolf.verybadfrags.com"
+dist/qr.png:
+	qrencode -s 4 -m 2 -o dist/qr.png "https://wolf.verybadfrags.com"
 
 .PHONY: clean
 
 clean:
-	rm -rf src/*.css src/*.css.map release/
+	rm -rf dist/ lib/ node_modules/
