@@ -1,18 +1,17 @@
-dist/index.html: node_modules/ lib/ src/* dist/ src/style.css dist/qr.png bundle.py
-	npm run build
+dist/index.html: node_modules/ lib/ src/* src/style.css dist/ dist/qr.png bundle.py
 	python3 bundle.py
 
 node_modules/:
 	npm install
 
 lib/:
-	npm run build
+	npm run babel
+
+src/style.css: src/style.scss src/style/
+	npm run sass
 
 dist/:
 	mkdir -p dist
-
-src/style.css: src/style.scss
-	sass --no-source-map src/style.scss src/style.css
 
 dist/qr.png:
 	qrencode -s 4 -m 2 -o dist/qr.png "https://wolf.verybadfrags.com"
@@ -20,4 +19,4 @@ dist/qr.png:
 .PHONY: clean
 
 clean:
-	rm -rf dist/ lib/ node_modules/
+	rm -rf dist/ lib/ node_modules/ src/*.css src/*.css.map
