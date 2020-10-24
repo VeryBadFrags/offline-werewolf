@@ -3,17 +3,13 @@ import htmlmin
 
 source_folder = "src/"
 build_folder = "build/"
-input_html = build_folder + "index.html"
+input_html = source_folder + "index.html"
 input_css = source_folder + "style.css"
 
 constants_js = build_folder + "constants.js"
 footer_js = build_folder + "footer.js"
 
-output_folder = "dist/"
-output_path = output_folder + "index.html"
-
-if not os.path.exists(output_folder):
-    os.makedirs(output_folder)
+output_path = build_folder + "index.html"
 
 # Get HTML
 html_file = open(input_html, "r")
@@ -46,7 +42,6 @@ footer_file.close()
 
 output_file = open(output_path, "w")
 output_file.write(content)
-
 output_file.close()
 
 print("Bundled " + source_folder + " into " + output_path)
