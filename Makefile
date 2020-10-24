@@ -1,5 +1,12 @@
-dist/index.html: src/* dist/ src/style.css dist/qr.png bundle.py
+dist/index.html: node_modules/ lib/ src/* dist/ src/style.css dist/qr.png bundle.py
+	npm run build
 	python3 bundle.py
+
+node_modules/:
+	npm install
+
+lib/:
+	npm run build
 
 dist/:
 	mkdir -p dist
