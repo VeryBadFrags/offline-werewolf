@@ -4,7 +4,7 @@ import htmlmin
 
 source_folder = "src/"
 lib_folder = "lib/"
-input_html = source_folder + "index.html"
+input_html = lib_folder + "index.html"
 input_css = source_folder + "style.css"
 
 constants_js = lib_folder + "constants.js"

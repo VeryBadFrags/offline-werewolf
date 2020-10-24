@@ -1,4 +1,4 @@
-dist/index.html: node_modules/ lib/ src/* src/style.css dist/ dist/qr.png bundle.py
+dist/index.html: node_modules/ lib/ lib/index.html src/* src/style.css dist/ dist/qr.png bundle.py
 	python3 bundle.py
 
 node_modules/:
@@ -13,10 +13,13 @@ src/style.css: src/style.scss src/style/
 dist/:
 	mkdir -p dist
 
+lib/index.html:
+	npm run html-minifier
+
 dist/qr.png:
 	qrencode -s 4 -m 2 -o dist/qr.png "https://wolf.verybadfrags.com"
 
 .PHONY: clean
 
 clean:
-	rm -rf dist/ lib/ node_modules/ src/*.css src/*.css.map
+	rm -rf dist/ lib/ node_modules/ src/*.css src/*.css.map package-lock.json
