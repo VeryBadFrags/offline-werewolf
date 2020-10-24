@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "A standalone hidden role multiplayer game.",
   "scripts": {
-    "babel": "babel src -d lib",
-    "html-minifier": "html-minifier --collapse-whitespace --remove-comments --use-short-doctype --minify-css true --minify-js true src/index.html -o lib/index.html",
+    "babel": "babel src -d build",
+    "html-minifier": "html-minifier --collapse-whitespace --remove-comments --use-short-doctype --minify-css true --minify-js true src/index.html -o build/index.html",
     "qrcode": "qrcode -o dist/qr.png https://wolf.verybadfrags.com",
     "sass": "node-sass --no-source-map src/style.scss src/style.css --output-style compressed"
   },

@@ -1,20 +1,21 @@
-dist/index.html: node_modules/ lib/ lib/index.html src/* src/style.css dist/ dist/qr.png bundle.py
+dist/index.html: node_modules/ build/ build/index.html src/style.css dist/ dist/qr.png bundle.py package.json src/*
 	python3 bundle.py
 
 node_modules/:
 	npm install
 
-lib/:
+build/:
+	mkdir -p build
 	npm run babel
+
+build/index.html:
+	npm run html-minifier
 
 src/style.css: src/style.scss src/style/
 	npm run sass
 
 dist/:
 	mkdir -p dist
-
-lib/index.html:
-	npm run html-minifier
 
 dist/qr.png:
 	npm run qrcode
