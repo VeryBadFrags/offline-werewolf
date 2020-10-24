@@ -7,7 +7,6 @@ A server-free, fast-paced spin of the Werewolf formula.
 ## Build
 
 * Get [Node](https://nodejs.org/)
-* Get [qrencode](https://fukuchi.org/works/qrencode/index.html.en)
 
 * Build
     ```shell

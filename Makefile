@@ -17,7 +17,7 @@ lib/index.html:
 	npm run html-minifier
 
 dist/qr.png:
-	qrencode -s 4 -m 2 -o dist/qr.png "https://wolf.verybadfrags.com"
+	npm run qrcode
 
 .PHONY: clean
 
