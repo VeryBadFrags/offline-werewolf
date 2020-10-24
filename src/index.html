@@ -63,16 +63,19 @@
 
                 <!-- Night Phase -->
                 <div id="nightBox">
-                    <div>Select your action and share the corresponding Action Code
+                    <div>Select your action for the night and share the corresponding Action Code
                         <div id="actions" class="flex roles-list"></div>
                     </div>
                     <hr>
-                    <div><span>Input the Action Code from the other players</span></div>
+                    <div><span>Select the Action Codes from the other players</span></div>
                     <div id="actionInput"></div>
                     <button class="btn btn-primary" onclick="startDay();">✅ End turn</button>
                 </div>
+                
                 <!-- Day Phase -->
                 <div id="dayBox">
+                    <!-- List the Action Codes that were used -->
+                    <div id="actionCodesSummary"></div>
                     <div>During the night:
                         <ul id="actionsResults"></ul>
                     </div>
@@ -83,26 +86,26 @@
         <!-- Game Settings -->
         <div id="settings" class="card">
             <div>
-                <h3>⚙️ Game Settings</h3>
+                <h3 class="card-title">⚙️ Game Settings</h3>
             </div>
             <div>
                 <label for="player">👤 Avatar (must be unique)</label>
                 <div class="custom-select">
-                    <select name="player" id="player"></select>
+                    <select name="player" id="player" class="form-control"></select>
                 </div>
             </div>
             <div>
                 <label for="seed">🎲 Code</label>
-                <input type="text" id="seed" name="code" value="ABCD" pattern="[A-Za-z0-9]{4}" title="4 Characters Code"
+                <input type="text" id="seed" class="form-control" name="code" value="ABCD" pattern="[A-Za-z0-9]{4}" title="4 Characters Code"
                     maxlength="4" autocomplete="off">
             </div>
             <div>
                 <label for="iteration">🔢 Round</label>
-                <input type="number" id="iteration" name="round" value="1" min="1" autocomplete="off">
+                <input type="number" id="iteration" class="form-control" name="round" value="1" min="1" autocomplete="off">
             </div>
             <div>
                 <label for="total-players">👥 Total players</label>
-                <input type="number" id="total-players" name="totalPlayers" value="3" min="3"
+                <input type="number" id="total-players" class="form-control" name="totalPlayers" value="3" min="3"
                     oninput="setPlayersList();" autocomplete="off">
             </div>
             <button id="startButton" class="btn btn-primary" onclick="startGame();">🏁 Start New Game</button>
@@ -110,7 +113,7 @@
 
         <!-- Rules -->
         <div class="card">
-            <h3>📖 Rules</h3>
+            <h3 class="card-title">📖 Rules</h3>
             <!-- Roles list -->
             <div id="rulesRolesList" class="flex roles-list"></div>
             <div>

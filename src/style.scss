@@ -1,6 +1,6 @@
-$transparentBlack2: rgba(0, 0, 0, 0.2);
-$transparentBlack3: rgba(0, 0, 0, 0.3);
-$transparentBlack8: rgba(0, 0, 0, 0.8);
+$transparentBlack2: rgba(black, 0.2);
+$transparentBlack3: rgba(black, 0.3);
+$transparentBlack8: rgba(black, 0.8);
 $danger: #b71c1c;
 
 $primary1: #0277bd;
@@ -43,10 +43,6 @@ h1 {
     text-shadow: 1px 1px 0px $transparentBlack2;
 }
 
-h3 {
-    margin-top: 0;
-}
-
 hr {
     margin: 16px;
 }
@@ -71,7 +67,7 @@ hr {
 }
 
 .card-title {
-    text-align: center;
+    margin-top: 0px;
 }
 
 .secret-card {
@@ -152,9 +148,8 @@ hr {
     font-size: 12px;
 }
 
-input,
-select {
-    border: 2px solid $primary3;
+.form-control {
+    border: 2px solid rgba($primary1, 0.5);
     border-radius: $borderRadius;
     box-sizing: border-box;
     display: block;
@@ -166,6 +161,7 @@ select {
 
 .custom-select {
     width: 100%;
+    font-size: 18px;
 }
 
 /* Werewolf-specific style */
