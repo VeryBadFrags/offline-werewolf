@@ -158,6 +158,9 @@ function startNight() {
     document.getElementById("gameMode").innerHTML = "🌙 Night Phase - Do not communication with other players";
     document.getElementById("nightBox").style.display = "block";
     document.getElementById("phase").innerHTML = "Night";
+    let gameWindow = document.getElementById("gameWindow");
+    gameWindow.classList.add("night");
+    gameWindow.classList.remove("day");
 }
 
 /* Game logic for the Day Phase */
