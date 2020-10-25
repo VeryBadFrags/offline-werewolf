@@ -7,7 +7,7 @@ build/index.html: build/ src/index.html build/constants.js build/footer.js build
 dist/:
 	mkdir -p dist
 
-node_modules/: package.json
+node_modules/:
 	npm install
 
 build/constants.js: build/ src/constants.js package.json node_modules/
