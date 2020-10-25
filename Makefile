@@ -1,7 +1,9 @@
 dist/index.html: build/index.html dist/ dist/qr.png package.json node_modules/
 	npm run html-minifier
 
-build/index.html: src/index.html build-js build/style.css bundle.py
+.PHONY: build-js clean
+
+build/index.html: build/ src/index.html build-js build/style.css bundle.py
 	python3 bundle.py
 
 dist/:
@@ -22,7 +24,5 @@ build/:
 dist/qr.png:  dist/ node_modules/ package.json
 	npm run qrcode
 
-.PHONY: clean build-js
-
 clean:
-	rm -rf dist/ lib/ node_modules/ src/*.css src/*.css.map package-lock.json
+	rm -rf build/ dist/ node_modules/ package-lock.json src/*.css src/*.css.map

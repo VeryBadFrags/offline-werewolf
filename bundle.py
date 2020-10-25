@@ -18,7 +18,7 @@ html_file.close()
 
 # Inject CSS
 css_file = open(input_css, "r")
-css_link = "<link rel=stylesheet href=style.css>"
+css_link = '<link rel="stylesheet" type="text/css" href="style.css">'
 content = content.replace(css_link, "<style>" + css_file.read() + "</style>")
 css_file.close()
 
