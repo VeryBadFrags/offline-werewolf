@@ -1,6 +1,7 @@
+$backgroundColor: #eceff1;
+
 $transparentBlack: rgba(black, 0.3);
 $transparentBlack8: rgba(black, 0.8);
-
 $shadow1: 1px 1px 3px $transparentBlack;
 
 /* Shades of Light Blue */
@@ -27,7 +28,7 @@ $borderRadius: 4px;
 }
 
 body {
-  background-color: #eceff1;
+  background-color: $backgroundColor;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
 }
@@ -38,7 +39,10 @@ h1 {
 }
 
 hr {
-  margin: 16px;
+  background-color: $secondary1;
+  border: 0;
+  height: 2px;
+  margin: 24px 0;
 }
 
 a {
