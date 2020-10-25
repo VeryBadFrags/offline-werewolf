@@ -79,11 +79,23 @@ hr {
 }
 
 .alert {
-    border: 1px solid $danger;
+    animation: shake 0.4s;
+    border: 1px solid black;
     border-radius: $borderRadius;
-    box-shadow: 1px 1px 5px rgba($danger, 0.3);
-    color: $danger;
+    box-shadow: 1px 1px 3px rgba($danger, 0.5);
+    background-color: $danger;
+    color: white;
+    font-size: 18px;
+    text-shadow: 1px 1px 0px $transparentBlack8;
 }
+
+@keyframes shake {
+    0%, 100% {transform: translateX(0);} 
+    10%, 30%, 50%, 70%, 90% {transform: translateX(-4px);} 
+    20%, 40%, 60%, 80% {transform: translateX(4px);} 
+}
+
+@keyframes idle { 100% {} }
 
 .btn {
     border-radius: $borderRadius;
