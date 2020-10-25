@@ -22,151 +22,173 @@ $danger: #b71c1c;
 $borderRadius: 4px;
 
 @function calculateRem($size) {
-    $remSize: $size / 16px;
-    @return #{$remSize}rem;
+  $remSize: $size / 16px;
+  @return #{$remSize}rem;
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    text-align: center;
-    background-color: #ECEFF1;
+  background-color: #eceff1;
+  font-family: Arial, Helvetica, sans-serif;
+  text-align: center;
 }
 
 h1 {
-    margin-bottom: 16px;
-    text-shadow: 1px 1px 0px $transparentBlack;
+  margin-bottom: 16px;
+  text-shadow: 1px 1px 0px $transparentBlack;
 }
 
 hr {
-    margin: 16px;
+  margin: 16px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 .flex {
-    align-items: flex-start;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+  align-items: flex-start;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .card {
-    background-color: white;
-    border: 1px solid $secondary1;
-    border-radius: $borderRadius;
-    box-shadow: $shadow1;
-    margin: 12px 12px;
-    padding: 16px 20px;
-    max-width: 640px;
-    text-align: left;
-    vertical-align: top;
-    flex-grow: 1;
+  background-color: white;
+  border: 1px solid $secondary1;
+  border-radius: $borderRadius;
+  box-shadow: $shadow1;
+  margin: 12px 12px;
+  padding: 16px 20px;
+  max-width: 640px;
+  text-align: left;
+  vertical-align: top;
+  flex-grow: 1;
 }
 
 .card-title {
-    margin-top: 0px;
+  margin-top: 0px;
 }
 
 .secret-card {
-    border: 1px dashed $transparentBlack;
-    border-radius: $borderRadius;
-    padding: 4px 8px;
+  border: 1px dashed $transparentBlack;
+  border-radius: $borderRadius;
+  padding: 4px 8px;
 }
 
 .list {
-    list-style-type: none;
-    font-size: 17px;
-    padding-left: 20px;
-    margin-bottom: 0;
+  list-style-type: none;
+  font-size: 17px;
+  padding-left: 20px;
+  margin-bottom: 0;
 }
 
 .alert {
-    animation: shake 0.4s;
-    border: 1px solid black;
-    border-radius: $borderRadius;
-    box-shadow: 1px 1px 3px rgba($danger, 0.5);
-    background-color: $danger;
-    color: white;
-    font-size: 18px;
-    text-shadow: 1px 1px 0px $transparentBlack8;
+  animation: shake 0.4s;
+  border: 1px solid black;
+  border-radius: $borderRadius;
+  box-shadow: 1px 1px 3px rgba($danger, 0.5);
+  background-color: $danger;
+  color: white;
+  font-size: 18px;
+  text-shadow: 1px 1px 0px $transparentBlack8;
 }
 
 @keyframes shake {
-    0%, 100% {transform: translateX(0);} 
-    10%, 30%, 50%, 70%, 90% {transform: translateX(-4px);} 
-    20%, 40%, 60%, 80% {transform: translateX(4px);} 
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-4px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(4px);
+  }
 }
 
 .btn {
-    border-radius: $borderRadius;
-    box-shadow: 1px 1px 5px $transparentBlack;
-    cursor: pointer;
-    display: inline-block;
-    font-size: 16px;
-    margin-bottom: 10px;
-    margin-top: 15px;
-    width: 100%;
+  border-radius: $borderRadius;
+  box-shadow: 1px 1px 5px $transparentBlack;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  margin-bottom: 10px;
+  margin-top: 15px;
+  width: 100%;
 }
 
 .btn:active {
-    position: relative;
-    top: 1px;
+  position: relative;
+  top: 1px;
 }
 
 .btn-primary {
-    box-shadow: 1px 1px 5px $transparentBlack, inset 0px 1px 0px 0px $primary3;
-    background: linear-gradient(to bottom, $primary2 5%, $primary 100%);
-    border: 1px solid $primaryBorder;
-    color: #fff;
-    padding: 6px 24px;
-    text-decoration: none;
-    text-shadow: 1px 1px 0px $transparentBlack8;
+  box-shadow: 1px 1px 5px $transparentBlack, inset 0px 1px 0px 0px $primary3;
+  background: linear-gradient(to bottom, $primary2 5%, $primary 100%);
+  border: 1px solid $primaryBorder;
+  color: #fff;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 1px 1px 0px $transparentBlack8;
 }
 
 .btn-primary:hover {
-    background: linear-gradient(to bottom, $primary 5%, $primary2 100%);
+  background: linear-gradient(to bottom, $primary 5%, $primary2 100%);
 }
 
 .btn-primary:active {
-    box-shadow: 1px 1px 2px $transparentBlack, inset 0px 1px 0px 0px $primary3;
+  box-shadow: 1px 1px 2px $transparentBlack, inset 0px 1px 0px 0px $primary3;
 }
 
 .btn-outline {
-    background: linear-gradient(to bottom, #fff 5%, $primary4 100%);
-    border: 1px solid $primaryBorder;
-    color: #000;
-    padding: 6px 24px;
-    text-decoration: none;
+  background: linear-gradient(to bottom, #fff 5%, $primary4 100%);
+  border: 1px solid $primaryBorder;
+  color: #000;
+  padding: 6px 24px;
+  text-decoration: none;
 }
 
 .btn-outline:hover {
-    background: linear-gradient(to bottom, $primary4 5%, #fff 100%);
+  background: linear-gradient(to bottom, $primary4 5%, #fff 100%);
 }
 
 .btn-outline:active {
-    box-shadow: 1px 1px 2px $transparentBlack;
+  box-shadow: 1px 1px 2px $transparentBlack;
 }
 
 .large {
-    font-size: 24px;
+  font-size: 24px;
 }
 
 .small {
-    font-size: 12px;
+  font-size: 12px;
 }
 
 .form-control {
-    border: 2px solid rgba($primary, 0.5);
-    border-radius: $borderRadius;
-    box-sizing: border-box;
-    display: block;
-    padding: 10px 12px;
-    margin: 1px 0 15px;
-    font-size: 16px;
-    width: 100%;
+  border: 2px solid rgba($primary, 0.5);
+  border-radius: $borderRadius;
+  box-sizing: border-box;
+  display: block;
+  padding: 10px 12px;
+  margin: 1px 0 15px;
+  font-size: 16px;
+  width: 100%;
 }
 
 .custom-select {
-    width: 100%;
-    font-size: 18px;
+  width: 100%;
+  font-size: 18px;
 }
 
 @import "werewolf";
