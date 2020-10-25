@@ -10,19 +10,19 @@ dist/:
 node_modules/: package.json
 	npm install
 
-build/constants.js: build/ package.json src/constants.js
+build/constants.js: build/ src/constants.js package.json node_modules/
 	npm run babel
 
-build/footer.js: build/ package.json src/footer.js
+build/footer.js: build/ src/footer.js package.json node_modules/
 	npm run babel
 
-build/style.css: build/ src/*.scss node_modules/ package.json
+build/style.css: build/ src/*.scss package.json node_modules/
 	npm run sass
 
 build/:
 	mkdir -p build
 
-dist/qr.png:  dist/ node_modules/ package.json
+dist/qr.png:  dist/ package.json node_modules/
 	npm run qrcode
 
 .PHONY: clean

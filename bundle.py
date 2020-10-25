@@ -1,6 +1,3 @@
-import os
-import htmlmin
-
 source_folder = "src/"
 input_html = source_folder + "index.html"
 
