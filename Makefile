@@ -13,7 +13,7 @@ node_modules/: package.json
 build-js: build/ node_modules/ package.json src/*.js
 	npm run babel
 
-build/style.css: build/ src/style.scss src/style/* node_modules/ package.json
+build/style.css: build/ src/*.scss node_modules/ package.json
 	npm run sass
 
 build/:

@@ -206,14 +206,14 @@ function startDay() {
                     appendLine(`You have found a dead crow on your doorstep - there must be a <strong>${rolesList[authorId].name}</strong> in town`, targetOutputElement);
                     break;
                 case "farmer":
-                    appendLine("The <strong>" + rolesList[authorId].name + "</strong> gifted you some 🌽 corn", targetOutputElement);
+                    appendLine(`The <strong>${rolesList[authorId].name}</strong> gifted you some 🌽 corn`, targetOutputElement);
                     break;
                 case "jailer":
                     blocked = true;
-                    appendLine("Your actions were blocked by the <strong>" + rolesList[authorId].name + "</strong>");
+                    appendLine(`Your actions were blocked by the <strong>${rolesList[authorId].name}</strong>`);
                     break;
                 case "mayor":
-                    appendLine("You were impressed by <strong>" + avatars[authorId] + "</strong> - they must be the <strong>" + rolesList[authorId].name + "</strong>", targetOutputElement);
+                    appendLine(`You were impressed by <strong>${avatars[authorId]}</strong> - they must be the <strong>${rolesList[authorId].name}</strong>`, targetOutputElement);
                     break;
                 default:
             }
