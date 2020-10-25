@@ -2,10 +2,10 @@ import os
 import htmlmin
 
 source_folder = "src/"
-build_folder = "build/"
 input_html = source_folder + "index.html"
-input_css = build_folder + "style.css"
 
+build_folder = "build/"
+input_css = build_folder + "style.css"
 constants_js = build_folder + "constants.js"
 footer_js = build_folder + "footer.js"
 
@@ -39,9 +39,8 @@ content = content.replace(js_link, script_open + footer_file.read() + script_clo
 footer_file.close()
 
 # Output content
-
 output_file = open(output_path, "w")
 output_file.write(content)
 output_file.close()
 
-print("Bundled " + source_folder + " into " + output_path)
+print("Bundled " + input_html + " into " + output_path)

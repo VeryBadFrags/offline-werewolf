@@ -6,6 +6,8 @@ A server-free, fast-paced spin of the Werewolf formula.
 
 ## Build
 
+Minify and bundle the css and js into a standalone HTML page.
+
 * Get [Node](https://nodejs.org/)
 
 * Build
