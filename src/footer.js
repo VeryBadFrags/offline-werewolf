@@ -228,13 +228,13 @@ function startDay() {
             let targetRole = rolesList[targetId];
             switch (rolesList[playerID].id) {
                 case "wolf":
-                    appendLine("You learned that <strong>" + targetAvatar + "</strong>'s role is <strong>" + rolesList[targetId].name + "</strong>", targetOutputElement);
+                    appendLine(`You learned that <strong>${targetAvatar}</strong>'s role is <strong>${rolesList[targetId].name}</strong>`, targetOutputElement);
                     break;
                 case "cultist":
-                    appendLine("You have threatened <strong>" + targetAvatar + "</strong>", targetOutputElement);
+                    appendLine(`You have threatened <strong>${targetAvatar}</strong>`, targetOutputElement);
                     break;
                 case "bard":
-                    appendLine("You visited <strong>" + targetAvatar + "</strong>", targetOutputElement);
+                    appendLine(`You visited <strong>${targetAvatar}</strong>`, targetOutputElement);
                     break;
                 case "detective":
                     // Return 2 possible roles for the target
@@ -246,16 +246,16 @@ function startDay() {
                         goodRole = targetRole.name;
                         badRole = werRoles[0].name; // TODO return cultist if enough players
                     }
-                    appendLine("Your investigation showed that <strong>" + targetAvatar + "</strong>'s role is either <strong>" + goodRole + "</strong> or <strong>" + badRole + "</strong>", targetOutputElement);
+                    appendLine(`Your investigation showed that <strong>${targetAvatar}</strong>'s role is either <strong>${goodRole}</strong> or <strong>${badRole}</strong>`, targetOutputElement);
                     break;
                 case "farmer":
-                    appendLine("You gave 🌽 corn to <strong>" + targetAvatar + "</strong>", targetOutputElement);
+                    appendLine(`You gave 🌽 corn to <strong>${targetAvatar}</strong>`, targetOutputElement);
                     break;
                 case "bodyguard":
-                    appendLine("You protected <strong>" + targetAvatar + "</strong>", targetOutputElement);
+                    appendLine(`You protected <strong>${targetAvatar}</strong>`, targetOutputElement);
                     break;
                 case "gossip":
-                    appendLine("You saw <strong>" + targetAvatar + "</strong> visit <strong>" + avatars[actionMapping[targetId]] + "</strong>", targetOutputElement);
+                    appendLine(`You saw <strong>${targetAvatar}</strong> visit <strong>${avatars[actionMapping[targetId]]}</strong>`, targetOutputElement);
                     break;
                 case "teller":
                     // Special roles appear as Villagers to the Fortune Teller
@@ -263,13 +263,13 @@ function startDay() {
                     if (targetTeam === teamSpecial) {
                         targetTeam = teamVillagers;
                     }
-                    appendLine("You divined <strong>" + targetAvatar + "</strong> and found out they are part of the <strong>" + targetTeam + "</strong>", targetOutputElement);
+                    appendLine(`You divined <strong>${targetAvatar}</strong> and found out they are part of the <strong>${targetTeam}</strong>`, targetOutputElement);
                     break;
                 case "mayor":
-                    appendLine("You've impressed <strong>" + targetAvatar + "</strong> - they know your identity", targetOutputElement);
+                    appendLine(`You impressed <strong>${targetAvatar}</strong> - they know your identity`, targetOutputElement);
                     break;
                 case "jester":
-                    appendLine("You visited <strong>" + targetAvatar + "</strong>", targetOutputElement);
+                    appendLine(`You visited <strong>${targetAvatar}</strong>`, targetOutputElement);
                     break;
                 default:
             }
