@@ -75,7 +75,7 @@ function startGame() {
     document.getElementById("gameWindow").style.display = "inline-block";
 }
 
-/* Game logic for the Night Phase */
+// Game logic for the Night Phase
 function startNight() {
     playerActionChars = [];
     for (let i = 0; i < characters.length; i++) {
@@ -86,7 +86,7 @@ function startNight() {
     let targetActionChar = playerActionChars.slice();
     shuffle(targetActionChar, randomNumber + 17 + playerID);
 
-    /* Set Night Actions list */
+    // Set Night Actions list
     let actionsList = document.getElementById("actions");
     let actionsInputList = document.getElementById("actionInput");
     actionsInputList.innerHTML = "";
@@ -107,7 +107,7 @@ function startNight() {
             };
             actionsList.appendChild(actionCard);
         }
-        /* Add Action Inputs */
+        // Add Action Inputs
         let actionInput = document.createElement('input');
         actionInput.type = "hidden";
         actionInput.pattern = "[A-Za-z0-9]{2}";
@@ -151,7 +151,7 @@ function startNight() {
         }
     }
 
-    /* Start timer */
+    // Start timer
     let timer = document.getElementById('timer');
     startTimer(60 * 2, timer, "🔔 Time's up! Share your action code with the others");
 
@@ -163,7 +163,7 @@ function startNight() {
     gameWindow.classList.remove("day");
 }
 
-/* Game logic for the Day Phase */
+// Game logic for the Day Phase
 function startDay() {
     window.scrollTo(0, 0);
     resetErrors();
@@ -171,16 +171,23 @@ function startDay() {
     targetOutputElement.innerHTML = "";
     let actionMapping = {};
 
-    /* Validate player actions */
+    let codesSummaryElement = document.getElementById('actionCodesSummary');
+    codesSummaryElement.innerHTML += "<br>Codes: ";
+    let codesSummaryList = [];
     let blocked = false;
 
     let phaseSeed = seed;
+    // Rebuild the Actions from the Action Codes for each player
     for (let i = 0; i < rolesList.length; i++) {
         let targetActionChars = playerActionChars.slice();
         shuffle(targetActionChars, randomNumber + 17 + i);
 
         let doc = document.getElementById("input" + i);
         let actionCode = doc.value;
+
+        // Add the Action Code to the summary box
+        codesSummaryList.push(`${avatars[i]}&nbsp;<strong>${actionCode}</strong>`);
+
         phaseSeed += actionCode;
         if (actionCode.length < 2) {
             let errorBox = document.getElementById("error");
@@ -203,7 +210,7 @@ function startDay() {
         actionMapping[authorId] = targetId;
 
         if (playerID == targetId) {
-            /* Process action towards current player */
+            // Process action towards current player
             switch (rolesList[authorId].id) {
                 case "cultist":
                     appendLine(`You have found a dead crow on your doorstep - there must be a <strong>${rolesList[authorId].name}</strong> in town`, targetOutputElement);
@@ -223,7 +230,9 @@ function startDay() {
         }
     }
 
-    /* Process current player action */
+    codesSummaryElement.innerHTML += codesSummaryList.join(' - ');
+
+    // Process current player action
     {
         let targetId = actionMapping[playerID];
         if (!blocked) {
