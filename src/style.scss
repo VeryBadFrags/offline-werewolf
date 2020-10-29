@@ -2,6 +2,9 @@ $bgBody: #CFD8DC;
 $bgLight: #FAFAFA;
 $bgDark: #546E7A;
 
+$textLight: white;
+$textDark: invert($bgLight, 100%);
+
 $linkColor: #29B6F6;
 $linkColorActive: #0277BD;
 
@@ -58,28 +61,31 @@ a:hover {
 }
 
 .container {
-  margin: 8px;
+  padding: 8px;
+  padding-bottom: 4rem;
 }
 
 .bg-light {
   background-color: $bgLight;
+  color: $textDark;
 }
 
 .bg-dark {
   background-color: $bgDark;
+  color: $textLight;
 }
 
 .navbar {
-  position: relative;
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   justify-content: space-between;
-  padding: 0.5rem 16px;
+  padding: 8px 16px;
+  position: relative;
 }
 
 .navbar-dark {
-  color: white;
+  color: $textLight;
 }
 
 .navbar-brand {
@@ -93,10 +99,7 @@ a:hover {
 }
 
 .footer {
-  background-color: $bgDark;
-  color: white;
   border-top: 1px solid $secondaryBorder;
-  margin-top: 5rem;
   padding: 16px 8px;
 }
 
@@ -108,7 +111,6 @@ a:hover {
 }
 
 .card {
-  background-color: $bgLight;
   border: 1px solid $secondaryBorder;
   border-radius: $borderRadius;
   box-shadow: $shadow1;

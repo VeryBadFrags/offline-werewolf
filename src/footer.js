@@ -161,6 +161,9 @@ function startNight() {
     let gameWindow = document.getElementById("gameWindow");
     gameWindow.classList.add("night");
     gameWindow.classList.remove("day");
+    let containerElement = document.getElementById("container");
+    containerElement.classList.remove('bg-day');
+    containerElement.classList.add('bg-night');
 }
 
 // Game logic for the Day Phase
@@ -308,6 +311,10 @@ function startDay() {
     let gameWindow = document.getElementById("gameWindow");
     gameWindow.classList.remove("night");
     gameWindow.classList.add("day");
+
+    let containerElement = document.getElementById("container");
+    containerElement.classList.remove('bg-night');
+    containerElement.classList.add('bg-day');
 }
 
 function printError(content) {
