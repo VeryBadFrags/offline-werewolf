@@ -25,13 +25,13 @@ script_close = "</script>"
 
 ## Constants
 constants_file = open(constants_js, "r")
-js_link = "<script src=constants.js></script>"
+js_link = '<script src="constants.js"></script>'
 content = content.replace(js_link, script_open + constants_file.read() + script_close)
 constants_file.close()
 
 ## Footer script
 footer_file = open(footer_js, "r")
-js_link = "<script src=footer.js></script>"
+js_link = '<script src="footer.js"></script>'
 content = content.replace(js_link, script_open + footer_file.read() + script_close)
 footer_file.close()
 

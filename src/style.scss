@@ -1,4 +1,5 @@
-$backgroundColor: #eceff1;
+$bgLight: #eceff1;
+$bgDark: #546E7A;
 
 $transparentBlack: rgba(black, 0.3);
 $transparentBlack8: rgba(black, 0.8);
@@ -28,14 +29,44 @@ $borderRadius: 4px;
 }
 
 body {
-  background-color: $backgroundColor;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
+  margin: 0;
 }
 
-h1 {
-  margin-bottom: 16px;
-  text-shadow: 1px 1px 0px $transparentBlack;
+.container {
+  margin: 8px;
+}
+
+.bg-light {
+  background-color: $bgLight;
+}
+
+.bg-dark {
+  background-color: $bgDark;
+}
+
+.navbar {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 16px;
+}
+
+.navbar-dark {
+  color: white;
+}
+
+.navbar-brand {
+  padding: 5px 0px;
+  font-size: 1.25rem;
+  text-shadow: 2px 2px 1px $transparentBlack;
+}
+
+.logo-dark {
+  text-shadow: 0px 0px 1px rgba(white, 0.9);
 }
 
 hr {

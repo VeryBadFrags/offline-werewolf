@@ -21,6 +21,7 @@
     <meta name="keywords" content="Social deduction">
     <meta name="author" content="VeryBadFrags">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+    <meta name="theme-color" content="#546E7A">
 
     <title>Offline Werewolf</title>
 
@@ -28,180 +29,190 @@
         href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐺</text></svg>">
 
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script src=constants.js></script>
+    <script src="constants.js"></script>
 </head>
 
-<body>
+<body class="bg-light">
 
-    <h1>Offline Werewolf</h1>
+    <nav class="navbar navbar-dark bg-dark">
+        <span class="navbar-brand"><span class="logo-dark">🐺</span> Offline Werewolf</span>
+    </nav>
 
-    <div id="error" class="card alert" style="display: none;"></div>
+    <div class="container">
 
-    <div class="flex">
-        <!-- Game Window -->
-        <div id="gameWindow" class="card" style="display: none;">
-            <h3 id="gameMode" class="card-title"></h3>
-            <div style="text-align: center;">
-                <span id="phase">Phase</span> Fingerprint
-                <br><span id="fingerprint" class="large"></span>
-            </div>
-            <br>
-            <div>
-                You are <strong id="playerid"></strong>
-            </div>
-            <br>
-            <div id="timer"></div>
+        <div id="error" class="card alert" style="display: none;"></div>
 
-            <!-- List the Action Codes that were used -->
-            <div id="actionCodesSummary"></div>
-
-            <div>
-                <button class="btn btn-outline" onclick="showHide('secretBlock');">👓 Show/Hide</button>
-            </div>
-            <div id="secretBlock" class="secret-card">
-                <div>Role: <strong id="roleField"></strong></div>
-                <br>
-                <div><span id="actionVerbField"></span></div>
-                <!-- Identity of other players -->
-                <div id="playersInfo"></div>
-
-                <br>
-
-                <!-- Night Phase -->
-                <div id="nightBox">
-                    <div>Select your action for the night and share the corresponding Action Code
-                        <div id="actions" class="flex roles-list"></div>
-                    </div>
-                    <hr>
-                    <div><span>Select the Action Codes from the other players</span></div>
-                    <div id="actionInput"></div>
-                    <button class="btn btn-primary" onclick="startDay();">✅ End turn</button>
+        <div class="flex">
+            <!-- Game Window -->
+            <div id="gameWindow" class="card" style="display: none;">
+                <h3 id="gameMode" class="card-title"></h3>
+                <div style="text-align: center;">
+                    <span id="phase">Phase</span> Fingerprint
+                    <br><span id="fingerprint" class="large"></span>
                 </div>
+                <br>
+                <div>
+                    You are <strong id="playerid"></strong>
+                </div>
+                <br>
+                <div id="timer"></div>
 
-                <!-- Day Phase -->
-                <div id="dayBox">
-                    <div>During the night:
-                        <ul id="actionsResults"></ul>
+                <!-- List the Action Codes that were used -->
+                <div id="actionCodesSummary"></div>
+
+                <div>
+                    <button class="btn btn-outline" onclick="showHide('secretBlock');">👓 Show/Hide</button>
+                </div>
+                <div id="secretBlock" class="secret-card">
+                    <div>Role: <strong id="roleField"></strong></div>
+                    <br>
+                    <div><span id="actionVerbField"></span></div>
+                    <!-- Identity of other players -->
+                    <div id="playersInfo"></div>
+
+                    <br>
+
+                    <!-- Night Phase -->
+                    <div id="nightBox">
+                        <div>Select your action for the night and share the corresponding Action Code
+                            <div id="actions" class="flex roles-list"></div>
+                        </div>
+                        <hr>
+                        <div><span>Select the Action Codes from the other players</span></div>
+                        <div id="actionInput"></div>
+                        <button class="btn btn-primary" onclick="startDay();">✅ End turn</button>
+                    </div>
+
+                    <!-- Day Phase -->
+                    <div id="dayBox">
+                        <div>During the night:
+                            <ul id="actionsResults"></ul>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <!-- Game Settings -->
+            <div id="settings" class="card">
+                <div>
+                    <h3 class="card-title">⚙️ Game Settings</h3>
+                </div>
+                <div>
+                    <label for="player">👤 Avatar (must be unique)</label>
+                    <div class="custom-select">
+                        <select name="player" id="player" class="form-control"></select>
+                    </div>
+                </div>
+                <div>
+                    <label for="seed">🎲 Code</label>
+                    <input type="text" id="seed" class="form-control" name="code" value="ABCD" pattern="[A-Za-z0-9]{4}"
+                        title="4 Characters Code" maxlength="4" autocomplete="off">
+                </div>
+                <div>
+                    <label for="iteration">🔢 Round</label>
+                    <input type="number" id="iteration" class="form-control" name="round" value="1" min="1"
+                        autocomplete="off">
+                </div>
+                <div>
+                    <label for="total-players">👥 Total players</label>
+                    <input type="number" id="total-players" class="form-control" name="totalPlayers" value="3" min="3"
+                        oninput="setPlayersList();" autocomplete="off">
+                </div>
+                <button id="startButton" class="btn btn-primary" onclick="startGame();">🏁 Start New Game</button>
+            </div>
+
+            <!-- Rules -->
+            <div class="card">
+                <h3 class="card-title">📖 Rules</h3>
+                <!-- Roles list -->
+                <div id="rulesRolesList" class="flex roles-list"></div>
+                <div>
+                    <ul>
+                        <li>👥 3-10 Players</li>
+                        <li>⏱ 7 Minutes Rounds</li>
+                        <li>📱 1 Device per player</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>Setup</strong>
+                    <ul>
+                        <li>Players must input the same 🎲&nbsp;Game Code, 🔢&nbsp;Round Number, and 👥&nbsp;Total
+                            players count</li>
+                        <li>Players must pick a <strong>unique</strong> 👤&nbsp;Avatar</li>
+                        <li>When the game starts, players must confirm that they have the same Night Fingerprint (the
+                            game
+                            is void otherwise)</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>Game phases</strong>
+                    <ul>
+                        <li>🌙 Night
+                            <ul>
+                                <li>Players pick an action and share their Action Code with the others</li>
+                                <li>Players must input the respective Action Code from each player and end the turn</li>
+                            </ul>
+                        </li>
+                        <li>☀️ Day
+                            <ul>
+                                <li>Players must confirm that they have the same Day Fingerprint (the
+                                    game
+                                    is void otherwise)</li>
+                                <li>Players share their knowledge and try to identify the werewolves
+                                </li>
+                                <li>At the end of the timer, players must vote for a player to Exile</li>
+                                <li>If there is a draw, all the players that are tied are exiled</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>Win condition</strong>
+                    <ul>
+                        <li><span class="werewolves-text">Werewolves and Cultists</span> win if no <span
+                                class="werewolves-text">🐺&nbsp;Werewolf</span> is exiled</li>
+                        <li><span class="villagers-text">Villagers</span> win if at least one <span
+                                class="werewolves-text">🐺&nbsp;Werewolf</span> is exiled
+                            (<span class="werewolves-text">😈&nbsp;Cultists</span> do not count as <span
+                                class="werewolves-text">Werewolves</span>)</li>
+                        <li><span class="special-text">🤡&nbsp;Jester</span> wins by getting exiled - Everyone else
+                            loses
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
         </div>
 
-        <!-- Game Settings -->
-        <div id="settings" class="card">
-            <div>
-                <h3 class="card-title">⚙️ Game Settings</h3>
-            </div>
-            <div>
-                <label for="player">👤 Avatar (must be unique)</label>
-                <div class="custom-select">
-                    <select name="player" id="player" class="form-control"></select>
-                </div>
-            </div>
-            <div>
-                <label for="seed">🎲 Code</label>
-                <input type="text" id="seed" class="form-control" name="code" value="ABCD" pattern="[A-Za-z0-9]{4}"
-                    title="4 Characters Code" maxlength="4" autocomplete="off">
-            </div>
-            <div>
-                <label for="iteration">🔢 Round</label>
-                <input type="number" id="iteration" class="form-control" name="round" value="1" min="1"
-                    autocomplete="off">
-            </div>
-            <div>
-                <label for="total-players">👥 Total players</label>
-                <input type="number" id="total-players" class="form-control" name="totalPlayers" value="3" min="3"
-                    oninput="setPlayersList();" autocomplete="off">
-            </div>
-            <button id="startButton" class="btn btn-primary" onclick="startGame();">🏁 Start New Game</button>
-        </div>
+        <hr>
 
-        <!-- Rules -->
-        <div class="card">
-            <h3 class="card-title">📖 Rules</h3>
-            <!-- Roles list -->
-            <div id="rulesRolesList" class="flex roles-list"></div>
+        <div class="footer">
+            <div>Download this page and play anywhere!</div>
+            <br>
             <div>
-                <ul>
-                    <li>👥 3-10 Players</li>
-                    <li>⏱ 7 Minutes Rounds</li>
-                    <li>📱 1 Device per player</li>
-                </ul>
+                <img src="qr.png" alt="https://wolf.verybadfrags.com">
             </div>
-            <div>
-                <strong>Setup</strong>
-                <ul>
-                    <li>Players must input the same 🎲&nbsp;Game Code, 🔢&nbsp;Round Number, and 👥&nbsp;Total
-                        players count</li>
-                    <li>Players must pick a <strong>unique</strong> 👤&nbsp;Avatar</li>
-                    <li>When the game starts, players must confirm that they have the same Night Fingerprint (the game
-                        is void otherwise)</li>
-                </ul>
+            <br>
+            <div>Suggestions, Feedback? <a
+                    href="mailto:wolf@verybadfrags.com?subject=Offline Werewolf Feedback">wolf@verybadfrags.com</a>
             </div>
-            <div>
-                <strong>Game phases</strong>
-                <ul>
-                    <li>🌙 Night
-                        <ul>
-                            <li>Players pick an action and share their Action Code with the others</li>
-                            <li>Players must input the respective Action Code from each player and end the turn</li>
-                        </ul>
-                    </li>
-                    <li>☀️ Day
-                        <ul>
-                            <li>Players must confirm that they have the same Day Fingerprint (the
-                                game
-                                is void otherwise)</li>
-                            <li>Players share their knowledge and try to identify the werewolves
-                            </li>
-                            <li>At the end of the timer, players must vote for a player to Exile</li>
-                            <li>If there is a draw, all the players that are tied are exiled</li>
-                        </ul>
-                    </li>
-                </ul>
+            <br>
+            <div><a href="https://github.com/VeryBadFrags/offline-werewolf" target="_blank" rel="noopener noreferrer">🐙
+                    Source
+                    code on GitHub</a></div>
+            <br>
+            <div><a href="https://www.buymeacoffee.com/verybadfrags" target="_blank" rel="noopener noreferrer">Like this
+                    game?</a>
             </div>
-            <div>
-                <strong>Win condition</strong>
-                <ul>
-                    <li><span class="werewolves-text">Werewolves and Cultists</span> win if no <span
-                            class="werewolves-text">🐺&nbsp;Werewolf</span> is exiled</li>
-                    <li><span class="villagers-text">Villagers</span> win if at least one <span
-                            class="werewolves-text">🐺&nbsp;Werewolf</span> is exiled
-                        (<span class="werewolves-text">😈&nbsp;Cultists</span> do not count as <span
-                            class="werewolves-text">Werewolves</span>)</li>
-                    <li><span class="special-text">🤡&nbsp;Jester</span> wins by getting exiled - Everyone else loses
-                    </li>
-                </ul>
-            </div>
+            <br>
+            <div><a href="https://spy.verybadfrags.com" target="_blank">Play 🕵️ Offline Spyfall</a></div>
+            <br>
+            <div>Version: 1.0.0</div>
         </div>
 
     </div>
 
-    <hr>
-
-    <div class="footer">
-        <div>Download this page and play anywhere!</div>
-        <br>
-        <div>
-            <img src="qr.png" alt="https://wolf.verybadfrags.com">
-        </div>
-        <br>
-        <div>Suggestions, Feedback? <a
-                href="mailto:wolf@verybadfrags.com?subject=Offline Werewolf Feedback">wolf@verybadfrags.com</a></div>
-        <br>
-        <div><a href="https://github.com/VeryBadFrags/offline-werewolf" target="_blank" rel="noopener noreferrer">🐙 Source
-                code on GitHub</a></div>
-        <br>
-        <div><a href="https://www.buymeacoffee.com/verybadfrags" target="_blank" rel="noopener noreferrer">Like this
-                game?</a>
-        </div>
-        <br>
-        <div><a href="https://spy.verybadfrags.com" target="_blank">Play 🕵️ Offline Spyfall</a></div>
-        <br>
-        <div>Version: 1.0.0</div>
-    </div>
-
-    <script src=footer.js></script>
+    <script src="footer.js"></script>
 </body>
 
 </html>
