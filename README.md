@@ -2,7 +2,7 @@
 
 ![GitHub](https://img.shields.io/badge/license-MIT-green)
 
-A server-free, fast-paced spin of the Werewolf formula.
+A server-free, fast-paced version of the Werewolf / Mafia formula.
 
 * [Play the game](https://wolf.verybadfrags.com)
 

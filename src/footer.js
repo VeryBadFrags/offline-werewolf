@@ -172,7 +172,7 @@ function startDay() {
     let actionMapping = {};
 
     let codesSummaryElement = document.getElementById('actionCodesSummary');
-    codesSummaryElement.innerHTML += "<br>Codes: ";
+    codesSummaryElement.innerHTML = "<br>Codes: ";
     let codesSummaryList = [];
     let blocked = false;
 
@@ -383,6 +383,7 @@ function resetValues() {
     document.getElementById("actions").innerHTML = "";
     document.getElementById("dayBox").style.display = "none";
     document.getElementById("playersInfo").innerHTML = "";
+    document.getElementById('actionCodesSummary').innerHTML = "";
 
     rolesList = [];
 }
@@ -447,11 +448,12 @@ function fillRolesFromArray(array) {
         let role = document.createElement('div');
         role.classList.add("role-card");
         role.classList.add(array[i].team);
-        let title = document.createElement('h3');
+        let title = document.createElement('h4');
+        title.classList.add("card-title");
         title.innerHTML = array[i].name;
         role.appendChild(title);
 
-        let description = document.createElement('span');
+        let description = document.createElement('div');
         description.innerHTML = array[i].description;
         role.appendChild(description);
 
