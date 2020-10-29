@@ -1,5 +1,9 @@
-$bgLight: #eceff1;
+$bgBody: #CFD8DC;
+$bgLight: #FAFAFA;
 $bgDark: #546E7A;
+
+$linkColor: #29B6F6;
+$linkColorActive: #0277BD;
 
 $transparentBlack: rgba(black, 0.3);
 $transparentBlack8: rgba(black, 0.8);
@@ -13,7 +17,7 @@ $primary4: #e1f5fe;
 $primaryBorder: #124d77;
 
 $secondary1: #90a4ae;
-$secondaryBorder: #9e9e9e;
+$secondaryBorder: #546E7A;
 
 $success1: #e8f5e9;
 $success2: #c8e6c9;
@@ -29,9 +33,28 @@ $borderRadius: 4px;
 }
 
 body {
+  background-color: $bgBody;
   font-family: Arial, Helvetica, sans-serif;
   text-align: center;
   margin: 0;
+}
+
+hr {
+  background-color: $secondary1;
+  border: 0;
+  height: 2px;
+  margin: 24px 0;
+}
+
+a {
+  color: $linkColor;
+  text-decoration: none;
+  text-shadow: 1px 1px 2px $transparentBlack;
+}
+
+a:hover {
+  color: $linkColorActive;
+  text-decoration: underline;
 }
 
 .container {
@@ -69,19 +92,12 @@ body {
   text-shadow: 0px 0px 1px rgba(white, 0.9);
 }
 
-hr {
-  background-color: $secondary1;
-  border: 0;
-  height: 2px;
-  margin: 24px 0;
-}
-
-a {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
+.footer {
+  background-color: $bgDark;
+  color: white;
+  border-top: 1px solid $secondaryBorder;
+  margin-top: 5rem;
+  padding: 16px 8px;
 }
 
 .flex {
@@ -92,8 +108,8 @@ a:hover {
 }
 
 .card {
-  background-color: white;
-  border: 1px solid $secondary1;
+  background-color: $bgLight;
+  border: 1px solid $secondaryBorder;
   border-radius: $borderRadius;
   box-shadow: $shadow1;
   margin: 12px 12px;
