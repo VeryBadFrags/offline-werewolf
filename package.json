@@ -5,7 +5,7 @@
     "build": "make",
     "babel": "babel src -d build",
     "html-minifier": "html-minifier --collapse-whitespace --remove-comments --use-short-doctype --minify-css true --minify-js true build/index.html -o dist/index.html",
-    "marked": "marked -o build/rules.html -i src/rules.md",
+    "marked": "marked -o build/rules.html -i src/rules.md && marked -o build/footer.html -i src/footer.md --mangle",
     "qrcode": "qrcode -o dist/qr.png https://wolf.verybadfrags.com",
     "sass": "node-sass --no-source-map src/style.scss build/style.css --output-style compressed"
   },

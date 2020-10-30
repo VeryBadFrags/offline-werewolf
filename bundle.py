@@ -3,6 +3,7 @@ source_folder = "src/"
 input_html_path = source_folder + "index.html"
 build_folder = "build/"
 rules_path = build_folder + "rules.html"
+footer_html_path = build_folder + "footer.html"
 input_css_path = build_folder + "style.css"
 constants_js_path = build_folder + "constants.js"
 footer_js_path = build_folder + "footer.js"
@@ -26,6 +27,8 @@ html_file.close()
 # Inject HTML Pages
 output_html = inject_file_content(
     rules_path, "<!-- rules.html -->", output_html)
+output_html = inject_file_content(
+    footer_html_path, "<!-- footer.html -->", output_html)
 
 # Inject CSS
 output_html = inject_file_content(
