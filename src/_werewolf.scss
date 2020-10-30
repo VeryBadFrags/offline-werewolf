@@ -16,7 +16,7 @@ $day: #f57f17;
 
 .role-card {
   border-radius: $borderRadius;
-  margin: 5px 6px;
+  margin: 6px 6px;
   padding: 11px;
   flex-basis: 160px;
   flex-grow: 1;
@@ -89,7 +89,7 @@ $day: #f57f17;
 }
 
 .bg-night {
-  background-color: darken($night, 10%);
+  background-color: #E8EAF6;
 }
 
 .day {
@@ -97,5 +97,5 @@ $day: #f57f17;
 }
 
 .bg-day {
-  background-color: lighten($day, 40%);
+  background-color: #FFF3E0;
 }
