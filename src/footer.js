@@ -8,13 +8,19 @@ let randomNumber;
 let rolesList = [];
 let playerActionChars = [];
 
+const playerListElement = document.getElementById("player");
+
 function startGame() {
     window.scrollTo(0, 0);
     resetValues();
 
-    /* Get the Game params */
-    let playerSelect = document.getElementById("player");
-    playerID = Number(playerSelect.options[playerSelect.selectedIndex].value);
+    // Get the Game params
+    playerID = Number(playerListElement.options[playerListElement.selectedIndex].value);
+    if(playerID == -1) {
+        printError(`You need to select an 👤 Avatar`);
+        return;
+    }
+
     totalPlayers = getTotalNumberOfPlayers();
     if (totalPlayers > avatars.length) {
         printError(`There cannot be more than ${avatars.length} players`);
@@ -322,12 +328,14 @@ function startDay() {
     containerElement.classList.add('bg-day');
 }
 
+// Print an error box at the top of the page
 function printError(content) {
     let errorBox = document.getElementById("error");
     errorBox.innerHTML = content;
     errorBox.style.display = "block";
 }
 
+// Returns the ID of a Player based on its Player Code
 function getIdForChar(token, charsList) {
     for (let i = 0; i < charsList.length; i++) {
         if (charsList[i] == token) {
@@ -338,7 +346,7 @@ function getIdForChar(token, charsList) {
     return -1;
 }
 
-/* Pseudo-LFSR, it just needs to be fast and unpredictable */
+// Pseudo-LFSR, it just needs to be fast and unpredictable
 function getRNG(currentSeed, iteration) {
     let startDate = 0;
     for (let i = 0; i < currentSeed.length; i++) {
@@ -365,7 +373,8 @@ function getRNG(currentSeed, iteration) {
 
     return period;
 }
-/* Fisher-Yates Shuffle using the seed */
+
+// Fisher-Yates Shuffle using the seed
 function shuffle(array, rand) {
     let currentIndex = array.length,
         temporaryValue, randomIndex;
@@ -382,7 +391,7 @@ function shuffle(array, rand) {
     return array;
 }
 
-/* Generate a 3-emoji fingerprint to confirm that players are on the same game */
+// Generate a 3-emoji fingerprint to confirm that players are on the same game
 function getFingerprint(seedNumber) {
     let seed1 = seedNumber + 1;
     let seed2 = Math.floor(seedNumber / 10);
@@ -453,6 +462,7 @@ function fillRules() {
     fillRolesFromArray(vilRoles);
 }
 
+// Populate the roles list in the Rules card
 function fillRolesFromArray(array) {
     let rulesRolesList = document.getElementById("rulesRolesList");
     for (let i = 0; i < array.length; i++) {
@@ -490,11 +500,14 @@ function appendLine(content, list) {
 }
 
 /* Set the list of available Avatars */
-const playerListElement = document.getElementById("player");
-
 function setPlayersList() {
     removeOptions(playerListElement);
     totalPlayers = getTotalNumberOfPlayers();
+
+    let emptyOpt = document.createElement('option');
+    emptyOpt.value = -1;
+    playerListElement.appendChild(emptyOpt);
+
     for (let i = 0; i < avatars.length && i < totalPlayers; i++) {
         let opt = document.createElement('option');
         opt.value = i;
