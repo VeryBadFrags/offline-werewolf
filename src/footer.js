@@ -120,7 +120,7 @@ function startNight() {
             let iPlayerActionContainer = document.createElement("div");
             let iPlayerActionLabel = document.createElement("label");
             iPlayerActionLabel.htmlFor = "input" + iAuthor;
-            iPlayerActionLabel.innerHTML = avatars[iAuthor];
+            iPlayerActionLabel.innerHTML = `${avatars[iAuthor]}`;
             iPlayerActionContainer.appendChild(iPlayerActionLabel);
 
             let iPlayerActionSelect = document.createElement("select");
@@ -135,11 +135,10 @@ function startNight() {
             let actionOptionsList = [];
             for (let jTarget = 0; jTarget < rolesList.length; jTarget++) {
                 if (jTarget != iAuthor) {
-                    // NEW
                     let actionCode = playerActionChars[iAuthor] + targetActionChars2[jTarget];
                     let iOpt = document.createElement('option');
                     iOpt.value = actionCode;
-                    iOpt.innerHTML = `${actionCode}`;
+                    iOpt.innerHTML = `${avatars[iAuthor]} ${actionCode}`;
                     actionOptionsList.push(iOpt);
                 }
             }
