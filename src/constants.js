@@ -9,7 +9,7 @@ const vilRoles = [
     { name: "🕵️&nbsp;Detective", team: teamVillagers, verb: "Identify", description: "Action: Identify the role of a player", id: "detective" },
     { name: "🧑‍🌾&nbsp;Farmer", team: teamVillagers, verb: "Give corn to", description: "Action: Give corn to another player anonymously", id: "farmer" },
     /* { name: "💂&nbsp;Bodyguard", team: teamVillagers, verb: "Protect", description: "Action: Stop an action on a player", id: "bodyguard" }, */
-    { name: "🧙&nbsp;Fortune Teller", team: teamVillagers, verb: "Divine", description: "Action: Guess the team of a player", id: "teller" },
+    { name: "🧙&nbsp;Fortune Teller", team: teamVillagers, verb: "Divine", description: "Action: Divine the team of a player", id: "teller" },
     { name: "🧓&nbsp;Gossip", team: teamVillagers, verb: "Follow", description: "Action: See who a player visited", id: "gossip" },
     /*{ name: "👮&nbsp;Jailer", team: teamVillagers, verb: "Block", description: "Action: Block a player from using his action during the night", id: "jailer" },*/
     { name: "🤴&nbsp;Mayor", team: teamVillagers, verb: "Impress", description: "Action: Impress a player - They will know your identity", id: "mayor" },
