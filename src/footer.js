@@ -88,6 +88,7 @@ function startNight() {
 
     // Set Night Actions list
     let playerActionContainer = document.getElementById("playerActionSelect");
+    playerActionContainer.innerHTML = "";
 
     let playerActionsLabel = document.createElement("label");
     playerActionsLabel.htmlFor = "input" + playerID;
@@ -96,6 +97,8 @@ function startNight() {
     let playerActionsSelect = document.createElement("select");
     playerActionsSelect.id = "input" + playerID;
     playerActionsSelect.classList = "form-control";
+    let emptyOption = document.createElement("option");
+    playerActionsSelect.appendChild(emptyOption);
     playerActionContainer.appendChild(playerActionsSelect);
 
     playerActionsLabel.innerHTML = `Select who to <strong>${rolesList[playerID].verb}</strong> and share the Player Code:`;
@@ -126,6 +129,8 @@ function startNight() {
             let iPlayerActionSelect = document.createElement("select");
             iPlayerActionSelect.id = "input" + iAuthor;
             iPlayerActionSelect.classList = "form-control";
+            emptyOption = document.createElement("option");
+            iPlayerActionSelect.appendChild(emptyOption);
 
             let iPlayerActionSelectWrapper = document.createElement("div");
             iPlayerActionSelectWrapper.classList.add("custom-select");
@@ -387,7 +392,6 @@ function getFingerprint(seedNumber) {
 
 function resetValues() {
     resetErrors();
-    document.getElementById("playerActionSelect").innerHTML = "";
     document.getElementById("dayBox").style.display = "none";
     document.getElementById("playersInfo").innerHTML = "";
     document.getElementById('playerCodesSummary').innerHTML = "";
