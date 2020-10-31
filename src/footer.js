@@ -2,7 +2,7 @@ let intervalId;
 let playerID;
 let totalPlayers;
 let seed;
-let iterationField;
+let roundField;
 let randomNumber;
 
 let rolesList = [];
@@ -16,7 +16,7 @@ function startGame() {
 
     // Get the Game params
     playerID = Number(playerListElement.options[playerListElement.selectedIndex].value);
-    if(playerID == -1) {
+    if (playerID == -1) {
         printError(`You need to select an 👤 Avatar`);
         return;
     }
@@ -29,8 +29,16 @@ function startGame() {
 
     {
         seed = document.getElementById("seed").value.toUpperCase();
-        iterationField = document.getElementById("iteration");
-        randomNumber = getRNG(seed, iterationField.value);
+        if (seed.length < 4) {
+            printError(`Please enter a valid 🎲 Code`);
+            return;
+        }
+        roundField = document.getElementById("iteration");
+        if(roundField.value < 1) {
+            printError(`Please enter a valid 🔢 Round`);
+            return;
+        }
+        randomNumber = getRNG(seed, roundField.value);
 
         /* Build list of roles */
         let suffledVillagers = vilRoles.slice();
@@ -76,7 +84,7 @@ function startGame() {
         startNight();
     }
 
-    iterationField.value = iterationField.value * 1 + 1;
+    roundField.value = roundField.value * 1 + 1;
 
     document.getElementById("gameWindow").style.display = "inline-block";
 }
@@ -103,6 +111,7 @@ function startNight() {
     let playerActionsSelect = document.createElement("select");
     playerActionsSelect.id = "input" + playerID;
     playerActionsSelect.classList = "form-control";
+    playerActionsSelect.required = true;
     let emptyOption = document.createElement("option");
     playerActionsSelect.appendChild(emptyOption);
     playerActionContainer.appendChild(playerActionsSelect);
@@ -135,6 +144,7 @@ function startNight() {
             let iPlayerActionSelect = document.createElement("select");
             iPlayerActionSelect.id = "input" + iAuthor;
             iPlayerActionSelect.classList = "form-control";
+            iPlayerActionSelect.required = true;
             emptyOption = document.createElement("option");
             iPlayerActionSelect.appendChild(emptyOption);
 
@@ -154,7 +164,7 @@ function startNight() {
                 }
             }
 
-            shuffle(actionOptionsList, randomNumber * (1 + iAuthor));
+            actionOptionsList.sort((a, b) => a.value.localeCompare(b.value));
             for (let l = 0; l < actionOptionsList.length; l++) {
                 iPlayerActionSelect.appendChild(actionOptionsList[l]);
             }
@@ -311,7 +321,7 @@ function startDay() {
     startTimer(60 * 5, timer, "🔔 Time's up! Who should you exile?");
 
     {
-        let newRandomNumber = getRNG(phaseSeed, iterationField.value);
+        let newRandomNumber = getRNG(phaseSeed, roundField.value);
         let fingerprint = getFingerprint(newRandomNumber);
         document.getElementById("fingerprint").innerHTML = fingerprint;
     }
