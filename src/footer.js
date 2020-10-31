@@ -17,7 +17,7 @@ function startGame() {
     // Get the Game params
     playerID = Number(playerListElement.options[playerListElement.selectedIndex].value);
     if (playerID == -1) {
-        printError(`You need to select an 👤 Avatar`);
+        printError(`Please select an 👤 Avatar`);
         return;
     }
 
@@ -119,6 +119,7 @@ function startNight() {
     playerActionsLabel.innerHTML = `Select who to <strong>${rolesList[playerID].verb}</strong> and share the Player Code:`;
     let actionsInputList = document.getElementById("playersActionSelects");
     actionsInputList.innerHTML = "";
+    let currentPlayerOptionsList = [];
     for (let iAuthor = 0; iAuthor < rolesList.length; iAuthor++) {
         if (iAuthor != playerID) {
             // Actions for the current player
@@ -127,7 +128,7 @@ function startNight() {
             let opt = document.createElement('option');
             opt.value = actionCode;
             opt.innerHTML = `${rolesList[playerID].verb} ${avatars[iAuthor]} -> "${avatars[playerID]} ${actionCode}"`;
-            playerActionsSelect.appendChild(opt);
+            currentPlayerOptionsList.push(opt);
         }
 
         // Add Selects for other players
@@ -165,12 +166,12 @@ function startNight() {
             }
 
             actionOptionsList.sort((a, b) => a.value.localeCompare(b.value));
-            for (let l = 0; l < actionOptionsList.length; l++) {
-                iPlayerActionSelect.appendChild(actionOptionsList[l]);
-            }
+            actionOptionsList.forEach(opt => iPlayerActionSelect.appendChild(opt))
             actionsInputList.appendChild(iPlayerActionContainer);
         }
     }
+    currentPlayerOptionsList.sort((a, b) => a.value.localeCompare(b.value));
+    currentPlayerOptionsList.forEach(opt => playerActionsSelect.appendChild(opt));
 
     // Start timer
     let timer = document.getElementById('timer');
