@@ -1,8 +1,8 @@
 dist/index.html: build/index.html dist/ dist/qr.png package.json node_modules/
 	npm run html-minifier
 
-build/index.html: build/ src/index.html build/rules.html build/footer.html build/constants.js build/footer.js build/style.css bundle.py
-	python3 bundle.py
+build/index.html: bundle.js build/ src/index.html build/rules.html build/footer.html build/constants.js build/footer.js build/style.css
+	node bundle.js
 
 build/rules.html: build/ src/rules.md package.json node_modules/
 	npm run marked
