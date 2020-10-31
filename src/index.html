@@ -57,29 +57,26 @@
                 <br>
                 <div id="timer"></div>
 
-                <!-- List the Action Codes that were used -->
-                <div id="actionCodesSummary"></div>
+                <!-- List the Player Codes that were used -->
+                <div id="playerCodesSummary"></div>
 
                 <div>
                     <button class="btn btn-outline" onclick="showHide('secretBlock');">👓 Show/Hide</button>
                 </div>
                 <div id="secretBlock" class="secret-card">
                     <div>Role: <strong id="roleField"></strong></div>
-                    <br>
-                    <div><span id="actionVerbField"></span></div>
+                    <div><span id="actionVerbDescription"></span></div>
+
                     <!-- Identity of other players -->
                     <div id="playersInfo"></div>
-
                     <br>
 
                     <!-- Night Phase -->
                     <div id="nightBox">
-                        <div>Select your action for the night and share the corresponding Action Code
-                            <div id="actions" class="flex roles-list"></div>
-                        </div>
+                        <div id="playerActionSelect"></div>
                         <hr>
-                        <div><span>Select the Action Codes from the other players</span></div>
-                        <div id="actionInput"></div>
+                        <div>Select the Player Codes from the other players:</div>
+                        <div id="playersActionSelects"></div>
                         <button class="btn btn-primary" onclick="startDay();">✅ End turn</button>
                     </div>
 

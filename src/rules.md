@@ -11,8 +11,8 @@
 #### Game phases
 
 - 🌙 Night
-  - Players pick an action and share their Action Code with the others
-  - Players must input the respective Action Code from each player and end the turn
+  - Players pick an action and share their Player Code with the others
+  - Players must input the respective Player Code from each player and end the turn
 - ☀️ Day
   - Players must confirm that they have the same Day Fingerprint (the game is void otherwise)
   - Players share their knowledge and try to identify the werewolves

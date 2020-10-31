@@ -50,7 +50,7 @@ function startGame() {
 
         /* Set Role */
         document.getElementById("roleField").innerHTML = rolesList[playerID].name;
-        document.getElementById("actionVerbField").innerHTML = rolesList[playerID].description;
+        document.getElementById("actionVerbDescription").innerHTML = rolesList[playerID].description;
 
         /* Set Player name */
         document.getElementById("playerid").innerHTML = avatars[playerID];
@@ -87,73 +87,74 @@ function startNight() {
     shuffle(targetActionChar, randomNumber + 17 + playerID);
 
     // Set Night Actions list
-    let actionsList = document.getElementById("actions");
-    let actionsInputList = document.getElementById("actionInput");
+    let playerActionContainer = document.getElementById("playerActionSelect");
+
+    let playerActionsLabel = document.createElement("label");
+    playerActionsLabel.htmlFor = "input" + playerID;
+    playerActionContainer.appendChild(playerActionsLabel);
+
+    let playerActionsSelect = document.createElement("select");
+    playerActionsSelect.id = "input" + playerID;
+    playerActionsSelect.classList = "form-control";
+    playerActionContainer.appendChild(playerActionsSelect);
+
+    playerActionsLabel.innerHTML = `Select who to <strong>${rolesList[playerID].verb}</strong> and share the Player Code:`;
+    let actionsInputList = document.getElementById("playersActionSelects");
     actionsInputList.innerHTML = "";
     for (let iAuthor = 0; iAuthor < rolesList.length; iAuthor++) {
         if (iAuthor != playerID) {
-            let actionCard = document.createElement('div');
-            actionCard.classList.add("action-card", "card-current-player");
-            actionCard.innerHTML = `<div>${rolesList[playerID].verb} ${avatars[iAuthor]}</div><br>`;
+            // Actions for the current player
             let actionCode = playerActionChars[playerID] + targetActionChar[iAuthor];
-            actionCard.innerHTML += `Action Code<br>${avatars[playerID]} <strong>${actionCode}</strong>`;
-            actionCard.onclick = function () {
-                document.getElementById("input" + playerID).value = actionCode;
-                let otherCrads = document.getElementsByClassName("card-current-player");
-                for (let j = 0; j < otherCrads.length; j++) {
-                    otherCrads.item(j).classList.remove("selected");
-                }
-                actionCard.classList.add("selected");
-            };
-            actionsList.appendChild(actionCard);
-        }
-        // Add Action Inputs
-        let actionInput = document.createElement('input');
-        actionInput.type = "hidden";
-        actionInput.pattern = "[A-Za-z0-9]{2}";
-        actionInput.maxLength = 2;
-        actionInput.required = true;
-        actionInput.id = "input" + iAuthor;
-        actionsInputList.appendChild(actionInput);
 
+            let opt = document.createElement('option');
+            opt.value = actionCode;
+            opt.innerHTML = `${rolesList[playerID].verb} ${avatars[iAuthor]} -> "${avatars[playerID]} ${actionCode}"`;
+            playerActionsSelect.appendChild(opt);
+        }
+
+        // Add Selects for other players
         if (iAuthor != playerID) {
             let targetActionChars2 = playerActionChars.slice();
             shuffle(targetActionChars2, randomNumber + 17 + iAuthor);
 
-            let playerActions = document.createElement('div');
-            playerActions.classList.add("flex", "roles-list");
-            let iPlayerActionCodeCards = [];
+            let iPlayerActionContainer = document.createElement("div");
+            let iPlayerActionLabel = document.createElement("label");
+            iPlayerActionLabel.htmlFor = "input" + iAuthor;
+            iPlayerActionLabel.innerHTML = avatars[iAuthor];
+            iPlayerActionContainer.appendChild(iPlayerActionLabel);
+
+            let iPlayerActionSelect = document.createElement("select");
+            iPlayerActionSelect.id = "input" + iAuthor;
+            iPlayerActionSelect.classList = "form-control";
+
+            let iPlayerActionSelectWrapper = document.createElement("div");
+            iPlayerActionSelectWrapper.classList.add("custom-select");
+            iPlayerActionSelectWrapper.appendChild(iPlayerActionSelect);
+            iPlayerActionContainer.appendChild(iPlayerActionSelectWrapper);
+
+            let actionOptionsList = [];
             for (let jTarget = 0; jTarget < rolesList.length; jTarget++) {
                 if (jTarget != iAuthor) {
-                    let actionCard = document.createElement('div');
-                    actionCard.classList.add("action-card", "card" + iAuthor);
+                    // NEW
                     let actionCode = playerActionChars[iAuthor] + targetActionChars2[jTarget];
-                    actionCard.innerHTML = `${avatars[iAuthor]}<br><strong>${actionCode}</strong>`;
-                    actionCard.onclick = function () {
-                        document.getElementById("input" + iAuthor).value = actionCode;
-                        let otherCrads = document.getElementsByClassName("card" + iAuthor);
-                        for (let k = 0; k < otherCrads.length; k++) {
-                            otherCrads.item(k).classList.remove("selected");
-                        }
-                        actionCard.classList.add("selected");
-                    }
-                    iPlayerActionCodeCards.push(actionCard);
+                    let iOpt = document.createElement('option');
+                    iOpt.value = actionCode;
+                    iOpt.innerHTML = `${actionCode}`;
+                    actionOptionsList.push(iOpt);
                 }
             }
 
-            shuffle(iPlayerActionCodeCards, randomNumber * (1 + iAuthor));
-            for (let l = 0; l < iPlayerActionCodeCards.length; l++) {
-                playerActions.appendChild(iPlayerActionCodeCards[l]);
+            shuffle(actionOptionsList, randomNumber * (1 + iAuthor));
+            for (let l = 0; l < actionOptionsList.length; l++) {
+                iPlayerActionSelect.appendChild(actionOptionsList[l]);
             }
-            actionsInputList.appendChild(playerActions);
-            let separator = document.createElement('br');
-            actionsInputList.appendChild(separator);
+            actionsInputList.appendChild(iPlayerActionContainer);
         }
     }
 
     // Start timer
     let timer = document.getElementById('timer');
-    startTimer(60 * 2, timer, "🔔 Time's up! Share your action code with the others");
+    startTimer(60 * 2, timer, "🔔 Time's up! Share your Player Code with the others");
 
     document.getElementById("gameMode").innerHTML = "🌙 Night Phase - Do not communication with other players";
     document.getElementById("nightBox").style.display = "block";
@@ -174,13 +175,13 @@ function startDay() {
     targetOutputElement.innerHTML = "";
     let actionMapping = {};
 
-    let codesSummaryElement = document.getElementById('actionCodesSummary');
+    let codesSummaryElement = document.getElementById('playerCodesSummary');
     codesSummaryElement.innerHTML = "<br>Codes: ";
     let codesSummaryList = [];
     let blocked = false;
 
     let phaseSeed = seed;
-    // Rebuild the Actions from the Action Codes for each player
+    // Rebuild the Actions from the Player Codes for each player
     for (let i = 0; i < rolesList.length; i++) {
         let targetActionChars = playerActionChars.slice();
         shuffle(targetActionChars, randomNumber + 17 + i);
@@ -188,25 +189,25 @@ function startDay() {
         let doc = document.getElementById("input" + i);
         let actionCode = doc.value;
 
-        // Add the Action Code to the summary box
+        // Add the Player Code to the summary box
         codesSummaryList.push(`${avatars[i]}&nbsp;<strong>${actionCode}</strong>`);
 
         phaseSeed += actionCode;
         if (actionCode.length < 2) {
             let errorBox = document.getElementById("error");
-            errorBox.innerHTML = `Error: you must pick the Action Code for <strong>${avatars[i]}</strong>`;
+            errorBox.innerHTML = `Error: you must pick the Player Code for <strong>${avatars[i]}</strong>`;
             errorBox.style.display = "block";
             return;
         }
 
         let authorId = getIdForChar(actionCode[0], playerActionChars);
         if (i != authorId) {
-            printError(`Error: invalid Action Code ${actionCode} for ${avatars[i]}`);
+            printError(`Error: invalid Player Code ${actionCode} for ${avatars[i]}`);
             return;
         }
         let targetId = getIdForChar(actionCode[1], targetActionChars);
         if (targetId == -1) {
-            printError(`Error: invalid Action Code ${actionCode} for ${avatars[i]}`);
+            printError(`Error: invalid Player Code ${actionCode} for ${avatars[i]}`);
             return;
         }
 
@@ -329,7 +330,7 @@ function getIdForChar(token, charsList) {
             return i;
         }
     }
-    console.log("Error: action code not found");
+    console.log("Error: Player Code not found");
     return -1;
 }
 
@@ -387,10 +388,10 @@ function getFingerprint(seedNumber) {
 
 function resetValues() {
     resetErrors();
-    document.getElementById("actions").innerHTML = "";
+    document.getElementById("playerActionSelect").innerHTML = "";
     document.getElementById("dayBox").style.display = "none";
     document.getElementById("playersInfo").innerHTML = "";
-    document.getElementById('actionCodesSummary').innerHTML = "";
+    document.getElementById('playerCodesSummary').innerHTML = "";
 
     rolesList = [];
 }
