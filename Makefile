@@ -1,4 +1,4 @@
-dist/index.html: build/index.html dist/ dist/qr.png package.json node_modules/
+dist/index.html: build/index.html dist/ dist/favicon.svg dist/qr.svg package.json node_modules/
 	npm run html-minifier
 
 build/index.html: bundle.js build/ src/index.html build/rules.html build/footer.html build/constants.js build/footer.js build/style.css
@@ -10,9 +10,6 @@ build/rules.html: build/ src/rules.md package.json node_modules/
 build/footer.html: build/ src/footer.md package.json node_modules/
 	npm run marked
 
-node_modules/:
-	npm install
-
 build/constants.js: src/constants.js package.json node_modules/
 	npm run babel
 
@@ -22,14 +19,20 @@ build/footer.js: src/footer.js package.json node_modules/
 build/style.css: src/*.scss package.json node_modules/
 	npm run sass
 
+dist/favicon.svg: dist/ assets/wolf-emoji.svg
+	cp assets/wolf-emoji.svg dist/favicon.svg
+
+dist/qr.svg: dist/ package.json node_modules/
+	npm run qrcode
+
 build/:
 	mkdir -p build
 
-dist/qr.png:  dist/ package.json node_modules/
-	npm run qrcode
-
 dist/:
 	mkdir -p dist
+
+node_modules/:
+	npm install
 
 .PHONY: clean
 

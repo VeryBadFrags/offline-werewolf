@@ -18,15 +18,16 @@
     <meta charset="UTF-8">
     <meta name="description"
         content="Play Werewolf anywhere with your friends, even without an internet connection. Offline Werewolf is hidden role game about information and deceit.">
-    <meta name="keywords" content="Social deduction">
+    <meta name="keywords" content="Werewolf, Mafia, Game, Open source, Offline">
     <meta name="author" content="VeryBadFrags">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
     <meta name="theme-color" content="#546E7A">
 
     <title>Offline Werewolf</title>
 
-    <link rel="icon"
-        href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐺</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🐺</text></svg>">
+    <link rel="mask-icon" href="favicon.svg" color="#546E7A">
 
     <link rel="stylesheet" type="text/css" href="style.css">
     <script src="constants.js"></script>
@@ -95,6 +96,11 @@
                     <h3 class="card-title">⚙️ Game Settings</h3>
                 </div>
                 <div>
+                    <label for="total-players">👥 Total players</label>
+                    <input type="number" id="total-players" class="form-control" name="totalPlayers" value="3" min="3"
+                        oninput="setPlayersList();" autocomplete="off" required>
+                </div>
+                <div>
                     <label for="player">👤 Avatar (must be unique)</label>
                     <div class="custom-select">
                         <select name="player" id="player" class="form-control" required></select>
@@ -109,11 +115,6 @@
                     <label for="iteration">🔢 Round</label>
                     <input type="number" id="iteration" class="form-control" name="round" value="1" min="1"
                         autocomplete="off" required>
-                </div>
-                <div>
-                    <label for="total-players">👥 Total players</label>
-                    <input type="number" id="total-players" class="form-control" name="totalPlayers" value="3" min="3"
-                        oninput="setPlayersList();" autocomplete="off" required>
                 </div>
                 <button id="startButton" class="btn btn-primary" onclick="startGame();">🏁 Start New Game</button>
             </div>
