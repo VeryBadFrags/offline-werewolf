@@ -166,7 +166,7 @@ function startNight() {
             }
 
             actionOptionsList.sort((a, b) => a.value.localeCompare(b.value));
-            actionOptionsList.forEach(opt => iPlayerActionSelect.appendChild(opt))
+            actionOptionsList.forEach(opt => iPlayerActionSelect.appendChild(opt));
             actionsInputList.appendChild(iPlayerActionContainer);
         }
     }
@@ -197,7 +197,6 @@ function startDay() {
     let actionMapping = {};
 
     let codesSummaryElement = document.getElementById('playerCodesSummary');
-    codesSummaryElement.innerHTML = "<br>Codes: ";
     let codesSummaryList = [];
     let blocked = false;
 
@@ -255,7 +254,7 @@ function startDay() {
         }
     }
 
-    codesSummaryElement.innerHTML += codesSummaryList.join(' - ');
+    codesSummaryElement.innerHTML = "<br>Codes: " + codesSummaryList.join(' - ');
 
     // Process current player action
     {
@@ -342,7 +341,7 @@ function startDay() {
 // Print an error box at the top of the page
 function printError(content) {
     let errorBox = document.getElementById("error");
-    errorBox.innerHTML = content;
+    errorBox.innerText = content;
     errorBox.style.display = "block";
 }
 
