@@ -197,7 +197,10 @@ function startDay() {
     let actionMapping = {};
 
     let codesSummaryElement = document.getElementById('playerCodesSummary');
-    let codesSummaryList = [];
+    codesSummaryElement.innerHTML = "<br>Codes: ";
+    let codesSummaryList = document.createElement('ul');
+    codesSummaryList.classList.add('list-inline', 'list-middot');
+    let codesSummaryLines = [];
     let blocked = false;
 
     let phaseSeed = seed;
@@ -210,7 +213,9 @@ function startDay() {
         let actionCode = doc.value;
 
         // Add the Player Code to the summary box
-        codesSummaryList.push(`${avatars[i]}&nbsp;<strong>${actionCode}</strong>`);
+        let lineItem = document.createElement('li');
+        lineItem.innerHTML = `${avatars[i]}&nbsp;<strong>${actionCode}</strong>`;
+        codesSummaryLines.push(lineItem);
 
         phaseSeed += actionCode;
         if (actionCode.length < 2) {
@@ -254,7 +259,8 @@ function startDay() {
         }
     }
 
-    codesSummaryElement.innerHTML = "<br>Codes: " + codesSummaryList.join(' - ');
+    codesSummaryLines.forEach(li => codesSummaryList.appendChild(li));
+    codesSummaryElement.appendChild(codesSummaryList);
 
     // Process current player action
     {

@@ -244,4 +244,17 @@ a:hover {
   font-size: 18px;
 }
 
+.list-inline {
+  list-style: none;
+  padding: 0;
+}
+
+.list-inline > li {
+  display: inline;
+}
+
+.list-middot > li:not(:last-child)::after {
+  content: " - ";
+}
+
 @import "werewolf";
