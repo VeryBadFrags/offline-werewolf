@@ -38,8 +38,8 @@ $borderRadius: 4px;
 body {
   background-color: $bgBody;
   font-family: Arial, Helvetica, sans-serif;
-  text-align: center;
   margin: 0;
+  text-align: center;
 }
 
 hr {
@@ -89,8 +89,8 @@ a:hover {
 }
 
 .navbar-brand {
-  padding: 5px 0px;
   font-size: 1.25rem;
+  padding: 5px 0px;
   text-shadow: 2px 2px 1px $transparentBlack;
 }
 
@@ -114,12 +114,12 @@ a:hover {
   border: 1px solid $secondaryBorder;
   border-radius: $borderRadius;
   box-shadow: $shadow1;
+  flex-grow: 1;
   margin: 12px 12px;
-  padding: 16px 20px;
   max-width: 640px;
+  padding: 16px 20px;
   text-align: left;
   vertical-align: top;
-  flex-grow: 1;
 }
 
 .card-title {
@@ -133,18 +133,18 @@ a:hover {
 }
 
 .list {
-  list-style-type: none;
   font-size: 17px;
-  padding-left: 20px;
+  list-style-type: none;
   margin-bottom: 0;
+  padding-left: 20px;
 }
 
 .alert {
   animation: shake 0.4s;
+  background-color: $danger;
   border: 1px solid black;
   border-radius: $borderRadius;
   box-shadow: 1px 1px 3px rgba($danger, 0.5);
-  background-color: $danger;
   color: white;
   font-size: 18px;
   text-shadow: 1px 1px 0px $transparentBlack8;
@@ -233,15 +233,15 @@ a:hover {
   border-radius: $borderRadius;
   box-sizing: border-box;
   display: block;
-  padding: 10px 12px;
-  margin: 1px 0 15px;
   font-size: 16px;
+  margin: 1px 0 15px;
+  padding: 10px 12px;
   width: 100%;
 }
 
 .custom-select {
-  width: 100%;
   font-size: 18px;
+  width: 100%;
 }
 
 .list-inline {
@@ -254,7 +254,8 @@ a:hover {
 }
 
 .list-middot > li:not(:last-child)::after {
-  content: " - ";
+  content: "-";
+  margin: 0 .25em;
 }
 
 @import "werewolf";
