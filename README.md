@@ -1,7 +1,7 @@
 # Offline Werewolf
 
 [![Language grade: JavaScript](https://img.shields.io/lgtm/grade/javascript/g/VeryBadFrags/offline-werewolf.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/VeryBadFrags/offline-werewolf/context:javascript)
-![GitHub](https://img.shields.io/badge/license-MIT-green)
+![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
 A server-free, fast-paced version of the Werewolf / Mafia formula.
 
