@@ -217,7 +217,7 @@ function startDay() {
         let lineItem = document.createElement('li');
         lineItem.innerHTML = `${avatars[i]}&nbsp;`;
         lineItem.appendChild(strongActionCode);
-        codesSummaryList.appendChild(lineItem)
+        codesSummaryList.appendChild(lineItem);
 
         phaseSeed += actionCode;
         if (actionCode.length < 2) {
