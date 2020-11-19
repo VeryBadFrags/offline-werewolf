@@ -1,7 +1,7 @@
 # Generate all the output files
-.PHONY: distribute
-distribute: dist/index.html dist/favicon.svg dist/qr.svg
-	@echo 'Built site into "dist/"'
+.PHONY: generate
+generate: dist/index.html dist/favicon.svg dist/qr.svg
+	@echo 'Generated site into: dist/'
 
 # Minify final HTML
 dist/index.html: node_modules/ dist/ build/index.html package.json
