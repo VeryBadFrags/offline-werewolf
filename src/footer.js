@@ -104,15 +104,15 @@ function startNight() {
 
     let playerActionsLabel = document.createElement("label");
     playerActionsLabel.htmlFor = "input" + playerID;
-    playerActionContainer.appendChild(playerActionsLabel);
+    playerActionContainer.append(playerActionsLabel);
 
     let playerActionsSelect = document.createElement("select");
     playerActionsSelect.id = "input" + playerID;
     playerActionsSelect.classList = "form-control";
     playerActionsSelect.required = true;
     let emptyOption = document.createElement("option");
-    playerActionsSelect.appendChild(emptyOption);
-    playerActionContainer.appendChild(playerActionsSelect);
+    playerActionsSelect.append(emptyOption);
+    playerActionContainer.append(playerActionsSelect);
 
     playerActionsLabel.innerHTML = `Select who to <strong>${rolesList[playerID].verb}</strong> and share the Player Code:`;
     let actionsInputList = document.getElementById("playersActionSelects");
@@ -136,19 +136,19 @@ function startNight() {
             let iPlayerActionLabel = document.createElement("label");
             iPlayerActionLabel.htmlFor = "input" + iAuthor;
             iPlayerActionLabel.innerHTML = avatars[iAuthor];
-            iPlayerActionContainer.appendChild(iPlayerActionLabel);
+            iPlayerActionContainer.append(iPlayerActionLabel);
 
             let iPlayerActionSelect = document.createElement("select");
             iPlayerActionSelect.id = "input" + iAuthor;
             iPlayerActionSelect.classList = "form-control";
             iPlayerActionSelect.required = true;
             let emptyOptionElement = document.createElement("option");
-            iPlayerActionSelect.appendChild(emptyOptionElement);
+            iPlayerActionSelect.append(emptyOptionElement);
 
             let iPlayerActionSelectWrapper = document.createElement("div");
             iPlayerActionSelectWrapper.classList.add("custom-select");
-            iPlayerActionSelectWrapper.appendChild(iPlayerActionSelect);
-            iPlayerActionContainer.appendChild(iPlayerActionSelectWrapper);
+            iPlayerActionSelectWrapper.append(iPlayerActionSelect);
+            iPlayerActionContainer.append(iPlayerActionSelectWrapper);
 
             // List the codes for the other players
             let actionOptionsList = [];
@@ -162,13 +162,12 @@ function startNight() {
                 }
             }
             actionOptionsList.sort((a, b) => a.value.localeCompare(b.value))
-                .forEach(actionOption => iPlayerActionSelect.appendChild(actionOption));
+                .forEach(actionOption => iPlayerActionSelect.append(actionOption));
 
-            actionsInputList.appendChild(iPlayerActionContainer);
+            actionsInputList.append(iPlayerActionContainer);
         }
     }
-    currentPlayerOptionsList
-        .forEach(opt => playerActionsSelect.appendChild(opt));
+    currentPlayerOptionsList.forEach(opt => playerActionsSelect.append(opt));
 
     // Start timer
     let timer = document.getElementById('timer');
@@ -209,12 +208,12 @@ function startDay() {
         let actionCode = doc.value;
 
         // Add the Player Code to the summary box
-        let strongActionCode = document.createElement('strong');
-        strongActionCode.innerText = actionCode;
         let lineItem = document.createElement('li');
         lineItem.innerHTML = avatars[i] + "&nbsp;";
-        lineItem.appendChild(strongActionCode);
-        codesSummaryList.appendChild(lineItem);
+        let strongActionCode = document.createElement('strong');
+        strongActionCode.innerText = actionCode;
+        lineItem.append(strongActionCode);
+        codesSummaryList.append(lineItem);
 
         phaseSeed += actionCode;
         if (actionCode.length < 2) {
@@ -224,12 +223,12 @@ function startDay() {
             return;
         }
 
-        let authorId = getIdForChar(actionCode[0], playerActionChars);
+        let authorId = playerActionChars.findIndex(elem => elem == actionCode[0]);
         if (i != authorId) {
             printError(`Error: invalid Player Code ${actionCode} for ${avatars[i]}`);
             return;
         }
-        let targetId = getIdForChar(actionCode[1], targetActionChars);
+        let targetId = targetActionChars.findIndex(elem => elem == actionCode[1]);
         if (targetId == -1) {
             printError(`Error: invalid Player Code ${actionCode} for ${avatars[i]}`);
             return;
@@ -258,7 +257,7 @@ function startDay() {
         }
     }
 
-    codesSummaryElement.appendChild(codesSummaryList);
+    codesSummaryElement.append(codesSummaryList);
 
     // Process current player action
     {
@@ -349,24 +348,9 @@ function printError(content) {
     errorBox.style.display = "block";
 }
 
-// Returns the ID of a Player based on its Player Code
-function getIdForChar(token, charsList) {
-    for (let i = 0; i < charsList.length; i++) {
-        if (charsList[i] == token) {
-            return i;
-        }
-    }
-    console.log("Error: Player Code not found");
-    return -1;
-}
-
 // Pseudo-LFSR, it just needs to be fast and unpredictable
 function getRNG(currentSeed, iteration) {
-    let startDate = 0;
-    for (let i = 0; i < currentSeed.length; i++) {
-        let charCode = currentSeed.charCodeAt(i) + iteration + totalPlayers;
-        startDate += charCode * (i + 1);
-    }
+    let startDate = [...currentSeed].reduce((acc, _, i) => acc + (currentSeed.charCodeAt(i) + iteration + totalPlayers) * (i + 1), 0);
 
     const modulo = 65536;
     startDate %= modulo;
@@ -481,26 +465,26 @@ function fillRules() {
 function fillRolesFromArray(array) {
     let rulesRolesList = document.getElementById("rulesRolesList");
     array.forEach(roleItem => {
-        let role = document.createElement('div');
-        role.classList.add("role-card");
-        role.classList.add(roleItem.team);
+        let roleBlock = document.createElement('div');
+        roleBlock.classList.add("role-card");
+        roleBlock.classList.add(roleItem.team);
         let title = document.createElement('h4');
         title.classList.add("card-title");
         title.innerHTML = roleItem.name;
-        role.appendChild(title);
+        roleBlock.append(title);
 
         let description = document.createElement('div');
         description.innerHTML = roleItem.description;
-        role.appendChild(description);
+        roleBlock.append(description);
 
-        rulesRolesList.appendChild(role);
+        rulesRolesList.append(roleBlock);
     });
 }
 
 function appendLine(content, list) {
     let actionItem = document.createElement('li');
     actionItem.innerHTML = content;
-    list.appendChild(actionItem);
+    list.append(actionItem);
 }
 
 function initSeed() {
@@ -519,14 +503,14 @@ function setPlayersList() {
 
     let emptyOpt = document.createElement('option');
     emptyOpt.value = -1;
-    playerListElement.appendChild(emptyOpt);
+    playerListElement.append(emptyOpt);
 
-    for (let i = 0; i < avatars.length && i < totalPlayers; i++) {
+    [...Array(Math.min(avatars.length, totalPlayers)).keys()].map(i => {
         let opt = document.createElement('option');
         opt.value = i;
         opt.innerHTML = avatars[i];
-        playerListElement.appendChild(opt);
-    }
+        return opt;
+    }).forEach(node => playerListElement.append(node));
 }
 
 fillRules();
