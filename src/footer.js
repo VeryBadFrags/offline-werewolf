@@ -73,9 +73,13 @@ function startGame() {
         /* Display players info to Werewolves */
         if (rolesList[playerID].team === "werewolves") {
             let playersInfoElem = document.getElementById("playersInfo");
-            let wolves = rolesList.filter(role => role.id === "wolf")
-                .map((role, index) => `<strong>${avatars[index]}</strong>`);
-            playersInfoElem.innerHTML = `The <span class='werewolves-text'>Werewolves</span> are: ${wolves.join(", ")}<br>`;
+            let wolvesList = [];
+            for (let i = 0; i < rolesList.length; i++) {
+                if (rolesList[i].id === "wolf") {
+                    wolvesList.push(`<strong>${avatars[i]}</strong>`);
+                }
+            }
+            playersInfoElem.innerHTML = `The <span class='werewolves-text'>Werewolves</span> are: ${wolvesList.join(", ")}<br>`;
         }
 
         startNight();
@@ -113,20 +117,18 @@ function startNight() {
     playerActionsLabel.innerHTML = `Select who to <strong>${rolesList[playerID].verb}</strong> and share the Player Code:`;
     let actionsInputList = document.getElementById("playersActionSelects");
     actionsInputList.innerHTML = "";
+
     let currentPlayerOptionsList = [];
     for (let iAuthor = 0; iAuthor < rolesList.length; iAuthor++) {
         if (iAuthor != playerID) {
             // Build possible actions for the current player
             let actionCode = playerActionChars[playerID] + targetActionChar[iAuthor];
-
             let opt = document.createElement('option');
             opt.value = actionCode;
             opt.innerHTML = `${rolesList[playerID].verb} ${avatars[iAuthor]} -> "${avatars[playerID]} ${actionCode}"`;
             currentPlayerOptionsList.push(opt);
-        }
 
-        // Add Selects for other players
-        if (iAuthor != playerID) {
+            // Build action codes for the other players
             let targetActionChars2 = playerActionChars.slice();
             shuffle(targetActionChars2, randomNumber + 17 + iAuthor);
 
@@ -140,8 +142,8 @@ function startNight() {
             iPlayerActionSelect.id = "input" + iAuthor;
             iPlayerActionSelect.classList = "form-control";
             iPlayerActionSelect.required = true;
-            emptyOption = document.createElement("option");
-            iPlayerActionSelect.appendChild(emptyOption);
+            let emptyOptionElement = document.createElement("option");
+            iPlayerActionSelect.appendChild(emptyOptionElement);
 
             let iPlayerActionSelectWrapper = document.createElement("div");
             iPlayerActionSelectWrapper.classList.add("custom-select");
@@ -149,22 +151,25 @@ function startNight() {
             iPlayerActionContainer.appendChild(iPlayerActionSelectWrapper);
 
             // List the codes for the other players
-            let actionOptionsList = rolesList.filter((role, index) => index != iAuthor)
-                .map((role, index) => {
-                    let actionCode = playerActionChars[iAuthor] + targetActionChars2[index];
+            let actionOptionsList = [];
+            for (let jTarget = 0; jTarget < rolesList.length; jTarget++) {
+                if (jTarget != iAuthor) {
+                    let jActionCode = playerActionChars[iAuthor] + targetActionChars2[jTarget];
                     let iOpt = document.createElement('option');
-                    iOpt.value = actionCode;
-                    iOpt.innerHTML = `${avatars[iAuthor]} ${actionCode}`;
-                    return iOpt;
-                });
+                    iOpt.value = jActionCode;
+                    iOpt.innerHTML = `${avatars[iAuthor]} ${jActionCode}`;
+                    actionOptionsList.push(iOpt);
+                }
+            }
+            actionOptionsList.sort((a, b) => a.value.localeCompare(b.value))
+                .forEach(actionOption => iPlayerActionSelect.appendChild(actionOption));
 
-            actionOptionsList.sort((a, b) => a.value.localeCompare(b.value));
-            actionOptionsList.forEach(opt => iPlayerActionSelect.appendChild(opt));
             actionsInputList.appendChild(iPlayerActionContainer);
         }
     }
-    currentPlayerOptionsList.sort((a, b) => a.value.localeCompare(b.value));
-    currentPlayerOptionsList.forEach(opt => playerActionsSelect.appendChild(opt));
+    currentPlayerOptionsList
+        .sort((a, b) => a.value.localeCompare(b.value))
+        .forEach(opt => playerActionsSelect.appendChild(opt));
 
     // Start timer
     let timer = document.getElementById('timer');
@@ -501,9 +506,7 @@ function appendLine(content, list) {
 
 function initSeed() {
     let newSeed = "";
-    for (let i = 0; i < 4; i++) {
-        newSeed += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
+    [...Array(4).keys()].forEach(i => newSeed += characters.charAt(Math.floor(Math.random() * charactersLength)));
     document.getElementById("seed").value = newSeed;
 }
 
