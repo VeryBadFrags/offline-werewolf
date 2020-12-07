@@ -34,7 +34,7 @@ function startGame() {
             return;
         }
         roundField = document.getElementById("iteration");
-        if(roundField.value < 1) {
+        if (roundField.value < 1) {
             printError(`Please enter a valid 🔢 Round`);
             return;
         }
@@ -48,6 +48,7 @@ function startGame() {
         rolesList.push(werRoles[0]);
         for (let i = 0; i < totalPlayers - wolvesCount; i++) {
             rolesList.push(suffledVillagers[i % suffledVillagers.length]);
+            // Add a Wolf every 3 players
             if ((i + 1) % 3 == 0 && i + 1 < totalPlayers - wolvesCount) {
                 rolesList.push(werRoles[wolvesCount % werRoles.length]);
                 wolvesCount++;
@@ -72,12 +73,8 @@ function startGame() {
         /* Display players info to Werewolves */
         if (rolesList[playerID].team === "werewolves") {
             let playersInfoElem = document.getElementById("playersInfo");
-            let wolves = [];
-            for (let i = 0; i < rolesList.length; i++) {
-                if (rolesList[i].id === "wolf") {
-                    wolves.push(`<strong>${avatars[i]}</strong>`);
-                }
-            }
+            let wolves = rolesList.filter(role => role.id === "wolf")
+                .map((role, index) => `<strong>${avatars[index]}</strong>`);
             playersInfoElem.innerHTML = `The <span class='werewolves-text'>Werewolves</span> are: ${wolves.join(", ")}<br>`;
         }
 
@@ -91,10 +88,7 @@ function startGame() {
 
 // Game logic for the Night Phase
 function startNight() {
-    playerActionChars = [];
-    for (let i = 0; i < characters.length; i++) {
-        playerActionChars.push(characters.charAt(i));
-    }
+    playerActionChars = [...characters];
     shuffle(playerActionChars, randomNumber + 2);
 
     let targetActionChar = playerActionChars.slice();
@@ -122,7 +116,7 @@ function startNight() {
     let currentPlayerOptionsList = [];
     for (let iAuthor = 0; iAuthor < rolesList.length; iAuthor++) {
         if (iAuthor != playerID) {
-            // Actions for the current player
+            // Build possible actions for the current player
             let actionCode = playerActionChars[playerID] + targetActionChar[iAuthor];
 
             let opt = document.createElement('option');
@@ -139,7 +133,7 @@ function startNight() {
             let iPlayerActionContainer = document.createElement("div");
             let iPlayerActionLabel = document.createElement("label");
             iPlayerActionLabel.htmlFor = "input" + iAuthor;
-            iPlayerActionLabel.innerHTML = `${avatars[iAuthor]}`;
+            iPlayerActionLabel.innerHTML = avatars[iAuthor];
             iPlayerActionContainer.appendChild(iPlayerActionLabel);
 
             let iPlayerActionSelect = document.createElement("select");
@@ -154,16 +148,15 @@ function startNight() {
             iPlayerActionSelectWrapper.appendChild(iPlayerActionSelect);
             iPlayerActionContainer.appendChild(iPlayerActionSelectWrapper);
 
-            let actionOptionsList = [];
-            for (let jTarget = 0; jTarget < rolesList.length; jTarget++) {
-                if (jTarget != iAuthor) {
-                    let actionCode = playerActionChars[iAuthor] + targetActionChars2[jTarget];
+            // List the codes for the other players
+            let actionOptionsList = rolesList.filter((role, index) => index != iAuthor)
+                .map((role, index) => {
+                    let actionCode = playerActionChars[iAuthor] + targetActionChars2[index];
                     let iOpt = document.createElement('option');
                     iOpt.value = actionCode;
                     iOpt.innerHTML = `${avatars[iAuthor]} ${actionCode}`;
-                    actionOptionsList.push(iOpt);
-                }
-            }
+                    return iOpt;
+                });
 
             actionOptionsList.sort((a, b) => a.value.localeCompare(b.value));
             actionOptionsList.forEach(opt => iPlayerActionSelect.appendChild(opt));
@@ -215,7 +208,7 @@ function startDay() {
         let strongActionCode = document.createElement('strong');
         strongActionCode.innerText = actionCode;
         let lineItem = document.createElement('li');
-        lineItem.innerHTML = `${avatars[i]}&nbsp;`;
+        lineItem.innerHTML = avatars[i] + "&nbsp;";
         lineItem.appendChild(strongActionCode);
         codesSummaryList.appendChild(lineItem);
 
@@ -435,6 +428,7 @@ function getTotalNumberOfPlayers() {
     return document.getElementById("total-players").value;
 }
 
+// Remove the children of an HTML element
 function removeOptions(selectElement) {
     for (let i = selectElement.options.length - 1; i >= 0; i--) {
         selectElement.remove(i);
@@ -482,21 +476,21 @@ function fillRules() {
 // Populate the roles list in the Rules card
 function fillRolesFromArray(array) {
     let rulesRolesList = document.getElementById("rulesRolesList");
-    for (let i = 0; i < array.length; i++) {
+    array.forEach(roleItem => {
         let role = document.createElement('div');
         role.classList.add("role-card");
-        role.classList.add(array[i].team);
+        role.classList.add(roleItem.team);
         let title = document.createElement('h4');
         title.classList.add("card-title");
-        title.innerHTML = array[i].name;
+        title.innerHTML = roleItem.name;
         role.appendChild(title);
 
         let description = document.createElement('div');
-        description.innerHTML = array[i].description;
+        description.innerHTML = roleItem.description;
         role.appendChild(description);
 
         rulesRolesList.appendChild(role);
-    }
+    });
 }
 
 function appendLine(content, list) {
@@ -505,16 +499,16 @@ function appendLine(content, list) {
     list.appendChild(actionItem);
 }
 
-/* onload */
-
-/* Init seed */
-{
+function initSeed() {
     let newSeed = "";
     for (let i = 0; i < 4; i++) {
         newSeed += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     document.getElementById("seed").value = newSeed;
 }
+
+/* onload */
+initSeed();
 
 /* Set the list of available Avatars */
 function setPlayersList() {
