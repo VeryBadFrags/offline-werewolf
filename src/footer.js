@@ -168,7 +168,6 @@ function startNight() {
         }
     }
     currentPlayerOptionsList
-        .sort((a, b) => a.value.localeCompare(b.value))
         .forEach(opt => playerActionsSelect.appendChild(opt));
 
     // Start timer
