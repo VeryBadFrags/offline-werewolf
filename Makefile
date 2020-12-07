@@ -35,7 +35,7 @@ build/style.css: node_modules/ src/*.scss package.json
 dist/favicon.svg: dist/ assets/wolf-emoji.svg
 	cp assets/wolf-emoji.svg dist/favicon.svg
 
-# Build QR code
+# Build QR Code
 dist/qr.svg: node_modules/ dist/ package.json
 	npm run qrcode
 
