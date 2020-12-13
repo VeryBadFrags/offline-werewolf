@@ -1,58 +1,61 @@
-src = src
-build = build
-dist = dist
-node = package.json node_modules/
+ASSETS = assets
+SRC = src
+
+BUILD = build
+DIST = dist
+
+NODE_DEPS = package.json node_modules/
 
 # Generate all the output files
 .PHONY: generate
-generate: ${dist}/index.html ${dist}/favicon.svg ${dist}/qr.svg
-	@echo 'Generated site into: ${dist}/'
+generate: ${DIST}/index.html ${DIST}/favicon.svg ${DIST}/qr.svg
+	@echo 'Generated site into: ${DIST}/'
 
 # Minify final HTML
-dist/index.html: ${dist} ${build}/index.html ${node}
+dist/index.html: ${DIST} ${BUILD}/index.html ${NODE_DEPS}
 	npm run html-minifier
 
 # Bundle all sources into a single HTML page
-${build}/index.html: bundle.js ${src}/index.html ${build}/rules.html ${build}/footer.html ${build}/constants.js ${build}/footer.js ${build}/style.css
+${BUILD}/index.html: bundle.js ${SRC}/index.html ${BUILD}/rules.html ${BUILD}/footer.html ${BUILD}/constants.js ${BUILD}/footer.js ${BUILD}/style.css
 	node bundle.js
 
 # Transpile rules.md
-${build}/rules.html: ${build} ${src}/rules.md ${node}
+${BUILD}/rules.html: ${BUILD} ${SRC}/rules.md ${NODE_DEPS}
 	npm run marked
 
 # Transpile footer.md
-${build}/footer.html: ${build} ${src}/footer.md ${node}
+${BUILD}/footer.html: ${BUILD} ${SRC}/footer.md ${NODE_DEPS}
 	npm run marked
 
 # Run constants.js through Babel
-${build}/constants.js: ${src}/constants.js ${node}
+${BUILD}/constants.js: ${SRC}/constants.js ${NODE_DEPS}
 	npm run babel
 
 # Run footer.js through Babel
-${build}/footer.js: ${src}/footer.js ${node}
+${BUILD}/footer.js: ${SRC}/footer.js ${NODE_DEPS}
 	npm run babel
 
 # Compile Sass
-${build}/style.css: ${src}/*.scss ${node}
+${BUILD}/style.css: ${SRC}/*.scss ${NODE_DEPS}
 	npm run sass
 
 # Add favicon
-${dist}/favicon.svg: ${dist} assets/wolf-emoji.svg
-	cp assets/wolf-emoji.svg ${dist}/favicon.svg
+${DIST}/favicon.svg: ${DIST} ${ASSETS}/wolf-emoji.svg
+	cp ${ASSETS}/wolf-emoji.svg ${DIST}/favicon.svg
 
 # Build QR Code
-${dist}/qr.svg: ${dist} ${node}
+${DIST}/qr.svg: ${DIST} ${NODE_DEPS}
 	npm run qrcode
 
-${build}:
-	mkdir -p ${build}
+${BUILD}:
+	mkdir -p ${BUILD}
 
-${dist}:
-	mkdir -p ${dist}
+${DIST}:
+	mkdir -p ${DIST}
 
 node_modules/:
 	npm install
 
 .PHONY: clean
 clean:
-	rm -rf ${build}/ ${dist}/ node_modules/ ${src}/*.css ${src}/*.css.map
+	rm -rf ${BUILD}/ ${DIST}/ node_modules/ ${SRC}/*.css ${SRC}/*.css.map
