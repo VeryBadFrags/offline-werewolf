@@ -74,11 +74,11 @@ function startGame() {
         if (rolesList[playerID].team === "werewolves") {
             let playersInfoElem = document.getElementById("playersInfo");
             let wolvesList = [];
-            for (let i = 0; i < rolesList.length; i++) {
-                if (rolesList[i].id === "wolf") {
+            rolesList.forEach((role, i) => {
+                if (role.id === "wolf") {
                     wolvesList.push(`<strong>${avatars[i]}</strong>`);
                 }
-            }
+            });
             playersInfoElem.innerHTML = `The <span class='werewolves-text'>Werewolves</span> are: ${wolvesList.join(", ")}<br>`;
         }
 
@@ -119,7 +119,7 @@ function startNight() {
     actionsInputList.innerHTML = "";
 
     let currentPlayerOptionsList = [];
-    for (let iAuthor = 0; iAuthor < rolesList.length; iAuthor++) {
+    rolesList.forEach((r, iAuthor) => {
         if (iAuthor != playerID) {
             // Build possible actions for the current player
             let actionCode = playerActionChars[playerID] + targetActionChar[iAuthor];
@@ -152,7 +152,7 @@ function startNight() {
 
             // List the codes for the other players
             let actionOptionsList = [];
-            for (let jTarget = 0; jTarget < rolesList.length; jTarget++) {
+            rolesList.forEach((_, jTarget) => {
                 if (jTarget != iAuthor) {
                     let jActionCode = playerActionChars[iAuthor] + targetActionChars2[jTarget];
                     let iOpt = document.createElement('option');
@@ -160,13 +160,13 @@ function startNight() {
                     iOpt.innerHTML = `${avatars[iAuthor]} ${jActionCode}`;
                     actionOptionsList.push(iOpt);
                 }
-            }
+            });
             actionOptionsList.sort((a, b) => a.value.localeCompare(b.value))
                 .forEach(actionOption => iPlayerActionSelect.append(actionOption));
 
             actionsInputList.append(iPlayerActionContainer);
         }
-    }
+    });
     currentPlayerOptionsList.forEach(opt => playerActionsSelect.append(opt));
 
     // Start timer
@@ -200,12 +200,12 @@ function startDay() {
 
     let phaseSeed = seed;
     // Rebuild the Actions from the Player Codes for each player
-    for (let i = 0; i < rolesList.length; i++) {
+    rolesList.forEach((_, i) => {
         let targetActionChars = playerActionChars.slice();
         shuffle(targetActionChars, randomNumber + 17 + i);
 
-        let doc = document.getElementById("input" + i);
-        let actionCode = doc.value;
+        let inputElement = document.getElementById("input" + i);
+        let actionCode = inputElement.value;
 
         // Add the Player Code to the summary box
         let lineItem = document.createElement('li');
@@ -224,12 +224,8 @@ function startDay() {
         }
 
         let authorId = playerActionChars.findIndex(elem => elem == actionCode[0]);
-        if (i != authorId) {
-            printError(`Error: invalid Player Code ${actionCode} for ${avatars[i]}`);
-            return;
-        }
         let targetId = targetActionChars.findIndex(elem => elem == actionCode[1]);
-        if (targetId == -1) {
+        if (i != authorId || targetId == -1) {
             printError(`Error: invalid Player Code ${actionCode} for ${avatars[i]}`);
             return;
         }
@@ -255,7 +251,7 @@ function startDay() {
                 default:
             }
         }
-    }
+    });
 
     codesSummaryElement.append(codesSummaryList);
 
