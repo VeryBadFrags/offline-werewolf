@@ -8,7 +8,7 @@ NODE_DEPS = package.json node_modules/
 
 # Generate all the output files
 .PHONY: generate
-generate: ${DIST}/index.html ${DIST}/favicon.svg ${DIST}/qr.svg
+generate: ${DIST}/qr.svg ${DIST}/index.html ${DIST}/favicon.svg
 	@echo 'Generated site into: ${DIST}/'
 
 # Minify final HTML
@@ -43,9 +43,9 @@ ${BUILD}/style.css: ${SRC}/*.scss ${NODE_DEPS}
 ${DIST}/favicon.svg: ${DIST} ${ASSETS}/wolf-emoji.svg
 	cp ${ASSETS}/wolf-emoji.svg ${DIST}/favicon.svg
 
-# Build QR Code
+# Generate QR Code - run in background because of missing exit value
 ${DIST}/qr.svg: ${DIST} ${NODE_DEPS}
-	npm run qrcode
+	npm run qrcode&
 
 ${BUILD}:
 	mkdir -p ${BUILD}
