@@ -7,7 +7,7 @@
     "html-minifier": "html-minifier --collapse-whitespace --remove-comments --use-short-doctype --minify-css true --minify-js true build/index.html -o dist/index.html",
     "marked": "marked -o build/rules.html -i src/rules.md && marked -o build/footer.html -i src/footer.md --mangle",
     "qrcode": "qrcode -o dist/qr.svg https://wolf.verybadfrags.com",
-    "sass": "node-sass --no-source-map src/style.scss build/style.css --output-style compressed"
+    "sass": "sass src/style.scss:build/style.css -s compressed --no-source-map"
   },
   "repository": {
     "type": "git",
@@ -20,8 +20,8 @@
     "@babel/preset-env": "^7.12.1",
     "html-minifier": "^4.0.0",
     "marked": "^1.2.2",
-    "node-sass": "^4.14.1",
-    "qrcode": "^1.4.4"
+    "qrcode": "^1.4.4",
+    "sass": "^1.30.0"
   },
   "devDependencies": {
     "watch": "^1.0.2"
