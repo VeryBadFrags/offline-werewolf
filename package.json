@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "snowpack dev",
-    "build": "snowpack build && time npm run qrcode",
+    "build": "snowpack build && (npm run qrcode&)",
     "qrcode": "qrcode -o build/qr.svg https://wolf.verybadfrags.com"
   },
   "repository": {
