@@ -51,7 +51,7 @@
                 <div id="playerCodesSummary"></div>
 
                 <div>
-                    <button class="btn btn-outline" onclick="showHide('secretBlock');">👓 Show/Hide</button>
+                    <button class="btn btn-outline" id="secret-block-button">👓 Show/Hide</button>
                 </div>
                 <div id="secretBlock" class="secret-card">
                     <div>Role: <strong id="roleField"></strong></div>
@@ -67,7 +67,7 @@
                         <hr>
                         <div>Enter the Player Codes from the other players:</div>
                         <div id="playersActionSelects"></div>
-                        <button class="btn btn-primary" onclick="startDay();">✅ End turn</button>
+                        <button class="btn btn-primary" id="start-day-button">✅ End turn</button>
                     </div>
 
                     <!-- Day Phase -->
@@ -84,28 +84,31 @@
                 <div>
                     <h3 class="card-title">⚙️ Game Settings</h3>
                 </div>
-                <div>
-                    <label for="total-players">👥 Total players</label>
-                    <input type="number" id="total-players" class="form-control" name="totalPlayers" value="3" min="3"
-                        oninput="setPlayersList();" autocomplete="off" required>
-                </div>
-                <div>
-                    <label for="player">👤 Avatar (must be unique)</label>
-                    <div class="custom-select">
-                        <select name="player" id="player" class="form-control" required></select>
+                <form id="start-form">
+                    <div>
+                        <label for="total-players">👥 Total players</label>
+                        <input type="number" id="total-players" class="form-control" name="totalPlayers" value="3"
+                            min="3" oninput="setPlayersList();" autocomplete="off" required>
                     </div>
-                </div>
-                <div>
-                    <label for="seed">🎲 Code</label>
-                    <input type="text" id="seed" class="form-control" name="code" value="ABCD" pattern="[A-Za-z0-9]{4}"
-                        title="4 Characters Code" maxlength="4" autocomplete="off" required>
-                </div>
-                <div>
-                    <label for="iteration">🔢 Round</label>
-                    <input type="number" id="iteration" class="form-control" name="round" value="1" min="1"
-                        autocomplete="off" required>
-                </div>
-                <button id="startButton" class="btn btn-primary" onclick="startGame();">🏁 Start New Game</button>
+                    <div>
+                        <label for="player">👤 Avatar (must be unique)</label>
+                        <div class="custom-select">
+                            <select name="player" id="player" class="form-control" required></select>
+                        </div>
+                    </div>
+                    <div>
+                        <label for="seed">🎲 Code</label>
+                        <input type="text" id="seed" class="form-control" name="code" value="ABCD"
+                            pattern="[A-Za-z0-9]{4}" title="4 Characters Code" maxlength="4" autocomplete="off"
+                            required>
+                    </div>
+                    <div>
+                        <label for="iteration">🔢 Round</label>
+                        <input type="number" id="iteration" class="form-control" name="round" value="1" min="1"
+                            autocomplete="off" required>
+                    </div>
+                    <button id="startButton" class="btn btn-primary">🏁 Start New Game</button>
+                </form>
             </div>
 
             <!-- Rules -->
@@ -113,7 +116,48 @@
                 <h3 class="card-title">📖 Rules</h3>
                 <!-- Roles list -->
                 <div id="rulesRolesList" class="flex roles-list"></div>
-                <!-- rules.html -->
+                <!-- Game rules -->
+                <ul>
+                    <li>👥 3-10 Players</li>
+                    <li>⏱ 7 Minutes Rounds</li>
+                    <li>📱 1 Device per player</li>
+                </ul>
+                <h4 id="setup">Setup</h4>
+                <ul>
+                    <li>Players must input the same 🎲&nbsp;Game Code, 🔢&nbsp;Round Number, and 👥&nbsp;Total players
+                        count</li>
+                    <li>Players must pick a <strong>unique</strong> 👤&nbsp;Avatar</li>
+                    <li>When the game starts, players must confirm that they have the same Night Fingerprint (the game
+                        is void otherwise)</li>
+                </ul>
+                <h4 id="game-phases">Game phases</h4>
+                <ul>
+                    <li>🌙 Night<ul>
+                            <li>Players pick an action and share their Player Code with the others</li>
+                            <li>Players must input the respective Player Code from each player and end the turn</li>
+                        </ul>
+                    </li>
+                    <li>☀️ Day<ul>
+                            <li>Players must confirm that they have the same Day Fingerprint (the game is void
+                                otherwise)</li>
+                            <li>Players share their knowledge and try to identify the werewolves</li>
+                            <li>At the end of the timer, players must vote for a player to Exile</li>
+                            <li>If there is a draw, all the players that are tied are exiled</li>
+                        </ul>
+                    </li>
+                </ul>
+                <h4 id="win-condition">Win condition</h4>
+                <ul>
+                    <li><span class="werewolves-text">Werewolves and Cultists</span> win if no <span
+                            class="werewolves-text">🐺&nbsp;Werewolf</span> is exiled</li>
+                    <li><span class="villagers-text">Villagers</span> win if at least one <span
+                            class="werewolves-text">🐺&nbsp;Werewolf</span> is exiled (<span
+                            class="werewolves-text">😈&nbsp;Cultists</span> do not count as <span
+                            class="werewolves-text">Werewolves</span>)</li>
+                    <li><span class="special-text">🤡&nbsp;Jester</span> wins by getting exiled - Everyone else loses
+                    </li>
+                </ul>
+
             </div>
 
         </div>
@@ -122,7 +166,18 @@
     <!-- End Container -->
 
     <div class="footer bg-dark">
-        <!-- footer.html -->
+        <p>Download this page and play anywhere!</p>
+        <img src="https://wolf.verybadfrags.com/qr.svg" alt="QR Code to wolf.verybadfrags.com" width="200" />
+
+        <p>Suggestions, Feedback? <a
+                href="mailto:&#119;&#111;&#108;&#x66;&#x40;&#118;&#x65;&#x72;&#x79;&#x62;&#97;&#x64;&#x66;&#x72;&#97;&#103;&#115;&#x2e;&#99;&#x6f;&#109;">&#119;&#111;&#108;&#x66;&#x40;&#118;&#x65;&#x72;&#x79;&#x62;&#97;&#x64;&#x66;&#x72;&#97;&#103;&#115;&#x2e;&#99;&#x6f;&#109;</a>
+        </p>
+        <p><a href="https://github.com/VeryBadFrags/offline-werewolf" target="_blank" rel="noopener noreferrer">🐙
+                Source code on GitHub</a></p>
+        <p><a href="https://www.buymeacoffee.com/verybadfrags" target="_blank" rel="noopener noreferrer">Like this
+                game?</a></p>
+        <p><a href="https://spy.verybadfrags.com">Play 🕵️ Offline Spyfall</a></p>
+        <p>Version: 1.0.0</p>
     </div>
 
     <script src="footer.js"></script>

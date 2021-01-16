@@ -1,21 +1,13 @@
 const fs = require("fs");
 
-const inputRules = 'build/rules.html';
-const inputFooter = 'build/footer.html';
 const inputCss = 'build/style.css';
 const inputConstantsJs = 'build/constants.js';
 const inputFooterJs = 'build/footer.js';
 
-const outputHtmlFile = "build/index.html";
+const outputHtmlFile = "dist/standalone.html";
 
-let mainHtmlFile = fs.readFileSync('src/index.html');
+let mainHtmlFile = fs.readFileSync('build/index.html');
 let mainHtml = mainHtmlFile.toString();
-
-// Inject HTML Pages
-let rulesHtml = fs.readFileSync(inputRules);
-mainHtml = mainHtml.replace("<!-- rules.html -->", rulesHtml.toString());
-let footerHtml = fs.readFileSync(inputFooter);
-mainHtml = mainHtml.replace("<!-- footer.html -->", footerHtml.toString());
 
 // Inject CSS
 let css = fs.readFileSync(inputCss);

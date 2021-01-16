@@ -511,5 +511,13 @@ function setPlayersList() {
 
 fillRules();
 
+document.getElementById('start-form').addEventListener('submit', (event) => {
+    event.preventDefault();
+    startGame();
+});
+
+document.getElementById('secret-block-button').addEventListener('click', () => showHide('secretBlock'));
+document.getElementById('start-day-button').addEventListener('click', () => startDay());
+
 document.getElementById("total-players").max = avatars.length;
 setPlayersList();
