@@ -4,22 +4,28 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 module.exports = {
   mount: {
-    "src": { url: "/" },
-    "assets": { url: "/", static: true }
+    src: { url: "/" },
+    assets: { url: "/", static: true },
   },
-  exclude: ['_*.scss'],
+  exclude: ["_*.scss"],
   plugins: [
-    ['@snowpack/plugin-sass', {
-      compilerOptions: {
-        style: "compressed",
-        sourceMap: false,
-      }
-    }],
-    ['@snowpack/plugin-babel', {
-      transformOptions: {
-        presets: ['@babel/preset-env']
-      }
-    }],
+    [
+      "@snowpack/plugin-sass",
+      {
+        compilerOptions: {
+          style: "compressed",
+          sourceMap: false,
+        },
+      },
+    ],
+    [
+      "@snowpack/plugin-babel",
+      {
+        transformOptions: {
+          presets: ["@babel/preset-env"],
+        },
+      },
+    ],
     ["@snowpack/plugin-optimize", { minifyCSS: false }],
   ],
 };

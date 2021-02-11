@@ -3,8 +3,8 @@
   "private": true,
   "scripts": {
     "dev": "snowpack dev",
-    "build": "snowpack build && npm run qrcode",
-    "qrcode": "qrcode -o build/qr.svg https://wolf.verybadfrags.com"
+    "build": "snowpack build",
+    "qrcode": "qrcode -o assets/qr.svg https://wolf.verybadfrags.com"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,9 @@
     "@snowpack/plugin-optimize": "^0.2.13",
     "@snowpack/plugin-sass": "^1.3.0",
     "mkdirp": "^1.0.4",
-    "qrcode": "^1.4.4",
     "snowpack": "^3.0.11"
+  },
+  "devDependencies": {
+    "qrcode": "^1.4.4"
   }
 }
