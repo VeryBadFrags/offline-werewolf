@@ -1,5 +1,6 @@
 # Offline Werewolf
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/e98fa2af-9d5c-46cd-86dd-1a712f01491d/deploy-status)](https://app.netlify.com/sites/festive-poitras-b69bb8/deploys)
 ![License: MIT](https://img.shields.io/badge/license-MIT-green)
 
 A server-free, fast-paced version of the Werewolf / Mafia formula.
@@ -10,10 +11,10 @@ A server-free, fast-paced version of the Werewolf / Mafia formula.
 
 Minify and bundle the css and js into a standalone HTML page.
 
-* Get [Node](https://nodejs.org/)
+* Install [Node](https://nodejs.org/)
 
 * Build
-    ```shell
+    ```sh
     make
     ```
 
